@@ -19,17 +19,25 @@ public class IndexController {
 
     }
 
-    @GetMapping("/register")
-    public String registration(){
+    @GetMapping("/profile")
+    public String profile(){
 
-        return "registration";
-
+        return "profile";
     }
 
     @GetMapping("/login")
     public String login(){
-
         return "login";
-
     }
+
+    @GetMapping("/registration")
+    public String registration(){
+        return "registration";
+    }
+
+    @GetMapping("/admin_page")
+    public String adminPage(){
+        return "admin_page";
+    }
+
 }

@@ -2,18 +2,24 @@ package hkmu.comps380f.group16.model;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name="users")
+//@Entity
+//@Table(name="users")
 public class Users {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private long userID;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.UUID)
+//    @Column(name = "user_id")
 
-    @Column(name = "username")
-    private String username;
-    @Column(name= "user_password")
-    private String password;
+//    occur error
+//    private long userID;
+//    occur error
+
+//    @Column(name = "username")
+//    private String username;
+//    @Column(name= "user_password")
+//    private String password;
+//
+//    // for foreign key
 
 
 }
