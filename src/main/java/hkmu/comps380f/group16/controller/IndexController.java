@@ -25,4 +25,11 @@ public class IndexController {
         return "registration";
 
     }
+
+    @GetMapping("/login")
+    public String login(){
+
+        return "login";
+
+    }
 }
