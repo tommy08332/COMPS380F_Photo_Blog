@@ -19,5 +19,10 @@ public class IndexController {
 
     }
 
+    @GetMapping("/register")
+    public String registration(){
 
+        return "registration";
+
+    }
 }
