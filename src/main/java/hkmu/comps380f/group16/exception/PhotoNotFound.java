@@ -4,7 +4,7 @@ public class PhotoNotFound extends Exception{
 
     public PhotoNotFound(){
 
-
+        // for future use
 
     }
 
