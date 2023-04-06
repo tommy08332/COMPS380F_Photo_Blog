@@ -12,4 +12,12 @@ public class IndexController {
 
     }
 
+    @GetMapping("/photo")
+    public String photo(){
+
+        return "photo";
+
+    }
+
+
 }
