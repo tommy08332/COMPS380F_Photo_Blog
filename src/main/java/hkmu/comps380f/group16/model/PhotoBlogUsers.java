@@ -15,7 +15,7 @@ public class PhotoBlogUsers {
     private String password;
 
     // for foreign key
-    @OneToMany(mappedBy = "photoBlogUsersusers",
+    @OneToMany(mappedBy = "photoBlogUsers",
                fetch = FetchType.EAGER,
                cascade = CascadeType.ALL,
                orphanRemoval = true)
@@ -36,11 +36,7 @@ public class PhotoBlogUsers {
             this.userRoles.add(new UserRole(this, userRole));
         }
 
-
-
     };
-
-
 
     public String getUsername() {
         return username;

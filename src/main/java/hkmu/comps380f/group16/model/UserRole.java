@@ -12,8 +12,9 @@ public class UserRole {
     private long userRoleId;
 
 
-    @Column(name = "user_role")
+    @Column(insertable = false, updatable = false)
     private String username;
+    @Column(name = "user_role")
     private String userRole;
 
 
