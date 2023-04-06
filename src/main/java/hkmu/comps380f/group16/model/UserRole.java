@@ -14,16 +14,24 @@ public class UserRole {
 
     @Column(name = "user_role")
     private String username;
-    private long userRole;
+    private String userRole;
 
 
     // for foreign key
     @ManyToOne
     @JoinColumn(name = "username")
-    private PhotoBlogUsers photoBlogUsersusers;
+    private PhotoBlogUsers photoBlogUsers;
+
+    public UserRole(){};
+
+    public UserRole(PhotoBlogUsers photoBlogUsers, String userRole){
+
+        this.photoBlogUsers = photoBlogUsers;
+
+        this.userRole = userRole;
 
 
-
+    };
 
     public long getUserRoleId() {
         return userRoleId;
@@ -33,7 +41,6 @@ public class UserRole {
         this.userRoleId = userRoleId;
     }
 
-
     public String getUsername() {
         return username;
     }
@@ -42,19 +49,19 @@ public class UserRole {
         this.username = username;
     }
 
-    public long getUserRole() {
+    public String getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(long userRole) {
+    public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
 
-    public PhotoBlogUsers getPhotoBlogUsersusers() {
-        return photoBlogUsersusers;
+    public PhotoBlogUsers getPhotoBlogUsers() {
+        return photoBlogUsers;
     }
 
-    public void setPhotoBlogUsersusers(PhotoBlogUsers photoBlogUsersusers) {
-        this.photoBlogUsersusers = photoBlogUsersusers;
+    public void setPhotoBlogUsers(PhotoBlogUsers photoBlogUsers) {
+        this.photoBlogUsers = photoBlogUsers;
     }
 }
