@@ -4,6 +4,10 @@
     table, th, td {
         border:1px solid black;
     }
+    table, th, td, img{
+        max-width: 400px;
+        max-height: 400px;
+    }
 </style>
 <head>
     <title>admin</title>
