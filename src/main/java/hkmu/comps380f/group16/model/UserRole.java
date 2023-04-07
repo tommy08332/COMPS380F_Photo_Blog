@@ -12,7 +12,6 @@ public class UserRole {
     @Column(name = "user_role_id")
     private int userRoleId;
 
-
     @Column(insertable = false, updatable = false, nullable = false)
     private String username;
     @Column(name = "user_role", nullable = false)

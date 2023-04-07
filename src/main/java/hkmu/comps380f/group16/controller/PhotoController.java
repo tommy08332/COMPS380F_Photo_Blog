@@ -3,6 +3,7 @@ package hkmu.comps380f.group16.controller;
 import hkmu.comps380f.group16.dao.PhotosService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -33,6 +35,14 @@ public class PhotoController {
             throws IOException {
 //
 //        UUID
+
+        List<MultipartFile> list = new ArrayList<>();
+
+        list.add(null); // size=1
+        list.add(null); // size=2
+
+
+        photosService.uploadPhoto(list);
 
         return new RedirectView();
 

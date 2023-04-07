@@ -1,6 +1,8 @@
 package hkmu.comps380f.group16.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,7 @@ public class PhotoBlogUsers {
     // Primary key
     @Id
     private String username;
-    @Column(name= "user_password", nullable = false)
+    @Column(name= "user_password")
     private String password;
 
 
@@ -22,6 +24,16 @@ public class PhotoBlogUsers {
                orphanRemoval = true)
 
     private List<UserRole> userRoles = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "photoBlogUsers",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+
+    @Fetch(FetchMode.SUBSELECT)
+
+    private List<Photos> photoAttachments = new ArrayList<>();
 
     public PhotoBlogUsers(){};
 
@@ -62,4 +74,14 @@ public class PhotoBlogUsers {
     public void setUserRoles(List<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
+
+    public List<Photos> getPhotoAttachments() {
+        return photoAttachments;
+    }
+
+    public void setPhotoAttachments(List<Photos> photoAttachments) {
+        this.photoAttachments = photoAttachments;
+    }
+
+    // delete photo attach
 }
