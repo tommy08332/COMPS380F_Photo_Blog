@@ -8,6 +8,7 @@ import java.util.Date;
 @Table(name = "comments")
 public class Comments {
 
+    // Primary key
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "comment_id")
@@ -25,10 +26,12 @@ public class Comments {
     @Column(name = "photo_id", insertable = false, updatable = false)
     private long photoId;
 
+    // foreign key
     @ManyToOne
     @JoinColumn(name = "username")
     private PhotoBlogUsers photoBlogUsers;
 
+    // foreign key
     @ManyToOne
     @JoinColumn(name = "photo_id")
     private Photos photos;

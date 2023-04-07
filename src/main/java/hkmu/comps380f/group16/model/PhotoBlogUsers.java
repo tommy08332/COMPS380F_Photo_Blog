@@ -9,12 +9,13 @@ import java.util.List;
 @Table(name="photoblog_users")
 public class PhotoBlogUsers {
 
+    // Primary key
     @Id
     private String username;
     @Column(name= "user_password")
     private String password;
 
-    // for foreign key
+
     @OneToMany(mappedBy = "photoBlogUsers",
                fetch = FetchType.EAGER,
                cascade = CascadeType.ALL,

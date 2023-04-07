@@ -1,17 +1,20 @@
 package hkmu.comps380f.group16.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name="photo")
 public class Photos {
 
+    // Primary key
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "photo_id")
-    private long photoId;
+    @GeneratedValue
+    @ColumnDefault("random_uuid()")
+    private UUID photoId;
 
     @Column(name = "photo_title")
     private String photoTitle;
@@ -55,11 +58,11 @@ public class Photos {
 
     }
 
-    public long getPhotoId() {
+    public UUID getPhotoId() {
         return photoId;
     }
 
-    public void setPhotoId(long photoId) {
+    public void setPhotoId(UUID photoId) {
         this.photoId = photoId;
     }
 

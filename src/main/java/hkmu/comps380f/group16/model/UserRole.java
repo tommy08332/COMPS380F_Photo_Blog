@@ -6,10 +6,11 @@ import jakarta.persistence.*;
 @Table(name="photoblog_user_role")
 public class UserRole {
 
+    // Primary key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_role_id")
-    private long userRoleId;
+    private int userRoleId;
 
 
     @Column(insertable = false, updatable = false)
@@ -18,7 +19,7 @@ public class UserRole {
     private String userRole;
 
 
-    // foreign key
+    // Foreign key
     @ManyToOne
     @JoinColumn(name = "username")
     private PhotoBlogUsers photoBlogUsers;
@@ -34,11 +35,11 @@ public class UserRole {
 
     };
 
-    public long getUserRoleId() {
+    public int getUserRoleId() {
         return userRoleId;
     }
 
-    public void setUserRoleId(long userRoleId) {
+    public void setUserRoleId(int userRoleId) {
         this.userRoleId = userRoleId;
     }
 
