@@ -30,7 +30,7 @@ public class PhotoBlogUsers {
                           String[] userRoles){
 
         this.username = username;
-        this.password = "{noop}" +password;
+        this.password = "{noop}"+password;
 
         for (String userRole : userRoles){
 

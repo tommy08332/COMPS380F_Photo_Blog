@@ -15,7 +15,7 @@
 
     <a href="<c:url value="/login"/>">Login</a><br>
 
-    <a href="<c:url value="/registration"/>">Registration</a><br>
+    <a href="<c:url value="/registration/create"/>">Registration</a><br>
 
     <a href='<c:url value="/admin_page"/>'>Admin Page</a><br>
 

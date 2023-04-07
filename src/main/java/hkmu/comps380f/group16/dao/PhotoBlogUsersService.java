@@ -16,11 +16,12 @@ public class PhotoBlogUsersService {
     private UserRoleRepository userRoleRepository;
 
 
-//    For testing
+
+//    For registion
     @Transactional
     public void createUserAccount(String username,
-                                    String password,
-                                    String[] userRole){
+                                  String password,
+                                  String[] userRole){
 
 
         PhotoBlogUsers createUser = new PhotoBlogUsers(username, password, userRole);
@@ -29,13 +30,15 @@ public class PhotoBlogUsersService {
 
     }
 
-    // For testing
+    // For Admin page
     @Transactional
     public List<PhotoBlogUsers> findAllUser(){
 
         return usersRepository.findAll();
 
     }
+
+
 
 
 }
