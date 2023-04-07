@@ -17,7 +17,7 @@ public class PhotoBlogUsersService {
 
 
 
-//    For registion
+//    For registration
     @Transactional
     public void createUserAccount(String username,
                                   String password,
