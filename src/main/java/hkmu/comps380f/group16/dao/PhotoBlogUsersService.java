@@ -23,8 +23,11 @@ public class PhotoBlogUsersService {
                                   String password,
                                   String[] userRole){
 
+        // may add some condition to check the username whether exist in the database
 
         PhotoBlogUsers createUser = new PhotoBlogUsers(username, password, userRole);
+
+
 
         usersRepository.save(createUser);
 

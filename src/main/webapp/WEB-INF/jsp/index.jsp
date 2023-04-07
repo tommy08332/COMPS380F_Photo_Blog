@@ -19,6 +19,7 @@
 
     <a href='<c:url value="/admin_page"/>'>Admin Page</a><br>
 
+    <a href='<c:url value="/upload_photo"/>'>Upload Photo Page</a><br>
 
 
 </body>

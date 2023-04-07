@@ -36,6 +36,12 @@ public class IndexController {
 
     }
 
+    @GetMapping("/upload_photo")
+    public String uploadPhoto(){
+
+        return "upload_photo";
+    }
+
     @GetMapping("/profile")
     public String profile(){
 

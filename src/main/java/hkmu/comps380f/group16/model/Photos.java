@@ -41,23 +41,6 @@ public class Photos {
     @JoinColumn(name = "username")
     private PhotoBlogUsers photoBlogUsers;
 
-
-    public Photos(){};
-
-    public Photos(String photoTitle,
-                  byte[] photoData,
-                  String photoFileType,
-                  String photoDescription,
-                  Date photoUploadedDatetime){
-
-        this.photoTitle = photoTitle;
-        this.photoData = photoData;
-        this.photoFileType = photoFileType;
-        this.photoDescription = photoDescription;
-        this.photoUploadedDatetime = photoUploadedDatetime;
-
-    }
-
     public UUID getPhotoId() {
         return photoId;
     }
