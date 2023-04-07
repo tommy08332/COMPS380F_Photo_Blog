@@ -1,3 +1,8 @@
+drop table if exists comments;
+drop table if exists photo;
+drop table if exists photoblog_user_role;
+drop table if exists photoblog_users;
+
 create table if not exists photoblog_users (
      username varchar(255) not null,
      user_password varchar(255) not null,
