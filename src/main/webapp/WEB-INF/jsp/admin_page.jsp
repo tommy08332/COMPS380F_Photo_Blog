@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html>
+<style>
+    table, th, td {
+        border:1px solid black;
+    }
+</style>
 <head>
     <title>admin</title>
 </head>
@@ -7,7 +12,7 @@
 
 <h1>admin Page</h1>
 <div>
-    <table>
+    <table >
         <thead>
             <tr>
                 <th>Username</th>
