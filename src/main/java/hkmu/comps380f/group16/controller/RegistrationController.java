@@ -48,7 +48,7 @@ public class RegistrationController {
 
         model.addAttribute("photoUser", usersService.findAllUser());
 //        For test
-        return "index";
+        return "redirect:/login";
     }
 
     public static class applicationForm{

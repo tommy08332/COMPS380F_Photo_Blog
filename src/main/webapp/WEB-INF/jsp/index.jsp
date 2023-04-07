@@ -11,7 +11,7 @@
 
     <a href='<c:url value="/photo/show"/>'>Photo</a><br>
 
-    <a href="<c:url value="/profile"/>">Profile</a><br>
+    <a href="<c:url value="/user/profile"/>">Profile</a><br>
 
     <a href="<c:url value="/login"/>">Login</a><br>
 

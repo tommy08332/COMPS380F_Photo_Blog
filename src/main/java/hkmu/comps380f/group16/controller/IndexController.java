@@ -16,8 +16,7 @@ public class IndexController {
     @GetMapping("/")
     public String index(){ return "index"; }
 
-    @GetMapping("/profile")
-    public String profile(){ return "profile"; }
+
 
     @GetMapping("/login")
     public String login(){
