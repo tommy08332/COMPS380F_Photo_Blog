@@ -31,8 +31,7 @@ public class PhotoController {
     public String show(){ return "photo"; }
 
     @GetMapping("/upload")
-    public View upload(PhotoForm form, Principal principal)
-            throws IOException {
+    public String upload() {
 //
 //        UUID
 
@@ -44,7 +43,7 @@ public class PhotoController {
 
         photosService.uploadPhoto(list);
 
-        return new RedirectView();
+        return "upload_photo";
 
 
     }
