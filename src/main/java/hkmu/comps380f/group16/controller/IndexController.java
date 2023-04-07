@@ -5,6 +5,7 @@ import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class IndexController {
@@ -13,40 +14,10 @@ public class IndexController {
     PhotoBlogUsersService usersService;
 
     @GetMapping("/")
-    public String index(){
-
-        // for test create and find user
-
-//        PhotoBlogUsersService userService = new PhotoBlogUsersService();
-
-//        String [] roles = {"Admin", "Normal User"};
-//
-//        usersService.createUserAccount("helloWorld", "P@ssw0rd", roles);
-//
-
-
-        return "index";
-
-    }
-
-    @GetMapping("/photo")
-    public String photo(){
-
-        return "photo";
-
-    }
-
-    @GetMapping("/upload_photo")
-    public String uploadPhoto(){
-
-        return "upload_photo";
-    }
+    public String index(){ return "index"; }
 
     @GetMapping("/profile")
-    public String profile(){
-
-        return "profile";
-    }
+    public String profile(){ return "profile"; }
 
     @GetMapping("/login")
     public String login(){
@@ -58,9 +29,5 @@ public class IndexController {
         return "registration";
     }
 
-    @GetMapping("/admin_page")
-    public String adminPage(){
-        return "admin_page";
-    }
 
 }

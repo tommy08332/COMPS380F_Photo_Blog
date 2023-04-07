@@ -9,7 +9,7 @@
 
 
 
-    <a href='<c:url value="/photo"/>'>Photo</a><br>
+    <a href='<c:url value="/photo/show"/>'>Photo</a><br>
 
     <a href="<c:url value="/profile"/>">Profile</a><br>
 
@@ -19,7 +19,7 @@
 
     <a href='<c:url value="/admin_page"/>'>Admin Page</a><br>
 
-    <a href='<c:url value="/upload_photo"/>'>Upload Photo Page</a><br>
+    <a href='<c:url value="/photo/upload"/>'>Upload Photo Page</a><br>
 
 
 </body>
