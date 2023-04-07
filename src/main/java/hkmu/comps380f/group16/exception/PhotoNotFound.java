@@ -2,9 +2,9 @@ package hkmu.comps380f.group16.exception;
 
 public class PhotoNotFound extends Exception{
 
-    public PhotoNotFound(){
+    public PhotoNotFound(String photo){
 
-        // for future use
+        super("Photo '" + photo + "' not found");
 
     }
 
