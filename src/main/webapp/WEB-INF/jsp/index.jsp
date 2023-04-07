@@ -17,7 +17,7 @@
 
     <a href="<c:url value="/registration/create"/>">Registration</a><br>
 
-    <a href='<c:url value="/admin_page"/>'>Admin Page</a><br>
+    <a href='<c:url value="/admin/admin_page"/>'>Admin Page</a><br>
 
     <a href='<c:url value="/photo/upload"/>'>Upload Photo Page</a><br>
 
