@@ -13,9 +13,9 @@ public class UserRole {
     private int userRoleId;
 
 
-    @Column(insertable = false, updatable = false)
+    @Column(insertable = false, updatable = false, nullable = false)
     private String username;
-    @Column(name = "user_role")
+    @Column(name = "user_role", nullable = false)
     private String userRole;
 
 

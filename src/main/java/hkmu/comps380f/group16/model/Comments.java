@@ -1,8 +1,10 @@
 package hkmu.comps380f.group16.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "comments")
@@ -24,7 +26,7 @@ public class Comments {
     private String username;
 
     @Column(name = "photo_id", insertable = false, updatable = false)
-    private long photoId;
+    private UUID photoId;
 
     // foreign key
     @ManyToOne
@@ -69,11 +71,11 @@ public class Comments {
         this.username = username;
     }
 
-    public long getPhotoId() {
+    public UUID getPhotoId() {
         return photoId;
     }
 
-    public void setPhotoId(long photoId) {
+    public void setPhotoId(UUID photoId) {
         this.photoId = photoId;
     }
 

@@ -12,7 +12,7 @@ public class PhotoBlogUsers {
     // Primary key
     @Id
     private String username;
-    @Column(name= "user_password")
+    @Column(name= "user_password", nullable = false)
     private String password;
 
 
