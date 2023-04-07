@@ -18,7 +18,7 @@ public class UserRole {
     private String userRole;
 
 
-    // for foreign key
+    // foreign key
     @ManyToOne
     @JoinColumn(name = "username")
     private PhotoBlogUsers photoBlogUsers;

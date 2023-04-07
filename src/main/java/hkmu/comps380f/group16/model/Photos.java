@@ -11,12 +11,14 @@ public class Photos {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "photo_id")
-    private long photoID;
+    private long photoId;
 
     @Column(name = "photo_title")
     private String photoTitle;
 
     @Column(name = "photo_data")
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
     private byte[] photoData;
 
     @Column(name = "photo_file_type")
@@ -53,12 +55,12 @@ public class Photos {
 
     }
 
-    public long getPhotoID() {
-        return photoID;
+    public long getPhotoId() {
+        return photoId;
     }
 
-    public void setPhotoID(long photoID) {
-        this.photoID = photoID;
+    public void setPhotoId(long photoId) {
+        this.photoId = photoId;
     }
 
     public String getPhotoTitle() {
