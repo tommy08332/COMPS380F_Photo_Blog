@@ -38,7 +38,7 @@ public class RegistrationController {
                                        appForm.getPassword(),
                                        appForm.getUserRole());
 
-        return new RedirectView("/registration/result");
+        return new RedirectView("/PhotoBlog/login");
 
     }
 
