@@ -1,0 +1,1 @@
+insert into photoblog_users (username, user_password) VALUES ( 'Test12324', 'P@ssw0rd' );
