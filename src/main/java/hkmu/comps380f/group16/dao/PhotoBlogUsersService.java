@@ -4,6 +4,7 @@ import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,12 +36,28 @@ public class PhotoBlogUsersService {
 
     // For Admin page show all users
     @Transactional
-    public List<PhotoBlogUsers> findAllUser(){
+    public List<PhotoBlogUsers> findAllUsers(){
 
         return usersRepository.findAll();
 
     }
 
+    // Find specific user
+    @Transactional
+    public PhotoBlogUsers findUser(String username)
+            throws UserNotFound {
+
+        PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
+
+        if (user == null){
+
+            throw new UserNotFound(username);
+
+        }
+
+        return user;
+
+    }
 
 
     // For delete account
@@ -60,11 +77,6 @@ public class PhotoBlogUsersService {
         usersRepository.delete(user);
 
     }
-
-
-
-
-
 
 
 }
