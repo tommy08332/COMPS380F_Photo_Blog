@@ -8,6 +8,7 @@ import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PhotoBlogUsersService {
@@ -28,10 +29,10 @@ public class PhotoBlogUsersService {
 
         PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
 
+        // if the error of 404, please change to use this code
+        //Optional<PhotoBlogUsers> user1= usersRepository.findById(username);
         if (user == null){
-
             throw new UserNotFound(username);
-
         }
 
         PhotoBlogUsers createUser = new PhotoBlogUsers(username, password, userRole);
