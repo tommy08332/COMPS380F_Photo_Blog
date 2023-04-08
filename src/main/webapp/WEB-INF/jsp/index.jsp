@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,13 +28,12 @@
             height: 50%;
         }
 
-        th,
         td {
             padding: 8px 16px;
             border: 1px solid #ccc;
         }
 
-        th {
+        td {
             height: 300px;
             background: #eee;
         }
@@ -84,112 +84,50 @@
 
         </ul>
 
+        <c:choose>
 
-            <div class="tableFixHead">
+            <c:when test="${empty img} == 0">
+
+                Please Upload photo
+
+            </c:when>
+
+            <c:otherwise>
+
+                ${filetype.values()}
+
+                <div class="tableFixHead">
                 <table>
-                    <thead>
 
-                    </thead>
                     <tbody>
-                    <tr>
-                        <th>
-                            <img src="https://cdn.ebaumsworld.com/mediaFiles/picture/1151541/84693449.png" width="100%" height="100%">
-                        </th>
 
-                        <th>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Random_pyramids.jpg" width="100%" height="100%">
-                        </th>
-                        <th>
-                            <img src="https://en.wikipedia.org/wiki/Wikipedia:Picture_of_the_day#/media/File:Landscape_Arch_Utah.jpg" width="100%" height="100%">
-                        </th>
+                        <c:forEach var="i" begin="0" end="${photos.size()-1}">
 
-                    </tr>
-                    <tr>
-                        <th>
-                        1 ======================
-                        </th>
-                        <th>
-                           2 ======================
-                        </th>
-                        <th>
-                           3 ======================
-                        </th>
+                            <c:if test="${i % 3 == 0}">
+                                <tr>
+                            </c:if>
 
-                    </tr>
-                    <tr>
-                        <th>
-                        1 ================
-                        </th>
-                        <th>
-                            2======================
-                        </th>
-                        <th>
-                            3======================
-                        </th>
+                                    <td>
+                                        <a href="<c:url value="/photo/show/${photos.get(i).photoId}"/>">
 
-                    </tr>
-                    <tr>
-                        <th>
-                        1==========
-                        </th>
-                        <th>
-                           2 ======================
-                        </th>
-                        <th>
-                            3======================
-                        </th>
+                                            <img alt="img"
+                                                 src="data:image/${photos.get(i).photoFileType};base64,${fileContent.get(i)}"
+                                                 width="100%" height="100%"/>
+                                        </a>
 
-                    </tr>
-                    <tr>
-                        <th>
-                       1 ========
-                        </th>
-                        <th>
-                           2 ======================
-                        </th>
-                        <th>
-                            3======================
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                      1 ===================
-                        </th>
-                        <th>
-                           2 ======================
-                        </th>
-                        <th>
-                            3======================
-                        </th>
+                                    </td>
 
-                    </tr>
-                    <tr>
-                        <th>
-                          1------
-                        </th>
-                        <th>
-                            2======================
-                        </th>
-                        <th>
-                            3======================
-                        </th>
+                        </c:forEach>
 
-                    </tr>
-                    <tr>
-                        <th>
-                          1-----
-                        </th>
-                        <th>
-                           2 ======================
-                        </th>
-                        <th>
-                           3 ======================
-                        </th>
-
-                    </tr>
                     </tbody>
+
                 </table>
-        </div>
+
+                </div>
+
+            </c:otherwise>
+
+        </c:choose>
 
     </div>
 
