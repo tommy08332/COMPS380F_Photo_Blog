@@ -12,19 +12,16 @@
             overflow-y: auto;
             height: 700px;
         }
-
         table {
             border-collapse: collapse;
             width: 100%;
             height: 50%;
         }
-
         th,
         td {
             padding: 8px 16px;
             border: 1px solid #ccc;
         }
-
         th {
             background: #eee;
         }
@@ -39,37 +36,40 @@
 <div class="row">
     <div class="col-sm-6" style="padding-left:15%;">
         <%--    photos.photoData is a bytes array that stored the photo file data    --%>
-        <%--${photos.photoData}--%>
-        <img alt="img" src="data:${photo.photoTitle}/jpeg;base64,${photoImg}"/>
 
+        <c:choose>
 
-        <%--show photo--%>
-        <%--        <c:choose>--%>
-        <%--            <c:when test="${fn:length(photos) == 0}">--%>
+            <c:when test="${fn:length(photoImg)} == 0">
 
-        <%--                Picture not found--%>
+                Picture not found
 
-        <%--            </c:when>--%>
-        <%--            <c:otherwise>--%>
-        <%--                <img src="${test_photo_data}" width="500" height="500"><br>--%>
-        <div>
-            <label>Uploaded by: ${photos.username}</label><br>
-        </div>
-        <div>
-            <label>File name: ${photos.photoFilename}</label><br>
-        </div>
-        <%--            </c:otherwise>--%>
-        <%--        </c:choose>--%>
-        <div>
-            <label><h3>${photos.photoTitle}</h3></label><br>
-        </div>
-        <img src="https://cdn.ebaumsworld.com/mediaFiles/picture/1151541/84693449.png" width="500" height="500"><br>
-        <div>
-            <label>Description: ${photos.photoDescription}</label><br>
-        </div>
-        <div>
-            <label>Uploaded On: ${photos.photoUploadedDatetime}</label><br>
-        </div>
+            </c:when>
+            <c:otherwise>
+
+                <div>
+                    <label><h3>${photoDetails.photoTitle}</h3></label>
+                </div>
+
+                <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}" width="500" height="500"/>
+
+                <div>
+                    <label>Uploaded by: ${photos.uploadUsername}</label><br>
+                </div>
+                <div>
+                    <label>File name: ${photos.photoFilename}</label><br>
+                </div>
+
+                <div>
+                    <label>Description: ${photoDetails.photoDescription}</label><br>
+                </div>
+                <div>
+                    <label>Uploaded On: ${uploadTime}</label><br>
+                </div>
+
+            </c:otherwise>
+
+        </c:choose>
+
     </div>
 
 
