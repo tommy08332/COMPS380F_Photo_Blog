@@ -9,12 +9,12 @@
 
     <style>
         .tableFixHead {
-            overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
-            height: 700px; /* gives an initial height of 200px to the table */
+            overflow-y: auto;
+            height: 700px;
         }
 
         table {
-            border-collapse: collapse; /* make the table borders collapse to each other */
+            border-collapse: collapse;
             width: 100%;
             height: 50%;
         }
@@ -38,52 +38,36 @@
 <button>login</button>
 <div class="row">
     <div class="col-sm-6" style="padding-left:15%;">
-        <label><h3>Mickey</h3></label><br>
-
-<%--    photos.photoData is a bytes array that stored the photo file data    --%>
+        <%--    photos.photoData is a bytes array that stored the photo file data    --%>
         ${photos.photoData}
 
 
-
         <%--show photo--%>
-<%--        <c:choose>--%>
-<%--            <c:when test="${fn:length(photos) == 0}">--%>
+        <%--        <c:choose>--%>
+        <%--            <c:when test="${fn:length(photos) == 0}">--%>
 
-<%--                Picture not found--%>
+        <%--                Picture not found--%>
 
-<%--            </c:when>--%>
-<%--            <c:otherwise>--%>
-
-                    <div>
-                        <label><h3>${photos.photoTitle}</h3></label><br>
-                    </div>
-
-<%--                <img src="${test_photo_data}" width="500" height="500"><br>--%>
-
-                    <div>
-                        <label>Description: ${photos.photoDescription}</label><br>
-                    </div>
-
-                    <div>
-                        <label>Uploaded On: ${photos.photoUploadedDatetime}</label><br>
-                    </div>
-
-                    <div>
-                        <label>File name: ${photos.photoFilename}</label><br>
-                    </div>
-
-                    <div>
-                        <label>Uploaded by: ${photos.username}</label><br>
-                    </div>
-
-<%--            </c:otherwise>--%>
-<%--        </c:choose>--%>
-        <img src="https://cdn.ebaumsworld.com/mediaFiles/picture/1151541/84693449.png" width="500" height="500"><br>
+        <%--            </c:when>--%>
+        <%--            <c:otherwise>--%>
+        <%--                <img src="${test_photo_data}" width="500" height="500"><br>--%>
         <div>
-            <label><h3>Description: funny picture</h3></label><br>
+            <label>Uploaded by: ${photos.username}</label><br>
         </div>
         <div>
-            <label>Uploaded On: 7/04/2022</label><br>
+            <label>File name: ${photos.photoFilename}</label><br>
+        </div>
+        <%--            </c:otherwise>--%>
+        <%--        </c:choose>--%>
+        <div>
+            <label><h3>${photos.photoTitle}</h3></label><br>
+        </div>
+        <img src="https://cdn.ebaumsworld.com/mediaFiles/picture/1151541/84693449.png" width="500" height="500"><br>
+        <div>
+            <label>Description: ${photos.photoDescription}</label><br>
+        </div>
+        <div>
+            <label>Uploaded On: ${photos.photoUploadedDatetime}</label><br>
         </div>
     </div>
 
@@ -95,7 +79,9 @@
                 <thead>
                 <tr>
                     <th>
-                        <h3><bold>COMMENTS</bold></h3>
+                        <h3>
+                            <bold>COMMENTS</bold>
+                        </h3>
                     </th>
                 </tr>
                 </thead>
