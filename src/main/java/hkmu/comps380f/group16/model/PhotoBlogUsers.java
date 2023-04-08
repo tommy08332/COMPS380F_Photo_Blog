@@ -1,8 +1,6 @@
 package hkmu.comps380f.group16.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,21 +17,12 @@ public class PhotoBlogUsers {
 
 
     @OneToMany(mappedBy = "photoBlogUsers",
-               fetch = FetchType.EAGER,
-               cascade = CascadeType.ALL,
-               orphanRemoval = true)
-
-    private List<UserRole> userRoles = new ArrayList<>();
-
-
-    @OneToMany(mappedBy = "photoBlogUsers",
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
 
-    @Fetch(FetchMode.SUBSELECT)
+    private List<UserRole> userRoles = new ArrayList<>();
 
-    private List<Photos> photoAttachments = new ArrayList<>();
 
     public PhotoBlogUsers(){};
 
@@ -75,13 +64,5 @@ public class PhotoBlogUsers {
         this.userRoles = userRoles;
     }
 
-    public List<Photos> getPhotoAttachments() {
-        return photoAttachments;
-    }
 
-    public void setPhotoAttachments(List<Photos> photoAttachments) {
-        this.photoAttachments = photoAttachments;
-    }
-
-    // delete photo attach
 }
