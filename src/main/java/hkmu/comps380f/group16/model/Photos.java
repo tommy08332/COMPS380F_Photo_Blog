@@ -1,8 +1,12 @@
 package hkmu.comps380f.group16.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -15,8 +19,8 @@ public class Photos {
     @Column(name = "photo_id")
     private int photoId;
 
-    @Column(name = "photo_title")
-    private String photoTitle;
+//    @Column(name = "photo_title")
+//    private String photoTitle;
 
     @Column(name = "photo_data")
     @Basic(fetch = FetchType.LAZY)
@@ -29,31 +33,36 @@ public class Photos {
     @Column(name = "photo_file_type")
     private String photoFileType;
 
-    @Column(name = "photo_description")
-    private String photoDescription;
+//    @Column(name = "photo_description")
+//    private String photoDescription;
 
     @Column(name = "photo_uploaded_datetime")
     private Date photoUploadedDatetime;
 
-    // foreign key
-    @Column(insertable = false, updatable = false)
-    private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "username")
-    private PhotoBlogUsers photoBlogUsers;
+//    @Column(insertable = false, updatable = false, nullable = false)
+//    private String username;
 
-    public int getPhotoId() { return photoId; }
-
-    public void setPhotoId(int photoId) { this.photoId = photoId; }
+    @Column(name = "upload_uname")
+    private String uploadUsername;
 
 
-    public String getPhotoTitle() {
-        return photoTitle;
+    @OneToMany(
+            mappedBy = "photo",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Fetch(FetchMode.SUBSELECT)
+
+    private List<PhotoDetails> photoDetails = new ArrayList<>();
+
+    public int getPhotoId() {
+        return photoId;
     }
 
-    public void setPhotoTitle(String photoTitle) {
-        this.photoTitle = photoTitle;
+    public void setPhotoId(int photoId) {
+        this.photoId = photoId;
     }
 
     public byte[] getPhotoData() {
@@ -64,9 +73,13 @@ public class Photos {
         this.photoData = photoData;
     }
 
-    public String getPhotoFilename() { return photoFilename; }
+    public String getPhotoFilename() {
+        return photoFilename;
+    }
 
-    public void setPhotoFilename(String photoFilename) { this.photoFilename = photoFilename; }
+    public void setPhotoFilename(String photoFilename) {
+        this.photoFilename = photoFilename;
+    }
 
     public String getPhotoFileType() {
         return photoFileType;
@@ -74,14 +87,6 @@ public class Photos {
 
     public void setPhotoFileType(String photoFileType) {
         this.photoFileType = photoFileType;
-    }
-
-    public String getPhotoDescription() {
-        return photoDescription;
-    }
-
-    public void setPhotoDescription(String photoDescription) {
-        this.photoDescription = photoDescription;
     }
 
     public Date getPhotoUploadedDatetime() {
@@ -92,19 +97,22 @@ public class Photos {
         this.photoUploadedDatetime = photoUploadedDatetime;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUploadUsername() {
+        return uploadUsername;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUploadUsername(String uploadUsername) {
+        this.uploadUsername = uploadUsername;
     }
 
-    public PhotoBlogUsers getPhotoBlogUsers() {
-        return photoBlogUsers;
+    public List<PhotoDetails> getPhotoDetails() {
+        return photoDetails;
     }
 
-    public void setPhotoBlogUsers(PhotoBlogUsers photoBlogUsers) {
-        this.photoBlogUsers = photoBlogUsers;
+    public void setPhotoDetails(List<PhotoDetails> photoDetails) {
+        this.photoDetails = photoDetails;
     }
+
+    // delete photoDetails
+
 }
