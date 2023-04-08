@@ -9,12 +9,12 @@
 
     <style>
         .tableFixHead {
-            overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
-            height: 700px; /* gives an initial height of 200px to the table */
+            overflow-y: auto;
+            height: 700px;
         }
 
         table {
-            border-collapse: collapse; /* make the table borders collapse to each other */
+            border-collapse: collapse;
             width: 100%;
             height: 50%;
         }
