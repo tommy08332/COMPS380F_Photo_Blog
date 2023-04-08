@@ -44,7 +44,7 @@
 <div class="container">
     <div class="row">
         <h1>Welcome to PhotoBlog! </h1>
-<%--        nav bar--%>
+        <%--        nav bar--%>
         <ul>
             <li>
                 <bold>
@@ -86,7 +86,7 @@
 
         <c:choose>
 
-            <c:when test="${empty img} == 0">
+            <c:when test="${empty img}">
 
                 Please Upload photo
 
@@ -97,31 +97,31 @@
                 ${filetype.values()}
 
                 <div class="tableFixHead">
-                <table>
+                    <table>
 
-                    <tbody>
+                        <tbody>
 
                         <c:forEach var="i" begin="0" end="${photos.size()-1}">
 
-                            <c:if test="${i % 3 == 0}">
-                                <tr>
+                        <c:if test="${i % 3 == 0}">
+                        <tr>
                             </c:if>
 
-                                    <td>
-                                        <a href="<c:url value="/photo/show/${photos.get(i).photoId}"/>">
+                            <td>
+                                <a href="<c:url value="/photo/show/${photos.get(i).photoId}"/>">
 
-                                            <img alt="img"
-                                                 src="data:image/${photos.get(i).photoFileType};base64,${fileContent.get(i)}"
-                                                 width="100%" height="100%"/>
-                                        </a>
+                                    <img alt="img"
+                                         src="data:image/${photos.get(i).photoFileType};base64,${fileContent.get(i)}"
+                                         width="100%" height="100%"/>
+                                </a>
 
-                                    </td>
+                            </td>
 
-                        </c:forEach>
+                            </c:forEach>
 
-                    </tbody>
+                        </tbody>
 
-                </table>
+                    </table>
 
                 </div>
 
