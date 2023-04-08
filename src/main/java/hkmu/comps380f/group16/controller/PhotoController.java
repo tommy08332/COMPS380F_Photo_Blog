@@ -2,13 +2,13 @@ package hkmu.comps380f.group16.controller;
 
 import hkmu.comps380f.group16.dao.PhotoBlogUsersService;
 import hkmu.comps380f.group16.dao.PhotosService;
+import hkmu.comps380f.group16.exception.InvalidFileFormat;
 import hkmu.comps380f.group16.exception.PhotoNotFound;
 import hkmu.comps380f.group16.exception.UserNotFound;
-import hkmu.comps380f.group16.model.PhotoBlogUsers;
+import hkmu.comps380f.group16.model.PhotoDetails;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,17 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.nio.Buffer;
-import java.security.Principal;
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 
@@ -50,8 +44,6 @@ public class PhotoController {
 
     @GetMapping("/upload")
     public ModelAndView upload() {
-//
-//        UUID
 
         // for test upload photo
 //        List<MultipartFile> list = new ArrayList<>();
@@ -67,27 +59,22 @@ public class PhotoController {
 
 //        return "upload_photo";
 
-
     }
 
     @PostMapping("/upload")
 //    public View upload(PhotoForm photoForm) throws IOException, UserNotFound {
-    public View upload(PhotoForm photoForm) throws IOException, UserNotFound {
+    public View upload(PhotoForm photoForm) throws IOException, UserNotFound, InvalidFileFormat {
 
         String unaasdasdsadme = "";
 
 
-        // may find id ?
+        // use Principle to find userid
+
 
         int photoId = photosService.uploadPhoto(photoForm.getPhotoTitle(),
-                                                photoForm.getPhotoData(),
-                                                photoForm.getPhotoDescription());
+                photoForm.getPhotoData(),
+                photoForm.getPhotoDescription());
 
-
-
-//        String uname = photosService.uploadPhoto();
-
-//        String username = photoUsersService.findUser();
 
         return new RedirectView("/photo/show/" + photoId, true);
 
@@ -100,28 +87,24 @@ public class PhotoController {
 
         Photos photos = photosService.findPhoto(photoId);
 
-//        ByteArrayInputStream bis = new ByteArrayInputStream(photos.getPhotoData());
-//
-//        BufferedImage bImage2 = ImageIO.read(bis);
+
+        byte [] imageByteArr = photos.getPhotoData();
+        byte [] photo = Base64.getEncoder().encode(imageByteArr);
+        String photoImg = new String(photo, "UTF-8");
+
+        Date currentTime = photos.getPhotoUploadedDatetime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 
+        PhotoDetails photoDetails =photosService.findPhotoDetail(photoId);
+        System.out.println();
 
-//        ImageIcon imageIcon = new ImageIcon(photos.getPhotoData());
 
-//        new ByteArrayInputStream(photos.getPhotoData());
-
-//        ImageIO.write(new ByteArrayInputStream(photos.getPhotoData()), "png", new File("test.png"));
-
-//        System.out.println(imageIcon.getImage());
-
-        byte [] img = photos.getPhotoData();
-        byte [] photo = Base64.getEncoder().encode(img);
-        String g = new String(photo, "UTF-8");
-        String photoImg = g;
-
-        //model.addAttribute("photos", photos);
+        model.addAttribute("photos", photos);
+        model.addAttribute("photoDetails", photoDetails);
         model.addAttribute("photoImg", photoImg);
-//        model.addAttribute("test_photo_data", imageIcon.getImage());
+        model.addAttribute("uploadTime", dateFormat.format(currentTime));
+
 
         return "photo";
 

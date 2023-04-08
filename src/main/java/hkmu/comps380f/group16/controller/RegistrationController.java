@@ -33,25 +33,25 @@ public class RegistrationController {
                                 new applicationForm());
     }
 
-    @PostMapping("/create")
-    public View create(applicationForm appForm) throws IOException, UserNotFound {
-
-        usersService.createUserAccount(appForm.getUsername(),
-                                       appForm.getPassword(),
-                                       appForm.getUserRole());
-
-        return new RedirectView("/PhotoBlog/login");
-
-    }
+//    @PostMapping("/create")
+//    public View create(applicationForm appForm) throws IOException, UserNotFound {
+//
+//        usersService.createUserAccount(appForm.getUsername(),
+//                                       appForm.getPassword(),
+//                                       appForm.getUserRole());
+//
+//        return new RedirectView("/PhotoBlog/login");
+//
+//    }
 
 //    For test
-    @GetMapping("/result")
-    public String result(ModelMap model){
-
-        model.addAttribute("photoUser", usersService.findAllUsers());
-//        For test
-        return "redirect:/login";
-    }
+//    @GetMapping("/result")
+//    public String result(ModelMap model){
+//
+//        model.addAttribute("photoUser", usersService.findAllUsers());
+////        For test
+//        return "redirect:/login";
+//    }
 
 
 
