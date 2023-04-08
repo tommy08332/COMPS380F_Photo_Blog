@@ -18,15 +18,17 @@ public class IndexController {
 
     @Resource
     private PhotosService photosService;
-    
+
     @GetMapping("/")
     public String index(ModelMap model) throws PhotoNotFound, UnsupportedEncodingException {
 
+
         List<Photos> photos = photosService.findAllPhotos();
+
 
         // may have some problem here
         ArrayList<String> filesArr = new ArrayList<String>();
-        
+
         for (Photos photo : photos){
 
             byte [] imageByteArr = photo.getPhotoData();
@@ -34,9 +36,9 @@ public class IndexController {
             String photoImg = new String(p, "UTF-8");
 
             filesArr.add(photoImg);
-            
+
         }
-        
+
         model.addAttribute("photos", photos);
 
         model.addAttribute("fileContent", filesArr);
@@ -54,5 +56,6 @@ public class IndexController {
     public String registration(){
         return "registration";
     }
-    
+
+
 }
