@@ -26,7 +26,7 @@ public class Comments {
     private String username;
 
     @Column(name = "photo_id", insertable = false, updatable = false)
-    private UUID photoId;
+    private int photoId;
 
     // foreign key
     @ManyToOne
@@ -71,13 +71,9 @@ public class Comments {
         this.username = username;
     }
 
-    public UUID getPhotoId() {
-        return photoId;
-    }
+    public int getPhotoId() { return photoId; }
 
-    public void setPhotoId(UUID photoId) {
-        this.photoId = photoId;
-    }
+    public void setPhotoId(int photoId) { this.photoId = photoId; }
 
     public PhotoBlogUsers getPhotoBlogUsers() {
         return photoBlogUsers;
