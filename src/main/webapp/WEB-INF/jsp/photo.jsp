@@ -39,7 +39,8 @@
 <div class="row">
     <div class="col-sm-6" style="padding-left:15%;">
         <%--    photos.photoData is a bytes array that stored the photo file data    --%>
-        ${photos.photoData}
+        <%--${photos.photoData}--%>
+        <img alt="img" src="data:${photo.photoTitle}/jpeg;base64,${photoImg}"/>
 
 
         <%--show photo--%>
