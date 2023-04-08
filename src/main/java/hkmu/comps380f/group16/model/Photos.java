@@ -23,6 +23,9 @@ public class Photos {
     @Lob
     private byte[] photoData;
 
+    @Column(name = "photo_filename")
+    private String photoFilename;
+
     @Column(name = "photo_file_type")
     private String photoFileType;
 
@@ -44,6 +47,7 @@ public class Photos {
 
     public void setPhotoId(int photoId) { this.photoId = photoId; }
 
+
     public String getPhotoTitle() {
         return photoTitle;
     }
@@ -59,6 +63,10 @@ public class Photos {
     public void setPhotoData(byte[] photoData) {
         this.photoData = photoData;
     }
+
+    public String getPhotoFilename() { return photoFilename; }
+
+    public void setPhotoFilename(String photoFilename) { this.photoFilename = photoFilename; }
 
     public String getPhotoFileType() {
         return photoFileType;

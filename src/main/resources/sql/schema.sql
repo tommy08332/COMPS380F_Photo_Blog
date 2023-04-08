@@ -22,6 +22,7 @@ create table if not exists photo (
     photo_data blob,
     photo_description varchar(255),
     photo_file_type varchar(255),
+    photo_filename varchar(255),
     photo_title varchar(255),
     photo_uploaded_datetime timestamp(6),
     username varchar(255),
