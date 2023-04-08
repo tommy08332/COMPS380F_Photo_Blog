@@ -17,29 +17,27 @@ public class PhotoBlogUsersService {
     private UserRoleRepository userRoleRepository;
 
 
-
-
-//    For registration
+    //    For registration
     @Transactional
     public void createUserAccount(String username,
                                   String password,
                                   String[] userRole) throws UserNotFound{
 
         // may add some condition to check the username whether exist in the database
-//
-//        PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
-//
-//        if (user == null){
-//
-//            throw new UserNotFound(username);
-//
-//        }
-//
-//        PhotoBlogUsers createUser = new PhotoBlogUsers(username, password, userRole);
-//
-//
-//
-//        usersRepository.save(createUser);
+
+        PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
+
+        // if the error of 404, please change to use this code
+        //Optional<PhotoBlogUsers> user1= usersRepository.findById(username);
+        if (user == null){
+            throw new UserNotFound(username);
+        }
+
+        PhotoBlogUsers createUser = new PhotoBlogUsers(username, password, userRole);
+
+
+
+        usersRepository.save(createUser);
 
     }
 
@@ -52,38 +50,38 @@ public class PhotoBlogUsersService {
     }
 
     // Find specific user
-//    @Transactional
-//    public PhotoBlogUsers findUser(String username)
-//            throws UserNotFound {
-//
-//        PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
-//
-//        if (user == null){
-//
-//            throw new UserNotFound(username);
-//
-//        }
-//
-//        return user;
+    @Transactional
+    public PhotoBlogUsers findUser(String username)
+            throws UserNotFound {
 
-//    }
+        PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
+
+        if (user == null){
+
+            throw new UserNotFound(username);
+
+        }
+
+        return user;
+
+    }
 
 
     // For delete account
     @Transactional
     public void deleteUserAccount(String username)
-        throws UserNotFound {
+            throws UserNotFound {
 
-//        PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
-//
-//        if (user == null){
-//
-//            // call exception
-//            throw new UserNotFound(username);
-//
-//        }
-//
-//        usersRepository.delete(user);
+        PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
+
+        if (user == null){
+
+            // call exception
+            throw new UserNotFound(username);
+
+        }
+
+        usersRepository.delete(user);
 
     }
 
