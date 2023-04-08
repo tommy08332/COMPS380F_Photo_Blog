@@ -86,7 +86,7 @@
 
         <c:choose>
 
-            <c:when test="${empty img}">
+            <c:when test="${empty photos}">
 
                 Please Upload photo
 
