@@ -88,23 +88,24 @@ public class PhotoController {
             throws PhotoNotFound, UnsupportedEncodingException {
 
         Photos photos = photosService.findPhoto(photoId);
-        
+
         byte [] imageByteArr = photos.getPhotoData();
         byte [] photo = Base64.getEncoder().encode(imageByteArr);
         String photoImg = new String(photo, "UTF-8");
 
         PhotoDetails photoDetails =photosService.findPhotoDetail(photoId);
-        
+
         model.addAttribute("photos", photos);
         model.addAttribute("photoDetails", photoDetails);
         model.addAttribute("photoImg", photoImg);
-        
+
         return "photo";
 
     }
 
 
     // delete photo
+
 
     public static class PhotoForm {
 
