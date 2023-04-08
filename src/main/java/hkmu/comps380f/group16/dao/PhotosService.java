@@ -1,5 +1,7 @@
 package hkmu.comps380f.group16.dao;
 
+import hkmu.comps380f.group16.controller.RegistrationController;
+import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
@@ -7,9 +9,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PhotosService {
@@ -20,62 +24,57 @@ public class PhotosService {
     @Resource
     private PhotoBlogUsersRepository usersRepository;
 
-
     @Transactional
-    public void uploadPhoto(List<MultipartFile> photoData){
-//    public void uploadPhoto(String photoTitle,
-//                            List<MultipartFile> photoData,
-//                            String photoFileType,
-//                            String photoDescription,
-//                            Date photoUploadedDatetime){
+    public int uploadPhoto(String photoTitle,
+                            List<MultipartFile> photoDatas,
+                            String photoDescription) throws IOException, UserNotFound {
 
-//
+        // for test
         String test_user_id = "testuser";
-//
-//        PhotoBlogUsers userss = new PhotoBlogUsers();
-//
-//        userss.setUsername(test_user_id);
+        // for test
 
-        PhotoBlogUsers testuser = new PhotoBlogUsers();
+        PhotoBlogUsers pUser = new PhotoBlogUsers();
+        pUser.setUsername(test_user_id);
 
-        testuser.setUsername(test_user_id);
+        for (MultipartFile photoData : photoDatas){
 
-        Photos p = new Photos();
+            String [] fileType = photoData.getContentType().split("/");
 
-        for (MultipartFile photo : photoData){
+            if (fileType[0].trim().equals("image")) {
 
 
+                Photos p = new Photos();
+
+                // file title
+                p.setPhotoTitle(photoTitle);
+
+                // file description
+                p.setPhotoDescription(photoDescription);
+
+                // file byte content
+                p.setPhotoData(photoData.getBytes());
 
 
-            String test = "dasdsadasdasasdasd";
+                p.setPhotoBlogUsers(pUser);
 
-            p.setPhotoTitle("photoTitle");
+                // file type e.g. jpg, png
+                p.setPhotoFileType(fileType[1]);
 
-            p.setPhotoDescription("photoDescription");
+                // Current system time
+                p.setPhotoUploadedDatetime(new Date());
 
+                pUser.getPhotoAttachments().add(p);
 
-            p.setPhotoData(test.getBytes());
-            // for test
-
-//            p.setPhotoBlogUsers(test_user_id);
-
-            p.setPhotoBlogUsers(testuser);
-
-            p.setPhotoFileType("jpg");
-
-            p.setPhotoUploadedDatetime(new Date());
-
-
-//            userss.getPhotoAttachments().add(p);
-
-
+            }
 
         }
 
-        Photos savePhoto = photosRepository.save(p);
+        PhotoBlogUsers savePhoto = usersRepository.save(pUser);
 
+        int photoId = savePhoto.getPhotoAttachments().get(0).getPhotoId();
+
+        return photoId;
 
     }
-
 
 }
