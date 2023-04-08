@@ -1,9 +1,9 @@
 package hkmu.comps380f.group16.dao;
 
-import hkmu.comps380f.group16.controller.RegistrationController;
+import hkmu.comps380f.group16.exception.InvalidFileFormat;
 import hkmu.comps380f.group16.exception.PhotoNotFound;
 import hkmu.comps380f.group16.exception.UserNotFound;
-import hkmu.comps380f.group16.model.PhotoBlogUsers;
+import hkmu.comps380f.group16.model.PhotoDetails;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
@@ -11,11 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class PhotosService {
@@ -24,66 +21,71 @@ public class PhotosService {
     private PhotosRepository photosRepository;
 
     @Resource
+    private PhotoDetailsRepository photoDetailsRepository;
+
+    @Resource
     private PhotoBlogUsersRepository usersRepository;
+
 
     @Transactional
     public int uploadPhoto(String photoTitle,
                             List<MultipartFile> photoDatas,
-                            String photoDescription) throws IOException, UserNotFound {
+                            String photoDescription) throws IOException, UserNotFound, InvalidFileFormat {
 
+
+        // suppose got the username from session
         // for test
-        String test_user_id = "testuser";
+        String test_user_id = "testuser01";
         // for test
 
-        PhotoBlogUsers pUser = new PhotoBlogUsers();
-        pUser.setUsername(test_user_id);
+        Photos photos = new Photos();
 
         for (MultipartFile photoData : photoDatas){
 
             String [] fileType = photoData.getContentType().split("/");
 
-            if (fileType[0].trim().equals("image")) {
+            if (fileType[0].trim().equals("image") &&
+                photoData.getOriginalFilename() != null &&
+                photoData.getOriginalFilename().length() > 0 &&
+                photoData != null &&
+                test_user_id != null &&
+                test_user_id.length() > 0) {
 
-                Photos p = new Photos();
-
-                // file title
-                p.setPhotoTitle(photoTitle);
-
-                // file description
-                p.setPhotoDescription(photoDescription);
-
-                // file byte content
-                p.setPhotoData(photoData.getBytes());
+                PhotoDetails photoDetails = new PhotoDetails();
 
                 // filename
-                p.setPhotoFilename(photoData.getOriginalFilename());
+                photos.setPhotoFilename(photoData.getOriginalFilename());
 
-//
-//                String base64Encode = Base64.getEncoder().encodeToString(photoData.getBytes());
-//
-//
-//                p.setPhotoData(base64Encode);
+                // upload date & time
+                photos.setPhotoUploadedDatetime(new Date());
 
-
-                p.setPhotoBlogUsers(pUser);
+                // file byte content
+                photos.setPhotoData(photoData.getBytes());
 
                 // file type e.g. jpg, png
-                p.setPhotoFileType(fileType[1]);
+                photos.setPhotoFileType(fileType[1]);
 
-                // Current system time
-                p.setPhotoUploadedDatetime(new Date());
+                // file owner
+                photos.setUploadUsername(test_user_id);
 
-                pUser.getPhotoAttachments().add(p);
+                photoDetails.setPhotoId(photos.getPhotoId());
+                photoDetails.setPhotoTitle(photoTitle);
+                photoDetails.setPhotoDescription(photoDescription);
+                photoDetails.setPhoto(photos);
+
+                photos.getPhotoDetails().add(photoDetails);
+
+            } else {
+
+                throw new InvalidFileFormat(photoData.getOriginalFilename());
 
             }
 
         }
 
-        PhotoBlogUsers savePhoto = usersRepository.save(pUser);
+        Photos savePhoto = photosRepository.save(photos);
 
-        int photoId = savePhoto.getPhotoAttachments().get(0).getPhotoId();
-
-        return photoId;
+        return savePhoto.getPhotoId();
 
     }
 
@@ -92,7 +94,7 @@ public class PhotosService {
 
         Photos photo = photosRepository.findById(photoID).orElse(null);
 
-
+        // get password
 
         if (photo == null){
 
@@ -102,7 +104,35 @@ public class PhotosService {
 
         return photo;
 
+    }
+
+    @Transactional
+    public PhotoDetails findPhotoDetail(int photoId) throws PhotoNotFound {
+
+        PhotoDetails photoDetails = photoDetailsRepository.findByPhotoId(photoId);
+
+        if (photoDetails == null){
+
+            throw new PhotoNotFound(Integer.toString(photoId));
+        }
+
+        return photoDetails;
 
     }
+
+    // for index page
+    @Transactional
+    public List<Photos> findAllPhotos() throws PhotoNotFound {
+
+        return photosRepository.findAll();
+
+    }
+
+//    public PhotoDetails findPhotoDetails(int photoID) throws PhotoNotFound {
+//
+//        PhotoDetails photoDetails = photoDetailsRepository.
+//
+//
+//    }
 
 }
