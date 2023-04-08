@@ -26,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.Buffer;
 import java.security.Principal;
 import java.util.*;
@@ -95,7 +96,7 @@ public class PhotoController {
 
     @GetMapping("/show/{photoId:.+}")
     public String view(@PathVariable("photoId") int photoId, ModelMap model)
-            throws PhotoNotFound {
+            throws PhotoNotFound, UnsupportedEncodingException {
 
         Photos photos = photosService.findPhoto(photoId);
 
@@ -113,8 +114,13 @@ public class PhotoController {
 
 //        System.out.println(imageIcon.getImage());
 
-        model.addAttribute("photos", photos);
+        byte [] img = photos.getPhotoData();
+        byte [] photo = Base64.getEncoder().encode(img);
+        String g = new String(photo, "UTF-8");
+        String photoImg = g;
 
+        //model.addAttribute("photos", photos);
+        model.addAttribute("photoImg", photoImg);
 //        model.addAttribute("test_photo_data", imageIcon.getImage());
 
         return "photo";
