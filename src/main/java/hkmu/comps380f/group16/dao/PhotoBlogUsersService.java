@@ -22,9 +22,17 @@ public class PhotoBlogUsersService {
     @Transactional
     public void createUserAccount(String username,
                                   String password,
-                                  String[] userRole){
+                                  String[] userRole) throws UserNotFound{
 
         // may add some condition to check the username whether exist in the database
+
+        PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
+
+        if (user == null){
+
+            throw new UserNotFound(username);
+
+        }
 
         PhotoBlogUsers createUser = new PhotoBlogUsers(username, password, userRole);
 

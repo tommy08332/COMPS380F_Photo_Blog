@@ -2,6 +2,7 @@ package hkmu.comps380f.group16.controller;
 
 import hkmu.comps380f.group16.applicationForm;
 import hkmu.comps380f.group16.dao.PhotoBlogUsersService;
+import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
@@ -33,8 +34,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/create")
-    public View create(applicationForm appForm) throws IOException {
-        System.out.println("Running create");
+    public View create(applicationForm appForm) throws IOException, UserNotFound {
+
         usersService.createUserAccount(appForm.getUsername(),
                                        appForm.getPassword(),
                                        appForm.getUserRole());
@@ -47,7 +48,7 @@ public class RegistrationController {
     @GetMapping("/result")
     public String result(ModelMap model){
 
-        model.addAttribute("photoUser", usersService.findAllUser());
+        model.addAttribute("photoUser", usersService.findAllUsers());
 //        For test
         return "redirect:/login";
     }

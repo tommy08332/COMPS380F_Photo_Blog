@@ -1,6 +1,7 @@
 package hkmu.comps380f.group16.dao;
 
 import hkmu.comps380f.group16.controller.RegistrationController;
+import hkmu.comps380f.group16.exception.PhotoNotFound;
 import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import hkmu.comps380f.group16.model.Photos;
@@ -74,6 +75,22 @@ public class PhotosService {
         int photoId = savePhoto.getPhotoAttachments().get(0).getPhotoId();
 
         return photoId;
+
+    }
+
+    @Transactional
+    public Photos findPhoto(int photoID) throws PhotoNotFound {
+
+        Photos photo = photosRepository.findById(photoID).orElse(null);
+
+        if (photo == null){
+
+            throw new PhotoNotFound(Integer.toString(photoID));
+
+        }
+
+        return photo;
+
 
     }
 
