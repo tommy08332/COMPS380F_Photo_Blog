@@ -54,7 +54,27 @@
 <%--            </c:when>--%>
 <%--            <c:otherwise>--%>
 
+                    <div>
+                        <label><h3>${photos.photoTitle}</h3></label><br>
+                    </div>
+
 <%--                <img src="${test_photo_data}" width="500" height="500"><br>--%>
+
+                    <div>
+                        <label>Description: ${photos.photoDescription}</label><br>
+                    </div>
+
+                    <div>
+                        <label>Uploaded On: ${photos.photoUploadedDatetime}</label><br>
+                    </div>
+
+                    <div>
+                        <label>File name: ${photos.photoFilename}</label><br>
+                    </div>
+
+                    <div>
+                        <label>Uploaded by: ${photos.username}</label><br>
+                    </div>
 
 <%--            </c:otherwise>--%>
 <%--        </c:choose>--%>
