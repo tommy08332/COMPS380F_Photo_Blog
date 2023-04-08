@@ -19,12 +19,17 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-import java.util.UUID;
 
 
 // For all the photo action
@@ -94,8 +99,23 @@ public class PhotoController {
 
         Photos photos = photosService.findPhoto(photoId);
 
-        model.addAttribute("photoId", photoId);
+//        ByteArrayInputStream bis = new ByteArrayInputStream(photos.getPhotoData());
+//
+//        BufferedImage bImage2 = ImageIO.read(bis);
+
+
+
+//        ImageIcon imageIcon = new ImageIcon(photos.getPhotoData());
+
+//        new ByteArrayInputStream(photos.getPhotoData());
+
+//        ImageIO.write(new ByteArrayInputStream(photos.getPhotoData()), "png", new File("test.png"));
+
+//        System.out.println(imageIcon.getImage());
+
         model.addAttribute("photos", photos);
+
+//        model.addAttribute("test_photo_data", imageIcon.getImage());
 
         return "photo";
 

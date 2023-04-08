@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -43,7 +44,6 @@ public class PhotosService {
 
             if (fileType[0].trim().equals("image")) {
 
-
                 Photos p = new Photos();
 
                 // file title
@@ -54,6 +54,15 @@ public class PhotosService {
 
                 // file byte content
                 p.setPhotoData(photoData.getBytes());
+
+                // filename
+                p.setPhotoFilename(photoData.getOriginalFilename());
+
+//
+//                String base64Encode = Base64.getEncoder().encodeToString(photoData.getBytes());
+//
+//
+//                p.setPhotoData(base64Encode);
 
 
                 p.setPhotoBlogUsers(pUser);
@@ -82,6 +91,8 @@ public class PhotosService {
     public Photos findPhoto(int photoID) throws PhotoNotFound {
 
         Photos photo = photosRepository.findById(photoID).orElse(null);
+
+
 
         if (photo == null){
 

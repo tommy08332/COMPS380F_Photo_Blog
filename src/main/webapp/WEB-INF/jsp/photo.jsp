@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -38,7 +39,25 @@
 <div class="row">
     <div class="col-sm-6" style="padding-left:15%;">
         <label><h3>Mickey</h3></label><br>
+
+<%--    photos.photoData is a bytes array that stored the photo file data    --%>
+        ${photos.photoData}
+
+
+
         <%--show photo--%>
+<%--        <c:choose>--%>
+<%--            <c:when test="${fn:length(photos) == 0}">--%>
+
+<%--                Picture not found--%>
+
+<%--            </c:when>--%>
+<%--            <c:otherwise>--%>
+
+<%--                <img src="${test_photo_data}" width="500" height="500"><br>--%>
+
+<%--            </c:otherwise>--%>
+<%--        </c:choose>--%>
         <img src="https://cdn.ebaumsworld.com/mediaFiles/picture/1151541/84693449.png" width="500" height="500"><br>
         <div>
             <label><h3>Description: funny picture</h3></label><br>
