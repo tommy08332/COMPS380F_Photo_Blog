@@ -33,7 +33,7 @@ create table if not exists comments (
     comment_id bigint not null,
     comment_datetime timestamp(6),
     comment_text varchar(255),
-    photo_id uuid,
+    photo_id integer,
     username varchar(255),
     primary key (comment_id),
     foreign key (username) references photoblog_users,
