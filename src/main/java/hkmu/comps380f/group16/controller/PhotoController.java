@@ -21,9 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.Base64;
-import java.util.Date;
 import java.util.List;
 
 
@@ -41,6 +39,11 @@ public class PhotoController {
 
     @GetMapping("/show")
     public String show(){ return "photo"; }
+
+    @GetMapping("/")
+    public String localDirectory(){
+        return "redirect:/photo/upload";
+    }
 
     @GetMapping("/upload")
     public ModelAndView upload() {
@@ -61,11 +64,10 @@ public class PhotoController {
 
     }
 
+
     @PostMapping("/upload")
 //    public View upload(PhotoForm photoForm) throws IOException, UserNotFound {
     public View upload(PhotoForm photoForm) throws IOException, UserNotFound, InvalidFileFormat {
-
-        String unaasdasdsadme = "";
 
 
         // use Principle to find userid
@@ -86,26 +88,17 @@ public class PhotoController {
             throws PhotoNotFound, UnsupportedEncodingException {
 
         Photos photos = photosService.findPhoto(photoId);
-
-
+        
         byte [] imageByteArr = photos.getPhotoData();
         byte [] photo = Base64.getEncoder().encode(imageByteArr);
         String photoImg = new String(photo, "UTF-8");
 
-        Date currentTime = photos.getPhotoUploadedDatetime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-
-
         PhotoDetails photoDetails =photosService.findPhotoDetail(photoId);
-        System.out.println();
-
-
+        
         model.addAttribute("photos", photos);
         model.addAttribute("photoDetails", photoDetails);
         model.addAttribute("photoImg", photoImg);
-        model.addAttribute("uploadTime", dateFormat.format(currentTime));
-
-
+        
         return "photo";
 
     }
@@ -146,6 +139,5 @@ public class PhotoController {
         }
 
     }
-
 
 }
