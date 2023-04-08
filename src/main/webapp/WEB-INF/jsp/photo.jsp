@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -63,7 +64,7 @@
                     <label>Description: ${photoDetails.photoDescription}</label><br>
                 </div>
                 <div>
-                    <label>Uploaded On: ${uploadTime}</label><br>
+                    <label>Uploaded On: <fmt:formatDate value="${photos.photoUploadedDatetime}" pattern="yyyy-MM-dd hh:mm:ss" /> </label>
                 </div>
 
             </c:otherwise>
