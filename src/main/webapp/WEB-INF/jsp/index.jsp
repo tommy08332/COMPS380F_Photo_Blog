@@ -49,7 +49,7 @@
 
             <li>
                 <bold>
-                    <a href="<c:url value="/profile"/>">Profile</a>
+                    <a href="<c:url value="/user/profile"/>">Profile</a>
                 </bold>
             </li>
 
@@ -67,7 +67,7 @@
 
             <li>
                 <bold>
-                    <a href='<c:url value="/admin_page"/>'>Admin Page</a>
+                    <a href='<c:url value="/admin/panel"/>'>Admin Page</a>
                 </bold>
             </li>
 
