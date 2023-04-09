@@ -1,10 +1,10 @@
 package hkmu.comps380f.group16.controller;
 
 import hkmu.comps380f.group16.dao.PhotoBlogUsersService;
-import hkmu.comps380f.group16.exception.UserNotFound;
+import hkmu.comps380f.group16.exception.UserAccountAlreadyExists;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +21,11 @@ public class RegistrationController {
     @Resource
     PhotoBlogUsersService usersService;
 
+    @GetMapping("/")
+    public String localDirectory(){
+
+        return "redirect:/registration/create";
+    }
 
     @GetMapping("/create")
     public ModelAndView create(){
@@ -31,25 +36,25 @@ public class RegistrationController {
     }
 
     @PostMapping("/create")
-    public View create(applicationForm appForm) throws IOException, UserNotFound {
+    public View create(applicationForm appForm) throws IOException, UserAccountAlreadyExists {
 
         usersService.createUserAccount(appForm.getUsername(),
-                appForm.getPassword(),
-                appForm.getUserRole());
+                                                        appForm.getPassword(),
+                                                        appForm.getUserRole());
+
 
         return new RedirectView("/PhotoBlog/login");
 
+
+
+
     }
 
-    //    For test
-    @GetMapping("/result")
-    public String result(ModelMap model){
+    @ExceptionHandler({UserAccountAlreadyExists.class})
+    public ModelAndView error(Exception e){
 
-        model.addAttribute("photoUser", usersService.findAllUsers());
-//        For test
-        return "redirect:/login";
+        return new ModelAndView("error", "err_message", e.getMessage());
     }
-
 
     public class applicationForm{
 
