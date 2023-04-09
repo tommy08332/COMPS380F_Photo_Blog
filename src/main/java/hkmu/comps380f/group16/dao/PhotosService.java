@@ -2,7 +2,6 @@ package hkmu.comps380f.group16.dao;
 
 import hkmu.comps380f.group16.exception.InvalidFileFormat;
 import hkmu.comps380f.group16.exception.PhotoNotFound;
-import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoDetails;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
@@ -30,7 +29,7 @@ public class PhotosService {
     @Transactional
     public int uploadPhoto(String photoTitle,
                             List<MultipartFile> photoDatas,
-                            String photoDescription) throws IOException, UserNotFound, InvalidFileFormat {
+                            String photoDescription) throws IOException, InvalidFileFormat {
 
 
         // suppose got the username from session
