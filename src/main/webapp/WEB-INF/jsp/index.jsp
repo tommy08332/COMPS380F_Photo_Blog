@@ -44,13 +44,8 @@
 <div class="container">
     <div class="row">
         <h1>Welcome to PhotoBlog! </h1>
-<%--        nav bar--%>
+        <%--        nav bar--%>
         <ul>
-            <li>
-                <bold>
-                    <a href='<c:url value="/photo/show"/>'>Photo</a>
-                </bold>
-            </li>
 
             <li>
                 <bold>
@@ -86,7 +81,7 @@
 
         <c:choose>
 
-            <c:when test="${empty img} == 0">
+            <c:when test="${empty photos}">
 
                 Please Upload photo
 
@@ -97,9 +92,9 @@
                 ${filetype.values()}
 
                 <div class="tableFixHead">
-                <table>
+                    <table>
 
-                    <tbody>
+                        <tbody>
 
                         <c:forEach var="i" begin="0" end="${photos.size()-1}">
 
@@ -107,133 +102,27 @@
                                 <tr>
                             </c:if>
 
-                                    <td>
-                                        <a href="<c:url value="/photo/show/${photos.get(i).photoId}"/>">
+                            <td>
+                                <a href="<c:url value="/photo/show/${photos.get(i).photoId}"/>">
 
-                                            <img alt="img"
-                                                 src="data:image/${photos.get(i).photoFileType};base64,${fileContent.get(i)}"
-                                                 width="100%" height="100%"/>
-                                        </a>
+                                    <img alt="img"
+                                         src="data:image/${photos.get(i).photoFileType};base64,${fileContent.get(i)}"
+                                         width="100%" height="100%"/>
+                                </a>
 
-                                    </td>
+                            </td>
 
-                        </c:forEach>
+                            </c:forEach>
 
-                    </tbody>
+                        </tbody>
 
-                </table>
+                    </table>
 
                 </div>
 
             </c:otherwise>
 
         </c:choose>
-
-            <div class="tableFixHead">
-                <table>
-                    <thead>
-
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <img src="https://cdn.ebaumsworld.com/mediaFiles/picture/1151541/84693449.png" width="100%" height="100%">
-                        </td>
-
-                        <td>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Random_pyramids.jpg" width="100%" height="100%">
-                        </td>
-                        <td>
-                            <img src="https://en.wikipedia.org/wiki/Wikipedia:Picture_of_the_day#/media/File:Landscape_Arch_Utah.jpg" width="100%" height="100%">
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                        1 ======================
-                        </td>
-                        <td>
-                           2 ======================
-                        </td>
-                        <td>
-                           3 ======================
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                        1 ================
-                        </td>
-                        <td>
-                            2======================
-                        </td>
-                        <td>
-                            3======================
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                        1==========
-                        </td>
-                        <td>
-                           2 ======================
-                        </td>
-                        <td>
-                            3======================
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                       1 ========
-                        </td>
-                        <td>
-                           2 ======================
-                        </td>
-                        <td>
-                            3======================
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                      1 ===================
-                        </td>
-                        <td>
-                           2 ======================
-                        </td>
-                        <td>
-                            3======================
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                          1------
-                        </td>
-                        <td>
-                            2======================
-                        </td>
-                        <td>
-                            3======================
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                          1-----
-                        </td>
-                        <td>
-                           2 ======================
-                        </td>
-                        <td>
-                           3 ======================
-                        </td>
-
-                    </tr>
-                    </tbody>
-                </table>
-        </div>
 
     </div>
 

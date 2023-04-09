@@ -19,22 +19,15 @@ public class IndexController {
     @Resource
     private PhotosService photosService;
 
-//    @Resource
-//    UsersRepository rep;
-
     @GetMapping("/")
     public String index(ModelMap model) throws PhotoNotFound, UnsupportedEncodingException {
 
+
         List<Photos> photos = photosService.findAllPhotos();
 
+
+        // may have some problem here
         ArrayList<String> filesArr = new ArrayList<String>();
-
-
-
-//        Map<Integer, String> img = new ConcurrentHashMap<Integer, String>();
-//
-//        Map<Integer, String> filetype = new ConcurrentHashMap<Integer, String>();
-
 
         for (Photos photo : photos){
 
@@ -44,14 +37,7 @@ public class IndexController {
 
             filesArr.add(photoImg);
 
-//            filetype.put(photo.getPhotoId(), photo.getPhotoFileType());
-
         }
-
-//        System.out.println(img.size());
-//        System.out.println(filetype.size());
-
-
 
         model.addAttribute("photos", photos);
 

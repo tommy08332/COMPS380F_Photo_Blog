@@ -19,25 +19,30 @@ public class PhotoBlogUsersService {
 
     //    For registration
     @Transactional
-    public void createUserAccount(String username,
+    public boolean createUserAccount(String username,
                                   String password,
-                                  String[] userRole) throws UserNotFound{
+                                  String[] userRole) {
 
         // may add some condition to check the username whether exist in the database
 
         PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
 
+        System.out.println("user    ");
+        System.out.println(user);
+
         // if the error of 404, please change to use this code
         //Optional<PhotoBlogUsers> user1= usersRepository.findById(username);
         if (user == null){
-            throw new UserNotFound(username);
+
+            PhotoBlogUsers createUser = new PhotoBlogUsers(username, password, userRole);
+
+            usersRepository.save(createUser);
+
+            return true;
+
         }
 
-        PhotoBlogUsers createUser = new PhotoBlogUsers(username, password, userRole);
-
-
-
-        usersRepository.save(createUser);
+        return false;
 
     }
 
