@@ -1,5 +1,6 @@
 package hkmu.comps380f.group16.dao;
 
+import hkmu.comps380f.group16.exception.UserAccountAlreadyExists;
 import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import jakarta.annotation.Resource;
@@ -20,22 +21,25 @@ public class PhotoBlogUsersService {
     //    For registration
     @Transactional
     public void createUserAccount(String username,
-                                  String password,
-                                  String[] userRole) throws UserNotFound{
+                                     String password,
+                                     String[] userRole) throws UserAccountAlreadyExists {
 
         // may add some condition to check the username whether exist in the database
 
         PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
 
+        System.out.println("user    ");
+        System.out.println(user);
+
         // if the error of 404, please change to use this code
         //Optional<PhotoBlogUsers> user1= usersRepository.findById(username);
-        if (user == null){
-            throw new UserNotFound(username);
+        if (user != null){
+
+            throw new UserAccountAlreadyExists(username);
+
         }
 
         PhotoBlogUsers createUser = new PhotoBlogUsers(username, password, userRole);
-
-
 
         usersRepository.save(createUser);
 
