@@ -2,9 +2,10 @@ package hkmu.comps380f.group16.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//@RequestMapping("/user")
+@RequestMapping("/user")
 public class UserController {
 
     // for testing
@@ -19,13 +20,8 @@ public class UserController {
 
     public String profile(){
 
-
-        System.out.println("Running profile");
-        System.out.println();
         return "profile";
 
-
     }
-
 
 }
