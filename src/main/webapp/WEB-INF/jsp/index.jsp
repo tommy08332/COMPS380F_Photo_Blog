@@ -46,11 +46,6 @@
         <h1>Welcome to PhotoBlog! </h1>
         <%--        nav bar--%>
         <ul>
-            <li>
-                <bold>
-                    <a href='<c:url value="/photo/show"/>'>Photo</a>
-                </bold>
-            </li>
 
             <li>
                 <bold>
@@ -103,8 +98,8 @@
 
                         <c:forEach var="i" begin="0" end="${photos.size()-1}">
 
-                        <c:if test="${i % 3 == 0}">
-                        <tr>
+                            <c:if test="${i % 3 == 0}">
+                                <tr>
                             </c:if>
 
                             <td>
