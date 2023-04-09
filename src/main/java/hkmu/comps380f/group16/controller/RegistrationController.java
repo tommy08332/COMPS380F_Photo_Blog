@@ -21,33 +21,23 @@ public class RegistrationController {
     @Resource
     PhotoBlogUsersService usersService;
 
-    @GetMapping("/")
-    public String localDirectory(){
-        return "redirect:/registration/create";
-    }
 
     @GetMapping("/create")
     public ModelAndView create(){
 
         return new ModelAndView("registration",
-                     "createPhotoUser",
-                                new applicationForm());
+                "createPhotoUser",
+                new applicationForm());
     }
 
     @PostMapping("/create")
     public View create(applicationForm appForm) throws IOException, UserNotFound {
 
-        boolean result = usersService.createUserAccount(appForm.getUsername(),
-                                                        appForm.getPassword(),
-                                                        appForm.getUserRole());
+        usersService.createUserAccount(appForm.getUsername(),
+                appForm.getPassword(),
+                appForm.getUserRole());
 
-        if (result){
-
-            return new RedirectView("/PhotoBlog/login");
-
-        }
-
-        return new RedirectView("/PhotoBlog/create");
+        return new RedirectView("/PhotoBlog/login");
 
     }
 
@@ -97,7 +87,5 @@ public class RegistrationController {
             this.userRole = userRole;
         }
     }
-
-
 
 }
