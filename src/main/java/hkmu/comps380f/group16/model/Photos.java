@@ -57,6 +57,17 @@ public class Photos {
 
     private List<PhotoDetails> photoDetails = new ArrayList<>();
 
+
+    @OneToMany(
+            mappedBy = "photo",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Fetch(FetchMode.SUBSELECT)
+
+    private List<Comments> comments = new ArrayList<>();
+
     public int getPhotoId() {
         return photoId;
     }
@@ -115,4 +126,15 @@ public class Photos {
 
     // delete photoDetails
 
+
+
+    public List<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
+    }
+
+    // delete comments
 }
