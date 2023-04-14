@@ -38,6 +38,14 @@
             height: 300px;
             background: #eee;
         }
+        
+        .link-button { 
+            background: none;
+            border: none;
+            color: #1a0dab;
+            text-decoration: underline;
+            cursor: pointer; 
+        }
     </style>
     <title>Welcome to PhotoBlog</title>
 </head>
@@ -106,7 +114,7 @@
                     <bold>
                         <c:url var="logoutUrl" value="/logout" />
                         <form action="${logoutUrl}" method="POST" >
-                            <input type="submit" value="Log out">
+                            <input type="submit" class="link-button" value="Log out">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </form>
                     </bold>
