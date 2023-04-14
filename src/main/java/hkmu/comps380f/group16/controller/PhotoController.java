@@ -4,16 +4,12 @@ import hkmu.comps380f.group16.dao.PhotoBlogUsersService;
 import hkmu.comps380f.group16.dao.PhotosService;
 import hkmu.comps380f.group16.exception.InvalidFileFormat;
 import hkmu.comps380f.group16.exception.PhotoNotFound;
-import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoDetails;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
@@ -21,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.util.Base64;
 import java.util.List;
 
@@ -66,16 +63,17 @@ public class PhotoController {
 
 
     @PostMapping("/upload")
-//    public View upload(PhotoForm photoForm) throws IOException, UserNotFound {
-    public View upload(PhotoForm photoForm) throws IOException, UserNotFound, InvalidFileFormat {
+
+    public View upload(PhotoForm photoForm, Principal principal) throws IOException, InvalidFileFormat {
 
 
         // use Principle to find userid
 
 
-        int photoId = photosService.uploadPhoto(photoForm.getPhotoTitle(),
-                photoForm.getPhotoData(),
-                photoForm.getPhotoDescription());
+        int photoId = photosService.uploadPhoto(principal.getName(),
+                                                photoForm.getPhotoTitle(),
+                                                photoForm.getPhotoData(),
+                                                photoForm.getPhotoDescription());
 
 
         return new RedirectView("/photo/show/" + photoId, true);
@@ -101,6 +99,12 @@ public class PhotoController {
 
         return "photo";
 
+    }
+
+    @ExceptionHandler({PhotoNotFound.class, InvalidFileFormat.class})
+    public ModelAndView error(Exception e){
+
+        return new ModelAndView("error", "err_message", e.getMessage());
     }
 
 

@@ -32,8 +32,6 @@
 </head>
 <body>
 
-
-<button>login</button>
 <div class="row">
     <div class="col-sm-6" style="padding-left:15%;">
         <%--    photos.photoData is a bytes array that stored the photo file data    --%>
@@ -48,22 +46,23 @@
             <c:otherwise>
 
                 <div>
-                    <label><h3>${photoDetails.photoTitle}</h3></label>
+                    <label><h3><c:out value="${photoDetails.photoTitle}" /></h3></label>
                 </div>
 
                 <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}" width="500" height="500"/>
 
                 <div>
-                    <label>Uploaded by: ${photos.uploadUsername}</label><br>
+                    <label>Uploaded by: <c:out value="${photos.uploadUsername}" /></label><br>
                 </div>
                 <div>
-                    <label>File name: ${photos.photoFilename}</label><br>
+                    <label>File name: <c:out value="${photos.photoFilename}" /></label><br>
                 </div>
 
                 <div>
-                    <label>Description: ${photoDetails.photoDescription}</label><br>
+                    <label>Description: <c:out value="${photoDetails.photoDescription}" /></label><br>
                 </div>
                 <div>
+
                     <label>Uploaded On: <fmt:formatDate value="${photos.photoUploadedDatetime}" pattern="yyyy-MM-dd hh:mm:ss" /> </label>
                 </div>
 

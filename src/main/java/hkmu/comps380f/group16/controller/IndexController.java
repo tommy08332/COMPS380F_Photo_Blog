@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -20,7 +21,7 @@ public class IndexController {
     private PhotosService photosService;
 
     @GetMapping("/")
-    public String index(ModelMap model) throws PhotoNotFound, UnsupportedEncodingException {
+    public String index(ModelMap model, Principal principal) throws PhotoNotFound, UnsupportedEncodingException {
 
 
         List<Photos> photos = photosService.findAllPhotos();
@@ -36,6 +37,12 @@ public class IndexController {
             String photoImg = new String(p, "UTF-8");
 
             filesArr.add(photoImg);
+
+        }
+
+        if (principal != null){
+
+            model.addAttribute("uname", principal.getName());
 
         }
 
@@ -55,6 +62,14 @@ public class IndexController {
     @GetMapping("/registration")
     public String registration(){
         return "registration";
+    }
+
+    // may show logout message
+    @GetMapping("/logout")
+    public String logout() {
+
+        return "redirect:/";
+
     }
 
 

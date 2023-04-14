@@ -51,19 +51,20 @@
             <div>
                 <h2>Login</h2>
             </div>
-            <form>
+            <form action="login" method="POST">
                 <div>
                     <label>Username</label>
-                    <input type="text" name="username" id="username"/>
+                    <input type="text" name="username"/>
                 </div>
                 <div>
                     <label>Password</label>
-                    <input type="password" name="password" id="password"/>
+                    <input type="password" name="password"/>
                 </div>
                 <div style="padding-left: 3%;">
-
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <button style="background-color: green; color: white;" type="submit" value="Login">Login</button>
                 </div>
+
             </form>
         </div>
     </div>

@@ -1,94 +1,83 @@
 package hkmu.comps380f.group16.dao;
 
-import hkmu.comps380f.group16.exception.UserNotFound;
+import hkmu.comps380f.group16.exception.UserAccountAlreadyExists;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
+import hkmu.comps380f.group16.model.UserRole;
 import jakarta.annotation.Resource;
-import jakarta.transaction.Transactional;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PhotoBlogUsersService {
+public class PhotoBlogUsersService implements UserDetailsService {
 
     @Resource
     private PhotoBlogUsersRepository usersRepository;
-    @Resource
-    private UserRoleRepository userRoleRepository;
 
+    @Override
+    public UserDetails loadUserByUsername(String user) throws UsernameNotFoundException {
 
-    //    For registration
+        System.out.println("Running loadUserByUsername1");
+
+        PhotoBlogUsers photoBlogUsers = usersRepository.findById(user).orElse(null);
+
+        if (photoBlogUsers == null){
+
+            throw new UsernameNotFoundException("The user " + user + " does not exist");
+
+        }
+
+        System.out.println("Running loadUserByUsername2");
+
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        for (UserRole role : photoBlogUsers.getUserRoles()){
+
+            authorities.add(new SimpleGrantedAuthority(role.getUserRole()));
+
+        }
+
+        return new User(photoBlogUsers.getUsername(),
+                        photoBlogUsers.getPassword(),
+                        authorities);
+
+    }
+
     @Transactional
-    public boolean createUserAccount(String username,
+    public void createUserAccount(String username,
                                   String password,
-                                  String[] userRole) {
-
-        // may add some condition to check the username whether exist in the database
-
-        PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
-
-        System.out.println("user    ");
-        System.out.println(user);
-
-        // if the error of 404, please change to use this code
-        //Optional<PhotoBlogUsers> user1= usersRepository.findById(username);
-        if (user == null){
-
-            PhotoBlogUsers createUser = new PhotoBlogUsers(username, password, userRole);
-
-            usersRepository.save(createUser);
-
-            return true;
-
-        }
-
-        return false;
-
-    }
-
-    // For Admin page show all users
-    @Transactional
-    public List<PhotoBlogUsers> findAllUsers(){
-
-        return usersRepository.findAll();
-
-    }
-
-    // Find specific user
-    @Transactional
-    public PhotoBlogUsers findUser(String username)
-            throws UserNotFound {
+                                  String phoneNum,
+                                  String email,
+                                  String[] userRole) throws UserAccountAlreadyExists {
 
         PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
 
-        if (user == null){
+        if (user != null){
 
-            throw new UserNotFound(username);
-
-        }
-
-        return user;
-
-    }
-
-
-    // For delete account
-    @Transactional
-    public void deleteUserAccount(String username)
-            throws UserNotFound {
-
-        PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
-
-        if (user == null){
-
-            // call exception
-            throw new UserNotFound(username);
+            throw new UserAccountAlreadyExists(username);
 
         }
 
-        usersRepository.delete(user);
+//        if (userRole == null){
+//
+//            String[] defaultRole = {"ROLE_USER"};
+//
+//            userRole = defaultRole;
+//
+//        }
+
+        PhotoBlogUsers createUser = new PhotoBlogUsers(username, password, userRole);
+
+        usersRepository.save(createUser);
 
     }
-
 
 }

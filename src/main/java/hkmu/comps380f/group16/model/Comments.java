@@ -26,6 +26,10 @@ public class Comments {
     @Column(name = "photo_id", insertable = false, updatable = false)
     private int photoId;
 
+    // foreign key
+//    @ManyToOne
+//    @JoinColumn(name = "username")
+//    private PhotoBlogUsers photoBlogUsers;
 
     // foreign key
     @ManyToOne
@@ -68,6 +72,14 @@ public class Comments {
     public int getPhotoId() { return photoId; }
 
     public void setPhotoId(int photoId) { this.photoId = photoId; }
+
+//    public PhotoBlogUsers getPhotoBlogUsers() {
+//        return photoBlogUsers;
+//    }
+
+//    public void setPhotoBlogUsers(PhotoBlogUsers photoBlogUsers) {
+//        this.photoBlogUsers = photoBlogUsers;
+//    }
 
     public Photos getPhoto() {
         return photo;

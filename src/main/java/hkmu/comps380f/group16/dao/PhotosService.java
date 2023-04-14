@@ -2,7 +2,6 @@ package hkmu.comps380f.group16.dao;
 
 import hkmu.comps380f.group16.exception.InvalidFileFormat;
 import hkmu.comps380f.group16.exception.PhotoNotFound;
-import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoDetails;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
@@ -28,15 +27,12 @@ public class PhotosService {
 
 
     @Transactional
-    public int uploadPhoto(String photoTitle,
-                            List<MultipartFile> photoDatas,
-                            String photoDescription) throws IOException, UserNotFound, InvalidFileFormat {
+    public int uploadPhoto(String username,
+                           String photoTitle,
+                           List<MultipartFile> photoDatas,
+                           String photoDescription) throws IOException, InvalidFileFormat {
 
 
-        // suppose got the username from session
-        // for test
-        String test_user_id = "testuser01";
-        // for test
 
         Photos photos = new Photos();
 
@@ -48,25 +44,25 @@ public class PhotosService {
                 photoData.getOriginalFilename() != null &&
                 photoData.getOriginalFilename().length() > 0 &&
                 photoData != null &&
-                test_user_id != null &&
-                test_user_id.length() > 0) {
+                username != null &&
+                username.length() > 0) {
 
                 PhotoDetails photoDetails = new PhotoDetails();
 
-                // filename
+                // set filename
                 photos.setPhotoFilename(photoData.getOriginalFilename());
 
-                // upload date & time
+                // set upload date & time
                 photos.setPhotoUploadedDatetime(new Date());
 
-                // file byte content
+                // set file byte content
                 photos.setPhotoData(photoData.getBytes());
 
-                // file type e.g. jpg, png
+                // set file type e.g. jpg, png
                 photos.setPhotoFileType(fileType[1]);
 
-                // file owner
-                photos.setUploadUsername(test_user_id);
+                // set file owner
+                photos.setUploadUsername(username);
 
                 photoDetails.setPhotoId(photos.getPhotoId());
                 photoDetails.setPhotoTitle(photoTitle);

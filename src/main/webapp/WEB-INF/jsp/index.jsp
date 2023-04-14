@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,42 +46,73 @@
     <div class="row">
         <h1>Welcome to PhotoBlog! </h1>
         <%--        nav bar--%>
+
+        <%--  if the user logged in, show the username here      --%>
+        <c:if test="${!empty uname}">
+            Hi, <c:out value="${uname}" />
+
+        </c:if>
+
+
         <ul>
-            <li>
-                <bold>
-                    <a href='<c:url value="/photo/show"/>'>Photo</a>
-                </bold>
-            </li>
 
-            <li>
-                <bold>
-                    <a href="<c:url value="/profile"/>">Profile</a>
-                </bold>
-            </li>
+            <security:authorize access="hasAnyRole('USER', 'ADMIN')">
 
-            <li>
-                <bold>
-                    <a href="<c:url value="/login"/>">Login</a>
-                </bold>
-            </li>
+                <li>
+                    <bold>
+                        <a href="<c:url value="/user/profile"/>">Profile</a>
+                    </bold>
+                </li>
 
-            <li>
-                <bold>
-                    <a href="<c:url value="/registration/create"/>">Registration</a>
-                </bold>
-            </li>
+            </security:authorize>
 
-            <li>
-                <bold>
-                    <a href='<c:url value="/admin_page"/>'>Admin Page</a>
-                </bold>
-            </li>
+            <c:if test="${empty uname}">
+                <li>
+                    <bold>
+                        <a href="<c:url value="/login"/>">Login</a>
+                    </bold>
+                </li>
+                <li>
+                    <bold>
+                        <a href="<c:url value="/registration/create"/>">Registration</a>
+                    </bold>
+                </li>
 
-            <li>
-                <bold>
-                    <a href='<c:url value="/photo/upload"/>'>Upload Photo Page</a>
-                </bold>
-            </li>
+            </c:if>
+
+            <security:authorize access="hasRole('ADMIN')">
+
+                <li>
+                    <bold>
+                        <a href='<c:url value="/admin/panel"/>'>Admin Page</a>
+                    </bold>
+                </li>
+
+            </security:authorize>
+
+            <security:authorize access="hasAnyRole('USER', 'ADMIN')">
+
+                <li>
+                    <bold>
+                        <a href='<c:url value="/photo/upload"/>'>Upload Photo Page</a>
+                    </bold>
+                </li>
+
+            </security:authorize>
+
+            <security:authorize access="hasAnyRole('USER', 'ADMIN')">
+
+                <li>
+                    <bold>
+                        <c:url var="logoutUrl" value="/logout" />
+                        <form action="${logoutUrl}" method="POST" >
+                            <input type="submit" value="Log out">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
+                    </bold>
+                </li>
+
+            </security:authorize>
 
         </ul>
 
@@ -103,8 +135,8 @@
 
                         <c:forEach var="i" begin="0" end="${photos.size()-1}">
 
-                        <c:if test="${i % 3 == 0}">
-                        <tr>
+                            <c:if test="${i % 3 == 0}">
+                                <tr>
                             </c:if>
 
                             <td>

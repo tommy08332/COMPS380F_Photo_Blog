@@ -30,8 +30,8 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
 
 //    For spring security
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
-//    implementation 'org.springframework.security:spring-security-taglibs'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-taglibs'
 
 }
 
