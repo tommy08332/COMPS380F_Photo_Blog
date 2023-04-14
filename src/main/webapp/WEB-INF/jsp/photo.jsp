@@ -26,6 +26,11 @@
         th {
             background: #eee;
         }
+        
+        img {
+            max-width: 500px;
+            max-height: 500px;
+        }
     </style>
 
     <title>Photo</title>
@@ -49,7 +54,8 @@
                     <label><h3><c:out value="${photoDetails.photoTitle}" /></h3></label>
                 </div>
 
-                <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}" width="500" height="500"/>
+<!--                 <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}" width="500" height="500"/> -->
+                <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}"/>
 
                 <div>
                     <label>Uploaded by: <c:out value="${photos.uploadUsername}" /></label><br>
