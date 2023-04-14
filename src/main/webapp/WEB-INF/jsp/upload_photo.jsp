@@ -14,7 +14,7 @@
   <form:label path="photoDescription">Photo Description:</form:label><br><br>
   <form:textarea type="text" path="photoDescription"/><br><br>
 
-  <input type="file" name="photoData" accept="image/*" multiple="multiple"/><br><br>
+  <form:input type="file" path="photoData" accept="image/*" multiple="multiple"/><br><br>
 
   <input type="submit" value="Submit"/>
 
