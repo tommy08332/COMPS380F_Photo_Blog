@@ -1,5 +1,7 @@
 package hkmu.comps380f.group16.dao;
 
+import hkmu.comps380f.group16.exception.EmailAlreadyUsed;
+import hkmu.comps380f.group16.exception.PhoneNumberAlreadyUsed;
 import hkmu.comps380f.group16.exception.UserAccountAlreadyExists;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import hkmu.comps380f.group16.model.UserRole;
@@ -56,13 +58,31 @@ public class PhotoBlogUsersService implements UserDetailsService {
                                   String password,
                                   String phoneNum,
                                   String email,
-                                  String[] userRole) throws UserAccountAlreadyExists {
+                                  String[] userRole)
+            throws UserAccountAlreadyExists,
+                   EmailAlreadyUsed,
+                   PhoneNumberAlreadyUsed {
 
-        PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
+        PhotoBlogUsers findUser = usersRepository.findById(username).orElse(null);
 
-        if (user != null){
+        PhotoBlogUsers findEmail = usersRepository.findByEmail(email);
+
+        PhotoBlogUsers findPhoneNum = usersRepository.findByPhoneNum(phoneNum);
+
+        if (findUser != null){
 
             throw new UserAccountAlreadyExists(username);
+
+        }
+
+        if (findEmail != null){
+
+            throw new EmailAlreadyUsed(email);
+        }
+
+        if (findPhoneNum != null){
+
+            throw new PhoneNumberAlreadyUsed(phoneNum);
 
         }
 
@@ -74,7 +94,11 @@ public class PhotoBlogUsersService implements UserDetailsService {
 //
 //        }
 
-        PhotoBlogUsers createUser = new PhotoBlogUsers(username, password, userRole);
+        PhotoBlogUsers createUser = new PhotoBlogUsers(username,
+                                                       password,
+                                                       phoneNum,
+                                                       email,
+                                                       userRole);
 
         usersRepository.save(createUser);
 

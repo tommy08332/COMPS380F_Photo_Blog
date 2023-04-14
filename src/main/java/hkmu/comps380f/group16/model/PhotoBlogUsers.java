@@ -35,10 +35,14 @@ public class PhotoBlogUsers {
 
     public PhotoBlogUsers(String username,
                           String password,
+                          String phoneNum,
+                          String email,
                           String[] userRoles){
 
         this.username = username;
         this.password = "{noop}"+password;
+        this.phoneNum = phoneNum;
+        this.email = email;
 
         for (String userRole : userRoles){
 

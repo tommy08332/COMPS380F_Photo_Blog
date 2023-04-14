@@ -12,31 +12,43 @@
             list-style-type: none;
             width: 100%;
         }
-
         li {
             display: inline;
             padding-left: 7%;
         }
-
         .tableFixHead {
             overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
             height: 800px; /* gives an initial height of 200px to the table */
         }
-
         table {
             border-collapse: collapse; /* make the table borders collapse to each other */
             width: 100%;
             height: 50%;
         }
-
         td {
             padding: 8px 16px;
             border: 1px solid #ccc;
         }
-
         td {
             height: 300px;
             background: #eee;
+        }
+<<<<<<< HEAD
+
+        .link-button {
+=======
+        
+        .link-button { 
+>>>>>>> 52f03e4cff0789f3ab77db8e76474411e459208c
+            background: none;
+            border: none;
+            color: #1a0dab;
+            text-decoration: underline;
+<<<<<<< HEAD
+            cursor: pointer;
+=======
+            cursor: pointer; 
+>>>>>>> 52f03e4cff0789f3ab77db8e76474411e459208c
         }
     </style>
     <title>Welcome to PhotoBlog</title>
@@ -106,7 +118,7 @@
                     <bold>
                         <c:url var="logoutUrl" value="/logout" />
                         <form action="${logoutUrl}" method="POST" >
-                            <input type="submit" value="Log out">
+                            <input type="submit" class="link-button" value="Log out">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </form>
                     </bold>
@@ -135,8 +147,8 @@
 
                         <c:forEach var="i" begin="0" end="${photos.size()-1}">
 
-                            <c:if test="${i % 3 == 0}">
-                                <tr>
+                        <c:if test="${i % 3 == 0}">
+                        <tr>
                             </c:if>
 
                             <td>

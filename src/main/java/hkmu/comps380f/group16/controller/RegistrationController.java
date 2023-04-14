@@ -1,6 +1,8 @@
 package hkmu.comps380f.group16.controller;
 
 import hkmu.comps380f.group16.dao.PhotoBlogUsersService;
+import hkmu.comps380f.group16.exception.EmailAlreadyUsed;
+import hkmu.comps380f.group16.exception.PhoneNumberAlreadyUsed;
 import hkmu.comps380f.group16.exception.UserAccountAlreadyExists;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
@@ -36,7 +38,11 @@ public class RegistrationController {
     }
 
     @PostMapping("/create")
-    public View create(applicationForm appForm) throws IOException, UserAccountAlreadyExists {
+    public View create(applicationForm appForm)
+            throws IOException,
+                   UserAccountAlreadyExists,
+                   EmailAlreadyUsed,
+                   PhoneNumberAlreadyUsed {
 
         usersService.createUserAccount(appForm.getUsername(),
                                        appForm.getPassword(),
@@ -47,12 +53,11 @@ public class RegistrationController {
 
         return new RedirectView("/PhotoBlog/login");
 
-
-
-
     }
 
-    @ExceptionHandler({UserAccountAlreadyExists.class})
+    @ExceptionHandler({UserAccountAlreadyExists.class,
+                       EmailAlreadyUsed.class,
+                       PhoneNumberAlreadyUsed.class})
     public ModelAndView error(Exception e){
 
         return new ModelAndView("error", "err_message", e.getMessage());
