@@ -114,12 +114,16 @@
                         <div>
                             <div style="padding-bottom: 5%">
                                 date : 7/4/2023
+<%--                                for testing get data of comment--%>
+<%--                                <fmt:formatDate value="${Comments.comment_datetime}" pattern="yyyy-MM-dd hh:mm:ss"/>--%>
                                 <button>Edit</button>
                                 <button>Delete</button>
                             </div>
                         </div>
                         <div>
-                            <label>This is comment !!!!!</label>
+                            <label>this is comment !!!!!</label>
+<%--                            for testing get data of comment--%>
+<%--                            <label><c:out value="${Comments.comment_text}"/></label>--%>
                         </div>
                     </th>
 
