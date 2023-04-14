@@ -86,13 +86,13 @@ public class PhotoBlogUsersService implements UserDetailsService {
 
         }
 
-//        if (userRole == null){
-//
-//            String[] defaultRole = {"ROLE_USER"};
-//
-//            userRole = defaultRole;
-//
-//        }
+        if (userRole == null){
+
+            String[] defaultRole = {"ROLE_USER"};
+
+            userRole = defaultRole;
+
+        }
 
         PhotoBlogUsers createUser = new PhotoBlogUsers(username,
                                                        password,
@@ -102,6 +102,12 @@ public class PhotoBlogUsersService implements UserDetailsService {
 
         usersRepository.save(createUser);
 
+    }
+
+    @Transactional
+    public List<PhotoBlogUsers> findAllUsers(){
+
+        return usersRepository.findAll();
     }
 
 }

@@ -87,7 +87,7 @@
 
                 <li>
                     <bold>
-                        <a href='<c:url value="/admin/panel"/>'>Admin Page</a>
+                        <a href='<c:url value="/admin/panel"/>'>Admin panel</a>
                     </bold>
                 </li>
 

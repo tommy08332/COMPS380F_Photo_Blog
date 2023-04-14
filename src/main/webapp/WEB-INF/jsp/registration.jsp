@@ -26,14 +26,14 @@
     <form:input type="text" path="email" />
     <br/>
 
-<%--    <security:authorize access="hasRole('ADMIN')">--%>
+    <security:authorize access="hasRole('ADMIN')">
 
         <form:label path="userRole">User Roles: </form:label>
 
         <form:checkbox path="userRole" value="ROLE_USER" />Normal User
         <form:checkbox path="userRole" value="ROLE_ADMIN" />Admin User
 
-<%--    </security:authorize>--%>
+    </security:authorize>
 
 
     <br/>
