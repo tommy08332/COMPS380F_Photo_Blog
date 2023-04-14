@@ -33,22 +33,13 @@
             height: 300px;
             background: #eee;
         }
-<<<<<<< HEAD
 
         .link-button {
-=======
-        
-        .link-button { 
->>>>>>> 52f03e4cff0789f3ab77db8e76474411e459208c
             background: none;
             border: none;
             color: #1a0dab;
             text-decoration: underline;
-<<<<<<< HEAD
             cursor: pointer;
-=======
-            cursor: pointer; 
->>>>>>> 52f03e4cff0789f3ab77db8e76474411e459208c
         }
     </style>
     <title>Welcome to PhotoBlog</title>

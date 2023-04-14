@@ -26,11 +26,7 @@
         th {
             background: #eee;
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 52f03e4cff0789f3ab77db8e76474411e459208c
         img {
             max-width: 500px;
             max-height: 500px;
@@ -58,10 +54,7 @@
                     <label><h3><c:out value="${photoDetails.photoTitle}" /></h3></label>
                 </div>
 
-<<<<<<< HEAD
-=======
-<!--                 <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}" width="500" height="500"/> -->
->>>>>>> 52f03e4cff0789f3ab77db8e76474411e459208c
+                <!--                 <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}" width="500" height="500"/> -->
                 <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}"/>
 
                 <div>
