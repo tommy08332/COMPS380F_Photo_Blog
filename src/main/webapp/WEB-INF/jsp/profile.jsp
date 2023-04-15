@@ -140,64 +140,21 @@
             <tr>
                 <th>
                     <div style="display: inline;padding-right: 10%;">
-                        <img src="https://pbs.twimg.com/profile_images/428316729220276224/EdBZ2Kgp.jpeg"
-                             style="width: 300px;">
+                    <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}"style="width: 300px;" />
                     </div>
                     <div style="display: inline;padding-right: 10%;">
                         <label><h3>Title:</h3></br></br></br>
-                        Monkey</label>
+                            <c:out value="${photoDetails.photoTitle}"/> </label>
                     </div>
                     <div style="display: inline;padding-right: 10%;">
                         <label><h3>Description :</h3></br></br></br>
-                        This is a Monkey</label>
+                            <c:out value="${photoDetails.photoDescription}" /> </label>
                     </div>
                     <div style="display: inline">
                         <label><h3>Upload-On :</h3></br></br></br>
-                            2023/04/07</label>
+                            <fmt:formatDate value="${photos.photoUploadedDatetime}" pattern="yyyy-MM-dd hh:mm:ss" /> </label>
                     </div>
 
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    <div style="display: inline;padding-right: 10%;">
-                        <img src="https://www.dumpaday.com/wp-content/uploads/2017/01/random-pictures-74.jpg"
-                             style= "width:300px">
-                    </div>
-                    <div style="display: inline;padding-right: 10%;">
-                        <label><h3>Title:</h3></br></br></br>
-                            Bear</label>
-                    </div>
-                    <div style="display: inline;padding-right: 10%;">
-                        <label><h3>Description :</h3></br></br></br>
-                            This is a Bear</label>
-                    </div>
-                    <div style="display: inline">
-                        <label><h3>Upload-On :</h3></br></br></br>
-                            2023/05/01</label>
-                    </div>
-
-                </th>      
-            </tr>
-            <tr>
-                <th>
-                    <div style="display: inline;padding-right: 10%;">
-                        <img src="https://i.ytimg.com/vi/-K3SbSQ2oNI/hqdefault.jpg"   style= "width:300px">
-                    </div>
-                    <div style="display: inline;padding-right: 10%;">
-                        <label><h3>Title:</h3></br></br></br>
-                            Wong Ping Kun</label>
-                    </div>
-                    <div style="display: inline;padding-right: 10%;">
-                        <label><h3>Description :</h3></br></br></br>
-                            This is a Wong Ping Kun</label>
-                    </div>
-                    <div style="display: inline">
-                        <label><h3>Upload-On :</h3></br></br></br>
-                            2023/04/23</label>
-                    </div>
-                </th> 
-            </tr>
             </tbody>
         </table>
     </div>
