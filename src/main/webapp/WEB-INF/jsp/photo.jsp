@@ -138,8 +138,7 @@
                                                             Comment</c:out>
                                                     </label>
                                                     <security:authorize access="hasAnyRole('ADMIN')">
-                                                        <form:form method="post" action="./update"
-                                                            modelAttribute="comment"
+                                                        <form:form method="post" modelAttribute="comment"
                                                             id="editForm${comments.get(i).commentId}"
                                                             style="display:none;">
                                                             <textarea rows="4" cols="50" name="commentText"
@@ -149,23 +148,24 @@
                                                                 </c:out>
                                                             </textarea>
                                                             <!-- <input type="text" value="${comments.get(i).commentText}"> -->
-                                                            <input type="hidden" name="commentId"
-                                                                value="${comments.get(i).commentId}">
+                                                            <input type="hidden" name="commentId" value="${comments.get(i).commentId}">
+                                                            <input type="hidden" name="order" value="UPDATE">
                                                             <input type="submit" value="Submit">
                                                         </form:form>
                                                         <button onclick="
                                                             document,getElementsByTagName('label').style.display = 'block';
                                                             document.getElementsByTagName('form').style.display = 'none';
+                                                            document.getElementById('deleteform').style.display = 'block';
                                                             document.getElementsByTagName('button').style.display = 'block';
                                                             document,getElementById('label${comments.get(i).commentId}').style.display = 'none';
                                                             document.getElementById('editForm${comments.get(i).commentId}').style.display = 'block';
                                                             this.style.display = 'none';
                                                             ">Edit</button>
-                                                        <form method="post" action="./delete" id="editForm"
-                                                            style="display:block;">
-                                                            <input type="hidden" value="${comments.get(i).commentId}">
+                                                        <form:form method="post" style="display:block;" modelAttribute="comment" id="deleteForm">
+                                                            <input type="hidden" value="${comments.get(i).commentId}" name="commentId">
+                                                            <input type="hidden" value="DELETE" name="order">
                                                             <input type="submit" value="Delete">
-                                                        </form>
+                                                        </form:form>
                                                     </security:authorize>
                                                     By ${comments.username}
                                                 </div>
@@ -201,7 +201,7 @@
                                         <form:form method="POST" modelAttribute="comment" id="commentForm">
                                             <form:label path="commentText">Comment Content:</form:label>
                                             <form:textarea type="text" path="commentText" />
-                                            <form:hidden path="commentId">
+                                            <input type="hidden" value="INSERT" name="order">
                                                 <br>
                                                 <input type="submit" value="Comment">
                                         </form:form>
