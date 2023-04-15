@@ -9,6 +9,8 @@ public interface PhotoBlogUsersRepository extends JpaRepository<PhotoBlogUsers, 
 
     PhotoBlogUsers findByPhoneNum(String phoneNum);
 
+    PhotoBlogUsers findByUsername(String username);
+
 
 
 

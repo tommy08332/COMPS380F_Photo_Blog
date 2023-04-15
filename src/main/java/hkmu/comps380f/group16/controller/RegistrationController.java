@@ -32,9 +32,11 @@ public class RegistrationController {
     @GetMapping("/create")
     public ModelAndView create(){
 
-        return new ModelAndView("registration",
+        return new ModelAndView(
+                "registration",
                 "createPhotoUser",
-                new applicationForm());
+                new applicationForm()
+        );
     }
 
     @PostMapping("/create")

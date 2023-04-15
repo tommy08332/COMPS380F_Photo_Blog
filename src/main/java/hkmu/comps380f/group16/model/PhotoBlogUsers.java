@@ -9,9 +9,15 @@ import java.util.List;
 @Table(name="photoblog_users")
 public class PhotoBlogUsers {
 
-    // Primary key
+    // Add Primary key
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private long userId;
+
+    @Column(name= "username")
     private String username;
+
     @Column(name= "user_password")
     private String password;
 
@@ -53,6 +59,14 @@ public class PhotoBlogUsers {
         }
 
     };
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     public String getUsername() {
         return username;
