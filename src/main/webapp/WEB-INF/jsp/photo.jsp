@@ -148,7 +148,8 @@
                                                                 </c:out>
                                                             </textarea>
                                                             <!-- <input type="text" value="${comments.get(i).commentText}"> -->
-                                                            <input type="hidden" name="commentId" value="${comments.get(i).commentId}">
+                                                            <input type="hidden" name="commentId"
+                                                                value="${comments.get(i).commentId}">
                                                             <input type="hidden" name="order" value="UPDATE">
                                                             <input type="submit" value="Submit">
                                                         </form:form>
@@ -161,8 +162,10 @@
                                                             document.getElementById('editForm${comments.get(i).commentId}').style.display = 'block';
                                                             this.style.display = 'none';
                                                             ">Edit</button>
-                                                        <form:form method="post" style="display:block;" modelAttribute="comment" id="deleteForm">
-                                                            <input type="hidden" value="${comments.get(i).commentId}" name="commentId">
+                                                        <form:form method="post" style="display:block;"
+                                                            modelAttribute="comment" id="deleteForm">
+                                                            <input type="hidden" value="${comments.get(i).commentId}"
+                                                                name="commentId">
                                                             <input type="hidden" value="DELETE" name="order">
                                                             <input type="submit" value="Delete">
                                                         </form:form>
@@ -202,12 +205,13 @@
                                             <form:label path="commentText">Comment Content:</form:label>
                                             <form:textarea type="text" path="commentText" />
                                             <input type="hidden" value="INSERT" name="order">
-                                                <br>
-                                                <input type="submit" value="Comment">
+                                            <br>
+                                            <input type="submit" value="Comment">
                                         </form:form>
                                         <button onclick="
                                             document,getElementsByTagName('label').style.display = 'block';
                                             document.getElementsByTagName('form').style.display = 'none';
+                                            document.getElementById('deleteform').style.display = 'block';
                                             document.getElementsByTagName('button').style.display = 'block';
                                             document.getElementById('commentForm').style.display = 'block';
                                             this.style.display = 'none';
