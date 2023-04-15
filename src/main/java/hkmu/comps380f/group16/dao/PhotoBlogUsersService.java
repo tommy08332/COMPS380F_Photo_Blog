@@ -3,6 +3,7 @@ package hkmu.comps380f.group16.dao;
 import hkmu.comps380f.group16.exception.EmailAlreadyUsed;
 import hkmu.comps380f.group16.exception.PhoneNumberAlreadyUsed;
 import hkmu.comps380f.group16.exception.UserAccountAlreadyExists;
+import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import hkmu.comps380f.group16.model.UserRole;
 import jakarta.annotation.Resource;
@@ -25,31 +26,28 @@ public class PhotoBlogUsersService implements UserDetailsService {
     private PhotoBlogUsersRepository usersRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String user) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        System.out.println("Running loadUserByUsername1");
+        PhotoBlogUsers findUser = usersRepository.findByUsername(username);
 
-        PhotoBlogUsers photoBlogUsers = usersRepository.findById(user).orElse(null);
 
-        if (photoBlogUsers == null){
+        if (findUser == null){
 
-            throw new UsernameNotFoundException("The user " + user + " does not exist");
+            throw new UsernameNotFoundException("The user " + username + " does not exist");
 
         }
 
-        System.out.println("Running loadUserByUsername2");
-
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        for (UserRole role : photoBlogUsers.getUserRoles()){
+        for (UserRole role : findUser.getUserRoles()){
 
             authorities.add(new SimpleGrantedAuthority(role.getUserRole()));
 
         }
 
-        return new User(photoBlogUsers.getUsername(),
-                        photoBlogUsers.getPassword(),
-                        authorities);
+        return new User(findUser.getUsername(),
+                findUser.getPassword(),
+                authorities);
 
     }
 
@@ -60,10 +58,10 @@ public class PhotoBlogUsersService implements UserDetailsService {
                                   String email,
                                   String[] userRole)
             throws UserAccountAlreadyExists,
-                   EmailAlreadyUsed,
-                   PhoneNumberAlreadyUsed {
+            EmailAlreadyUsed,
+            PhoneNumberAlreadyUsed {
 
-        PhotoBlogUsers findUser = usersRepository.findById(username).orElse(null);
+        PhotoBlogUsers findUser = usersRepository.findByUsername(username);
 
         PhotoBlogUsers findEmail = usersRepository.findByEmail(email);
 
@@ -88,19 +86,37 @@ public class PhotoBlogUsersService implements UserDetailsService {
 
         if (userRole == null){
 
-            String[] defaultRole = {"ROLE_USER"};
+//            For trouble shoot
+//            String[] defaultRole = {"ROLE_USER", "ROLE_ADMIN"};
 
+            String[] defaultRole = {"ROLE_USER"};
             userRole = defaultRole;
 
         }
 
         PhotoBlogUsers createUser = new PhotoBlogUsers(username,
-                                                       password,
-                                                       phoneNum,
-                                                       email,
-                                                       userRole);
+                password,
+                phoneNum,
+                email,
+                userRole);
 
         usersRepository.save(createUser);
+
+    }
+
+    @Transactional
+
+    public PhotoBlogUsers findUser(String username) throws UserNotFound{
+
+        PhotoBlogUsers user = usersRepository.findByUsername(username);
+
+        if (user == null){
+
+            throw new UserNotFound(username);
+
+        }
+
+        return user;
 
     }
 
@@ -108,6 +124,33 @@ public class PhotoBlogUsersService implements UserDetailsService {
     public List<PhotoBlogUsers> findAllUsers(){
 
         return usersRepository.findAll();
+    }
+
+    @Transactional
+    public void deleteUser(String username) throws UserNotFound {
+
+        PhotoBlogUsers targetUser = usersRepository.findByUsername(username);
+        if (targetUser == null){
+
+            throw new UserNotFound(username);
+
+        }
+
+        usersRepository.delete(targetUser);
+
+
+    }
+
+    @Transactional
+    public void updateUser(String username,
+                           String password,
+                           String email,
+                           String phoneNumber,
+                           String userDescription,
+                           String[] userRole){
+
+//        PhotoBlogUsers updatedUser = usersRepository.
+
     }
 
 }
