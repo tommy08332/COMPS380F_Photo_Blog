@@ -12,16 +12,44 @@
     }
 </style>
 <head>
-    <title>Admin Panel</title>
+    <title>Admin Panel - User Management</title>
 </head>
 <body>
 
 <security:authorize access="hasRole('ADMIN')">
 
 
-    <h1>Admin Page</h1>
+    <h1>Admin Panel - User management</h1>
+
+    <ul>
+
+        <li>
+            <bold>
+                <a href="<c:url value="/admin/panel/user"/>">User Management</a>
+            </bold>
+        </li>
+
+        <li>
+            <bold>
+                <a href="<c:url value="/admin/panel/history"/>">Upload History</a>
+            </bold>
+        </li>
+
+        <li>
+            <bold>
+                <c:url var="logoutUrl" value="/logout" />
+                <form action="${logoutUrl}" method="POST" >
+                    <input type="submit" class="link-button" value="Log out">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+            </bold>
+        </li>
+
+    </ul>
 
     <a href="<c:url value="/registration/create"/>" >Create new user</a>
+
+
 
     <%-- list all user--%>
     <table>
