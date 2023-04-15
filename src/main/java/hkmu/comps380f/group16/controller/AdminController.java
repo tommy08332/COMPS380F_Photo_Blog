@@ -1,14 +1,19 @@
 package hkmu.comps380f.group16.controller;
 
 import hkmu.comps380f.group16.dao.PhotoBlogUsersService;
+import hkmu.comps380f.group16.dao.PhotosService;
 import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
+import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -18,15 +23,18 @@ public class AdminController {
     @Resource
     private PhotoBlogUsersService usersService;
 
-    @GetMapping("/panel")
-    public String adminPage(ModelMap model){
+    @Resource
+    private PhotosService photosService;
+
+    @GetMapping("/panel/user")
+    public String userManagement(ModelMap model){
 
         List<PhotoBlogUsers> users = usersService.findAllUsers();
 
         model.addAttribute("users", users);
 
 
-        return "admin_page";
+        return "user_management";
 
 
     }
@@ -69,8 +77,34 @@ public class AdminController {
         return "redirect:/admin/panel";
     }
 
+    @GetMapping("/panel/history")
+    public String adminPage(ModelMap model) throws UnsupportedEncodingException {
 
 
+        List<Photos> photos = photosService.findAllPhotos();
+
+        model.addAttribute("photos", photos);
+
+
+        ArrayList<String> filesArr = new ArrayList<String>();
+
+        for (Photos photo : photos){
+
+            byte [] imageByteArr = photo.getPhotoData();
+            byte [] p = Base64.getEncoder().encode(imageByteArr);
+            String photoImg = new String(p, "UTF-8");
+
+            filesArr.add(photoImg);
+
+        }
+
+        model.addAttribute("fileContent", filesArr);
+
+
+        return "upload_history";
+
+
+    }
 
     @ExceptionHandler({UserNotFound.class})
     public ModelAndView error(Exception e){
