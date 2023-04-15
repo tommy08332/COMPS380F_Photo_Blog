@@ -17,7 +17,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.Principal;
 import java.util.Base64;
 import java.util.List;
 
@@ -33,6 +32,9 @@ public class PhotoController {
 
     @Resource
     private PhotosService photosService;
+
+    @Resource
+    private CommentsService commentsService;
 
     @GetMapping("/show")
     public String show(){ return "photo"; }
@@ -63,17 +65,16 @@ public class PhotoController {
 
 
     @PostMapping("/upload")
-
-    public View upload(PhotoForm photoForm, Principal principal) throws IOException, InvalidFileFormat {
+//    public View upload(PhotoForm photoForm) throws IOException, UserNotFound {
+    public View upload(PhotoForm photoForm) throws IOException, InvalidFileFormat {
 
 
         // use Principle to find userid
 
 
-        int photoId = photosService.uploadPhoto(principal.getName(),
-                                                photoForm.getPhotoTitle(),
-                                                photoForm.getPhotoData(),
-                                                photoForm.getPhotoDescription());
+        int photoId = photosService.uploadPhoto(photoForm.getPhotoTitle(),
+                photoForm.getPhotoData(),
+                photoForm.getPhotoDescription());
 
 
         return new RedirectView("/photo/show/" + photoId, true);
@@ -97,6 +98,10 @@ public class PhotoController {
         model.addAttribute("photoDetails", photoDetails);
         model.addAttribute("photoImg", photoImg);
 
+        Comments comments = commentsService.findPhotoAllComments(photoId);
+
+        model.addAttribute("comments", comments);
+        
         return "photo";
 
     }
