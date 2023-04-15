@@ -106,6 +106,12 @@
             </bold>
         </li>
 
+        <li>
+            <bold>
+                <a href='<c:url value="/"/>'>Home Page</a>
+            </bold>
+        </li>
+
     </ul>
 </div>
 <div class="container container-table">
