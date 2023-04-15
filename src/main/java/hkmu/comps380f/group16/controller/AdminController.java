@@ -66,7 +66,7 @@ public class AdminController {
                                 form.getUserDescription(),
                                 form.getUserRole());
 
-        return "redirect:/admin/panel";
+        return "redirect:/admin/panel/user";
 
     }
 
@@ -74,7 +74,7 @@ public class AdminController {
     public String deleteUser(@PathVariable("userId") String userId) throws UserNotFound{
 
         usersService.deleteUser(userId);
-        return "redirect:/admin/panel";
+        return "redirect:/admin/panel/user";
     }
 
     @GetMapping("/panel/history")
