@@ -121,6 +121,23 @@ public class PhotoBlogUsersService implements UserDetailsService {
     }
 
     @Transactional
+
+    public PhotoBlogUsers findUserById(String userId) throws UserNotFound{
+
+        PhotoBlogUsers user = usersRepository.findById(userId).orElse(null);
+
+        if (user == null){
+
+            throw new UserNotFound(userId);
+
+        }
+
+        return user;
+
+    }
+
+
+    @Transactional
     public List<PhotoBlogUsers> findAllUsers(){
 
         return usersRepository.findAll();
@@ -152,5 +169,7 @@ public class PhotoBlogUsersService implements UserDetailsService {
 //        PhotoBlogUsers updatedUser = usersRepository.
 
     }
+
+
 
 }

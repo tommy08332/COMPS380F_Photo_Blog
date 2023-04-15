@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,12 +124,10 @@
         <div class="text-center col-md-5 col-md-offset-3" style="padding-top:5%;">
 
             <div class="card">
-                <img src="https://i.redd.it/tkm6dn0t7ti21.jpg" alt="John" style="width:100%">
-                <h1>John Doe</h1>
-                <p>User Description</p>
-                <p>User Description</p>
-                <p>User Description</p>
-                <p>User Description</p>
+                <h1><c:out value="${blogUsers.username}"/> </h1>
+                <p><c:out value="${blogUsers.phoneNum}"/></p>
+                <p><c:out value="${blogUsers.email}"/></p>
+                <p><c:out value="${blogUsers.userDescription}"/></p>
                 <p>
                     <button>Edit</button>
                 </p>
