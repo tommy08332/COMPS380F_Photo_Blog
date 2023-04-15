@@ -1,12 +1,15 @@
 package hkmu.comps380f.group16.controller;
 
 import hkmu.comps380f.group16.dao.PhotoBlogUsersService;
+import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -30,6 +33,108 @@ public class AdminController {
 
     }
 
+    @GetMapping("/panel/edit/{username:.+}")
+    public ModelAndView editUser(@PathVariable("username") String username, ModelMap model)
+            throws UserNotFound {
+
+        PhotoBlogUsers user = usersService.findUser(username);
+
+        model.addAttribute("user", user);
+
+        return new ModelAndView(
+                "edit",
+                "editPhotoUser",
+                new editForm()
+        );
+
+    }
+
+    @PostMapping("/panel/edit/{username:.+}")
+    public View editUser(editForm form){
+
+        usersService.updateUser(form.getUsername(),
+                form.getPassword(),
+                form.getEmail(),
+                form.getPhoneNum(),
+                form.getUserDescription(),
+                form.getUserRole());
+        return new RedirectView("/panel/edit/");
+
+    }
+
+
+    @ExceptionHandler({UserNotFound.class})
+    public ModelAndView error(Exception e){
+
+        return new ModelAndView("error", "err_message", e.getMessage());
+    }
+
+    public class editForm{
+
+        private String username;
+        private String password;
+
+        private String phoneNum;
+
+        private String email;
+
+        private String userDescription;
+
+        private String[] userRole;
+
+        public String getUsername() {
+
+            return username;
+        }
+
+        public void setUsername(String username) {
+
+            this.username = username;
+        }
+
+        public String getPassword() {
+
+            return password;
+        }
+
+        public void setPassword(String password) {
+
+            this.password = password;
+        }
+
+        public String getPhoneNum() {
+            return phoneNum;
+        }
+
+        public void setPhoneNum(String phoneNum) {
+            this.phoneNum = phoneNum;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getUserDescription() {
+            return userDescription;
+        }
+
+        public void setUserDescription(String userDescription) {
+            this.userDescription = userDescription;
+        }
+
+        public String[] getUserRole() {
+
+            return userRole;
+        }
+
+        public void setUserRole(String[] userRole) {
+
+            this.userRole = userRole;
+        }
+    }
+
 }
-
-

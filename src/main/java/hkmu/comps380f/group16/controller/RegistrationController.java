@@ -32,23 +32,25 @@ public class RegistrationController {
     @GetMapping("/create")
     public ModelAndView create(){
 
-        return new ModelAndView("registration",
+        return new ModelAndView(
+                "registration",
                 "createPhotoUser",
-                new applicationForm());
+                new applicationForm()
+        );
     }
 
     @PostMapping("/create")
     public View create(applicationForm appForm)
             throws IOException,
-                   UserAccountAlreadyExists,
-                   EmailAlreadyUsed,
-                   PhoneNumberAlreadyUsed {
+            UserAccountAlreadyExists,
+            EmailAlreadyUsed,
+            PhoneNumberAlreadyUsed {
 
         usersService.createUserAccount(appForm.getUsername(),
-                                       appForm.getPassword(),
-                                       appForm.getPhoneNum(),
-                                       appForm.getEmail(),
-                                       appForm.getUserRole());
+                appForm.getPassword(),
+                appForm.getPhoneNum(),
+                appForm.getEmail(),
+                appForm.getUserRole());
 
 
         return new RedirectView("/PhotoBlog/login");
@@ -56,8 +58,8 @@ public class RegistrationController {
     }
 
     @ExceptionHandler({UserAccountAlreadyExists.class,
-                       EmailAlreadyUsed.class,
-                       PhoneNumberAlreadyUsed.class})
+            EmailAlreadyUsed.class,
+            PhoneNumberAlreadyUsed.class})
     public ModelAndView error(Exception e){
 
         return new ModelAndView("error", "err_message", e.getMessage());
