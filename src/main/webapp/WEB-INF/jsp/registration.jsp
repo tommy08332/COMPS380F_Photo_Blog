@@ -2,47 +2,80 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+    <style>
+        html, body, .container-table {
+            height: 100%;
+        }
+
+        .vertical-center-row {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .container-table {
+            display: table;
+        }
+
+
+    </style>
     <title>Register User</title>
 </head>
 <body>
+<div class="container container-table">
+    <div class="row vertical-center-row">
+        <div class="text-center col-md-5 col-md-offset-3" style="background-color: #ff6699">
 
-<h1>Register Page</h1>
+            <h1>
+                <bold>Register Page</bold>
+            </h1>
+
+            <form:form method="POST" modelAttribute="createPhotoUser">
+                <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 92%;bottom:80%; border: none;"><a href="<c:url value="/PhotoBlog/"/>" style="color:black;">
+                    <h2><bold style="color:black;">X</bold></h2>
+                </a></button>
+
+                <div style="display: inline-block">
+                <div>
+                    <form:label path="username">Username: </form:label>
+                    <form:input type="text" path="username"/>
+                    </br>
+
+                    <form:label path="password">Password: </form:label>
+                    <form:input type="text" path="password"/>
+                </div>
+                <div>
+                    <form:label path="phoneNum">Phone number: </form:label>
+                    <form:input type="text" path="phoneNum"/>
+                    </br>
+
+                    <form:label path="email">Email: </form:label>
+                    <form:input type="text" path="email"/>
+
+                </div>
+                </div>
+                <security:authorize access="hasRole('ADMIN')">
+
+                    <form:label path="userRole">User Roles: </form:label>
+
+                    <form:checkbox path="userRole" value="ROLE_USER"/>Normal User
+                    <form:checkbox path="userRole" value="ROLE_ADMIN"/>Admin User
+
+                </security:authorize>
 
 
-
-<form:form method="POST" modelAttribute="createPhotoUser">
-
-    <form:label path="username">Username: </form:label>
-    <form:input type="text" path="username" />
-    <br/>
-
-    <form:label path="password">Password: </form:label>
-    <form:password path="password" />
-    <br/>
-
-    <form:label path="phoneNum">Phone number: </form:label>
-    <form:input type="text" path="phoneNum" />
-    <br/>
-
-    <form:label path="email">Email: </form:label>
-    <form:input type="text" path="email" />
-    <br/>
-
-    <security:authorize access="hasRole('ADMIN')">
-
-        <form:label path="userRole">User Roles: </form:label>
-
-        <form:checkbox path="userRole" value="ROLE_USER" />Normal User
-        <form:checkbox path="userRole" value="ROLE_ADMIN" />Admin User
-
-    </security:authorize>
+                <br/>
+                <input class="btn btn-success" type="submit" value="Register"/>
 
 
-    <br/>
-    <input type="submit" value="Register"/>
-
-
-</form:form>
-
+            </form:form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
