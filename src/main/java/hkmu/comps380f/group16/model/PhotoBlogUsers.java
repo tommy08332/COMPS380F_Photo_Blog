@@ -21,6 +21,9 @@ public class PhotoBlogUsers {
     @Column(name= "email")
     private String email;
 
+    @Column(name= "user_description")
+    private String userDescription;
+
 
 
     @OneToMany(mappedBy = "photoBlogUsers",
@@ -81,6 +84,14 @@ public class PhotoBlogUsers {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUserDescription() {
+        return userDescription;
+    }
+
+    public void setUserDescription(String userDescription) {
+        this.userDescription = userDescription;
     }
 
     public List<UserRole> getUserRoles() {

@@ -118,7 +118,7 @@ public class PhotosService {
 
     // for index page
     @Transactional
-    public List<Photos> findAllPhotos() throws PhotoNotFound {
+    public List<Photos> findAllPhotos() {
 
         return photosRepository.findAll();
 

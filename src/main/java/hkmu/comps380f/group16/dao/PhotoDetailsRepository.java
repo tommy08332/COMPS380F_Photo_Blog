@@ -7,5 +7,6 @@ public interface PhotoDetailsRepository extends JpaRepository<PhotoDetails, Inte
 
     PhotoDetails findByPhotoId(int photoId);
 
+
 }
 
