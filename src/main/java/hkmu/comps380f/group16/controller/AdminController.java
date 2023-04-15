@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -33,11 +31,11 @@ public class AdminController {
 
     }
 
-    @GetMapping("/panel/edit/{username:.+}")
-    public ModelAndView editUser(@PathVariable("username") String username, ModelMap model)
+    @GetMapping("/panel/edit/user/{userId:.+}")
+    public ModelAndView editUser(@PathVariable("userId") String userId, ModelMap model)
             throws UserNotFound {
 
-        PhotoBlogUsers user = usersService.findUser(username);
+        PhotoBlogUsers user = usersService.findUserById(userId);
 
         model.addAttribute("user", user);
 
@@ -49,18 +47,29 @@ public class AdminController {
 
     }
 
-    @PostMapping("/panel/edit/{username:.+}")
-    public View editUser(editForm form){
+    @PostMapping("/panel/edit/user/{userId:.+}")
+    public String editUser(@PathVariable("userId") String userId, editForm form) throws UserNotFound{
 
-        usersService.updateUser(form.getUsername(),
-                form.getPassword(),
-                form.getEmail(),
-                form.getPhoneNum(),
-                form.getUserDescription(),
-                form.getUserRole());
-        return new RedirectView("/panel/edit/");
+        usersService.updateUser(userId,
+                                form.getUsername(),
+                                form.getPassword(),
+                                form.getEmail(),
+                                form.getPhoneNum(),
+                                form.getUserDescription(),
+                                form.getUserRole());
+
+        return "redirect:/admin/panel";
 
     }
+
+    @GetMapping("/panel/delete/user/{userId:.+}")
+    public String deleteUser(@PathVariable("userId") String userId) throws UserNotFound{
+
+        usersService.deleteUser(userId);
+        return "redirect:/admin/panel";
+    }
+
+
 
 
     @ExceptionHandler({UserNotFound.class})
@@ -70,6 +79,8 @@ public class AdminController {
     }
 
     public class editForm{
+
+        private String userId;
 
         private String username;
         private String password;
@@ -81,6 +92,14 @@ public class AdminController {
         private String userDescription;
 
         private String[] userRole;
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
 
         public String getUsername() {
 

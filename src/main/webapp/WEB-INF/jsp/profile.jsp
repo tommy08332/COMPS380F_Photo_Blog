@@ -12,34 +12,28 @@
             list-style-type: none;
             width: 100%;
         }
-
         li {
             display: inline;
             padding-left: 7%;
         }
-
         .tableFixHead {
             overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
             height: 800px; /* gives an initial height of 200px to the table */
         }
-
         table {
             border-collapse: collapse; /* make the table borders collapse to each other */
             width: 100%;
             height: 50%;
         }
-
         th,
         td {
             padding: 8px 16px;
             border: 1px solid #ccc;
         }
-
         th {
             height: 300px;
             background: #eee;
         }
-
         .card {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             max-width: 300px;
@@ -47,7 +41,6 @@
             text-align: center;
             font-family: arial;
         }
-
         button {
             border: none;
             outline: 0;
@@ -60,18 +53,14 @@
             width: 100%;
             font-size: 18px;
         }
-
-
         ul {
             list-style-type: none;
             width: 100%;
         }
-
         li {
             display: inline;
             padding-left: 7%;
         }
-
         button:hover, a:hover {
             opacity: 0.7;
         }

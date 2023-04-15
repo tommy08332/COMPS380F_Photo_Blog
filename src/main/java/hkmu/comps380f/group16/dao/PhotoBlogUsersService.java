@@ -28,7 +28,11 @@ public class PhotoBlogUsersService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        System.out.println("before" );
+
         PhotoBlogUsers findUser = usersRepository.findByUsername(username);
+
+        System.out.println("findUser" + findUser);
 
 
         if (findUser == null){
@@ -112,7 +116,7 @@ public class PhotoBlogUsersService implements UserDetailsService {
 
         if (user == null){
 
-            throw new UserNotFound(username);
+            throw new UserNotFound("Username '" + username + "' not found.");
 
         }
 
@@ -128,7 +132,7 @@ public class PhotoBlogUsersService implements UserDetailsService {
 
         if (user == null){
 
-            throw new UserNotFound(userId);
+            throw new UserNotFound("User Id '" + userId + "' not found.");
 
         }
 
@@ -144,12 +148,12 @@ public class PhotoBlogUsersService implements UserDetailsService {
     }
 
     @Transactional
-    public void deleteUser(String username) throws UserNotFound {
+    public void deleteUser(String userId) throws UserNotFound {
 
-        PhotoBlogUsers targetUser = usersRepository.findByUsername(username);
+        PhotoBlogUsers targetUser = usersRepository.findById(userId).orElse(null);
         if (targetUser == null){
 
-            throw new UserNotFound(username);
+            throw new UserNotFound("User Id '" + userId + "' not found.");
 
         }
 
@@ -159,14 +163,66 @@ public class PhotoBlogUsersService implements UserDetailsService {
     }
 
     @Transactional
-    public void updateUser(String username,
+    public void updateUser(String userId,
+                           String username,
                            String password,
                            String email,
                            String phoneNumber,
                            String userDescription,
-                           String[] userRole){
+                           String[] updateRoles) throws UserNotFound{
 
-//        PhotoBlogUsers updatedUser = usersRepository.
+        PhotoBlogUsers updatedUser = usersRepository.findById(userId).orElse(null);
+        if (updatedUser == null){
+            throw new UserNotFound("User Id '" + userId + "' not found.");
+
+        }
+
+
+        updatedUser.setUserId(Long.parseLong(userId));
+        updatedUser.setUsername(username);
+        updatedUser.setPassword("{noop}"+password);
+        updatedUser.setEmail(email);
+        updatedUser.setPassword(phoneNumber);
+        updatedUser.setUserDescription(userDescription);
+
+
+//        List<UserRole> userRoleList = new ArrayList<>();
+//        for (UserRole role : updatedUser.getUserRoles()){
+//
+//
+//
+//            System.out.println(role.setUserRole(););
+//
+//        }
+
+        for (int i = 0; i < updatedUser.getUserRoles().size() - 1; i++){
+
+            updatedUser.getUserRoles().get(i).setUserRole(updateRoles[i]);
+
+        }
+
+//        uRole.setUserId(Long.parseLong(userId));
+
+
+
+//        List<UserRole> newUserRoles = new ArrayList<>();
+
+
+//        for (UserRole role : updatedUser.getUserRoles()){
+//
+//            for (String update : updateRoles){
+//
+//                newUserRoles.add()
+//
+//                }
+//
+//            }
+
+
+//        }
+
+        usersRepository.save(updatedUser);
+
 
     }
 

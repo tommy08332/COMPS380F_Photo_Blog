@@ -8,6 +8,8 @@
 
 <h1>Register Page</h1>
 
+
+
 <form:form method="POST" modelAttribute="createPhotoUser">
 
     <form:label path="username">Username: </form:label>

@@ -52,8 +52,8 @@
 
                         <c:out value="${fn:substringAfter(role.userRole, 'ROLE_')}" />
                     </c:forEach></td>
-                    <td><a href="<c:url value="/admin/panel/edit/${user.username}"/> ">Edit</a></td>
-
+                    <td><a href="<c:url value="/admin/panel/edit/user/${user.userId}"/> ">Edit</a></td>
+                    <td><a href="<c:url value="/admin/panel/delete/user/${user.userId}"/> ">Delete</a></td>
 
                 </tr>
 
