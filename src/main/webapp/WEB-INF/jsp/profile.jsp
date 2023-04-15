@@ -135,43 +135,69 @@
 
 <div class="container">
     <div class="tableFixHead">
-        <table>
-            <thead>
-
-            </thead>
+       <table>
             <tbody>
             <tr>
                 <th>
-                    <img src="https://pbs.twimg.com/profile_images/428316729220276224/EdBZ2Kgp.jpeg" width="100%"
-                         height="100%">
-                </th>
+                    <div style="display: inline;padding-right: 10%;">
+                        <img src="https://pbs.twimg.com/profile_images/428316729220276224/EdBZ2Kgp.jpeg"
+                             style="width: 300px;">
+                    </div>
+                    <div style="display: inline;padding-right: 10%;">
+                        <label><h3>Title:</h3></br></br></br>
+                        Monkey</label>
+                    </div>
+                    <div style="display: inline;padding-right: 10%;">
+                        <label><h3>Description :</h3></br></br></br>
+                        This is a Monkey</label>
+                    </div>
+                    <div style="display: inline">
+                        <label><h3>Upload-On :</h3></br></br></br>
+                            2023/04/07</label>
+                    </div>
 
-                <th>
-                    <img src="https://www.dumpaday.com/wp-content/uploads/2017/01/random-pictures-74.jpg" width="100%"
-                         height="100%">
-                </th>
-                <th>
-                    <img src="http://cdn.ebaumsworld.com/mediaFiles/picture/1035099/85708057.jpg"
-                         width="100%" height="100%">
                 </th>
             </tr>
-
             <tr>
                 <th>
-                    <img src="https://i.ytimg.com/vi/-K3SbSQ2oNI/hqdefault.jpg"
-                         width="100%" height="100%">
-                </th>
-                <th>
-                    <img src="https://img.izismile.com/img/img12/20190327/640/random_things_that_look_like_something_else_640_high_02.jpg"
-                         width="100%" height="100%">
-                </th>
-                <th>
-                    <img src="https://cdn.ebaumsworld.com/mediaFiles/picture/2117880/82537959.jpg"
-                         width="100%" height="100%">
-                </th>
+                    <div style="display: inline;padding-right: 10%;">
+                        <img src="https://www.dumpaday.com/wp-content/uploads/2017/01/random-pictures-74.jpg"
+                             style= "width:300px">
+                    </div>
+                    <div style="display: inline;padding-right: 10%;">
+                        <label><h3>Title:</h3></br></br></br>
+                            Bear</label>
+                    </div>
+                    <div style="display: inline;padding-right: 10%;">
+                        <label><h3>Description :</h3></br></br></br>
+                            This is a Bear</label>
+                    </div>
+                    <div style="display: inline">
+                        <label><h3>Upload-On :</h3></br></br></br>
+                            2023/05/01</label>
+                    </div>
 
+                </th>      
             </tr>
-
+            <tr>
+                <th>
+                    <div style="display: inline;padding-right: 10%;">
+                        <img src="https://i.ytimg.com/vi/-K3SbSQ2oNI/hqdefault.jpg"   style= "width:300px">
+                    </div>
+                    <div style="display: inline;padding-right: 10%;">
+                        <label><h3>Title:</h3></br></br></br>
+                            Wong Ping Kun</label>
+                    </div>
+                    <div style="display: inline;padding-right: 10%;">
+                        <label><h3>Description :</h3></br></br></br>
+                            This is a Wong Ping Kun</label>
+                    </div>
+                    <div style="display: inline">
+                        <label><h3>Upload-On :</h3></br></br></br>
+                            2023/04/23</label>
+                    </div>
+                </th> 
+            </tr>
             </tbody>
         </table>
     </div>
