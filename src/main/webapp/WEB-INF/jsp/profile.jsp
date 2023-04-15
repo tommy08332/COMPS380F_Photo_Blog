@@ -136,32 +136,28 @@
             <tbody>
             <tr>
                 <th>
-                    <img src="https://pbs.twimg.com/profile_images/428316729220276224/EdBZ2Kgp.jpeg" width="100%"
-                         height="100%">
+                    <img src="https://pbs.twimg.com/profile_images/428316729220276224/EdBZ2Kgp.jpeg" style="width:100px">
                 </th>
 
                 <th>
-                    <img src="https://www.dumpaday.com/wp-content/uploads/2017/01/random-pictures-74.jpg" width="100%"
-                         height="100%">
+                    <img src="https://www.dumpaday.com/wp-content/uploads/2017/01/random-pictures-74.jpg" style="width:100px">
                 </th>
                 <th>
-                    <img src="http://cdn.ebaumsworld.com/mediaFiles/picture/1035099/85708057.jpg"
-                         width="100%" height="100%">
+                    <img src="http://cdn.ebaumsworld.com/mediaFiles/picture/1035099/85708057.jpg" style="width:100px">
                 </th>
             </tr>
 
             <tr>
                 <th>
-                    <img src="https://i.ytimg.com/vi/-K3SbSQ2oNI/hqdefault.jpg"
-                         width="100%" height="100%">
+                    <img src="https://i.ytimg.com/vi/-K3SbSQ2oNI/hqdefault.jpg" style="width:100px">
                 </th>
                 <th>
                     <img src="https://img.izismile.com/img/img12/20190327/640/random_things_that_look_like_something_else_640_high_02.jpg"
-                         width="100%" height="100%">
+                         style="width:100px">
                 </th>
                 <th>
                     <img src="https://cdn.ebaumsworld.com/mediaFiles/picture/2117880/82537959.jpg"
-                         width="100%" height="100%">
+                         style="width:100px">
                 </th>
 
             </tr>

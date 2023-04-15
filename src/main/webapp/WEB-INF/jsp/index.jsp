@@ -147,7 +147,7 @@
 
                                     <img alt="img"
                                          src="data:image/${photos.get(i).photoFileType};base64,${fileContent.get(i)}"
-                                         width="100%" height="100%"/>
+                                         style="width:300px"/>
                                 </a>
 
                             </td>
