@@ -15,7 +15,7 @@
     <br/>
 
     <form:label path="password">Password: </form:label>
-    <form:password path="password" />
+    <form:input type="text" path="password" />
     <br/>
 
     <form:label path="phoneNum">Phone number: </form:label>

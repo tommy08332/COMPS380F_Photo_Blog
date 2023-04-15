@@ -42,17 +42,19 @@
                         <c:forEach items="${users}" var="user">
                             <tr>
 
-                                <td><c:out value="${user.username}" /></td>
-                                <td><c:out value="${fn:substringAfter(user.password, '{noop}')}" /></td>
-                                <td><c:out value="${user.email}" /></td>
-                                <td><c:out value="${user.phoneNum}" /></td>
-                                <td><c:out value="${user.userDescription}" /></td>
+                                <td>${user.username}</td>
+                                <td>${fn:substringAfter(user.password, "{noop}")}</td>
+                                <td>${user.email}</td>
+                                <td>${user.phoneNum}</td>
+                                <td>${user.userDescription}</td>
                                 <td><c:forEach items="${user.userRoles}" var="role" varStatus="roleStatus">
-                                    <c:if test="${!roleStatus.first}">, </c:if>
+                                    <c:if test="${!roleStatus.first}">
+                                        ,
+                                    </c:if>
 
-                                    <c:out value="${fn:substringAfter(role.userRole, 'ROLE_')}" />
+                                    ${fn:substringAfter(role.userRole, "ROLE_")}
                                 </c:forEach></td>
-                                <td><a href="<c:url value="/admin/panel/edit/${user.username}"/> ">Edit</a></td>
+                                <td><button>Edit</button></td>
 
 
                             </tr>

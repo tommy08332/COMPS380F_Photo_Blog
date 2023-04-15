@@ -12,16 +12,15 @@ public class UserRole {
     @Column(name = "user_role_id")
     private int userRoleId;
 
-    @Column(name = "user_id", insertable = false,
-            updatable = false, nullable = false)
-    private long userId;
+    @Column(insertable = false, updatable = false, nullable = false)
+    private String username;
     @Column(name = "user_role", nullable = false)
     private String userRole;
 
 
     // Foreign key
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "username")
     private PhotoBlogUsers photoBlogUsers;
 
     public UserRole(){};
@@ -43,12 +42,12 @@ public class UserRole {
         this.userRoleId = userRoleId;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getUserRole() {
