@@ -26,17 +26,14 @@
         th {
             background: #eee;
         }
-
-        img {
-            max-width: 500px;
-            max-height: 500px;
-        }
     </style>
 
     <title>Photo</title>
 </head>
 <body>
 
+
+<button>login</button>
 <div class="row">
     <div class="col-sm-6" style="padding-left:15%;">
         <%--    photos.photoData is a bytes array that stored the photo file data    --%>
@@ -51,30 +48,28 @@
             <c:otherwise>
 
                 <div>
-                    <label><h3><c:out value="${photoDetails.photoTitle}" /></h3></label>
+                    <label><h3>${photoDetails.photoTitle}</h3></label>
                 </div>
 
-                <!--                 <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}" width="500" height="500"/> -->
-                <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}"/>
+                <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}" width="500" height="500"/>
 
                 <div>
-                    <label>Uploaded by: <c:out value="${photos.uploadUsername}" /></label><br>
+                    <label>Uploaded by: ${photos.uploadUsername}</label><br>
                 </div>
                 <div>
-                    <label>File name: <c:out value="${photos.photoFilename}" /></label><br>
+                    <label>File name: ${photos.photoFilename}</label><br>
                 </div>
 
                 <div>
-                    <label>Description: <c:out value="${photoDetails.photoDescription}" /></label><br>
+                    <label>Description: ${photoDetails.photoDescription}</label><br>
                 </div>
                 <div>
-
                     <label>Uploaded On: <fmt:formatDate value="${photos.photoUploadedDatetime}" pattern="yyyy-MM-dd hh:mm:ss" /> </label>
                 </div>
 
             </c:otherwise>
 
-
+            
         </c:choose>
 
     </div>
@@ -94,6 +89,31 @@
                 </tr>
                 </thead>
                 <tbody>
+                    <c:choose>
+                        <c:when test="${empty comments}">
+                            <tr>
+                                <div>
+                                    There doesn't have comments.
+                                </div>
+                            </tr>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="i" begin="0" end="${comments.size()-1}">
+                                <tr>
+                                    <div>
+                                        <div style="padding-bottom: 5%">
+                                            date : <fmt:formatDate value="${comments.commentDatetime}" pattern="yyyy-MM-dd hh:mm:ss" />
+                                            <!-- <button>Edit</button>
+                                            <button>Delete</button> -->
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label>${comments.commentText}</label>
+                                    </div>
+                                </tr>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 <tr>
                     <th>
                         <div>
@@ -108,107 +128,6 @@
                         </div>
                     </th>
 
-                </tr>
-                <tr>
-                    <th>
-                        <div>
-                            <div style="padding-bottom: 5%">
-                                date : 7/4/2023
-                                <button>Edit</button>
-                                <button>Delete</button>
-                            </div>
-                        </div>
-                        <div>
-                            <label>This is comment !!!!!</label>
-                        </div>
-                    </th>
-
-                </tr>
-                <tr>
-                    <th>
-                        <div>
-                            <div style="padding-bottom: 5%">
-                                date : 7/4/2023
-                                <button>Edit</button>
-                                <button>Delete</button>
-                            </div>
-                        </div>
-                        <div>
-                            <label>This is comment !!!!!</label>
-                        </div>
-                    </th>
-
-                </tr>
-                <tr>
-                    <th>
-                        <div>
-                            <div style="padding-bottom: 5%">
-                                date : 7/4/2023
-                                <button>Edit</button>
-                                <button>Delete</button>
-                            </div>
-                        </div>
-                        <div>
-                            <label>This is comment !!!!!</label>
-                        </div>
-                    </th>
-
-                </tr>
-                <tr>
-                    <th>
-                        <div>
-                            <div style="padding-bottom: 5%">
-                                date : 7/4/2023
-                                <button>Edit</button>
-                                <button>Delete</button>
-                            </div>
-                        </div>
-                        <div>
-                            <label>This is comment !!!!!</label>
-                        </div>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <div>
-                            <div style="padding-bottom: 5%">
-                                date : 7/4/2023
-                                <button>Edit</button>
-                                <button>Delete</button>
-                            </div>
-                        </div>
-                        <div>
-                            <label>This is comment !!!!!</label>
-                        </div>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <div>
-                            <div style="padding-bottom: 5%">
-                                date : 7/4/2023
-                                <button>Edit</button>
-                                <button>Delete</button>
-                            </div>
-                        </div>
-                        <div>
-                            <label>This is comment !!!!!</label>
-                        </div>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <div>
-                            <div style="padding-bottom: 5%">
-                                date : 7/4/2023
-                                <button>Edit</button>
-                                <button>Delete</button>
-                            </div>
-                        </div>
-                        <div>
-                            <label>This is comment !!!!!</label>
-                        </div>
-                    </th>
                 </tr>
                 </tbody>
             </table>
