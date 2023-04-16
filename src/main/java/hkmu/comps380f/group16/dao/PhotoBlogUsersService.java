@@ -200,5 +200,20 @@ public class PhotoBlogUsersService implements UserDetailsService {
         usersRepository.save(updatedUser);
 
     }
+    
+    @Transactional
+    public void updateUserDescription(String userId,
+                                      String userDescription) throws UserNotFound {
+
+        PhotoBlogUsers updateUserDescription = usersRepository.findById(userId).orElse(null);
+        if (updateUserDescription == null){
+            throw new UserNotFound("User Id '" + userId + "' not found.");
+        }
+
+        updateUserDescription.setUserDescription(userDescription);
+
+        usersRepository.save(updateUserDescription);
+
+    }
 
 }
