@@ -27,21 +27,21 @@
     <title>Register User</title>
 </head>
 <body>
-<div class="container container-table">
+<div class="container container-table col-md-offset-3">
     <div class="row vertical-center-row">
-        <div class="text-center col-md-5 col-md-offset-3" style="background-color: #ff6699">
+        <div class="text-center col-md-5 " style="background-color: whitesmoke;width: 70%;height: 23%">
 
-            <h1>
+               <h1 style="margin:0;padding-bottom: 5%;padding-top: 2%;">
                 <bold>Register Page</bold>
             </h1>
 
             <form:form method="POST" modelAttribute="createPhotoUser">
-                <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 92%;bottom:80%; border: none;"><a href="<c:url value="/PhotoBlog/"/>" style="color:black;">
+                <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 95%;bottom:70%; border: none;"><a href="<c:url value="/PhotoBlog/"/>" style="color:black;">
                     <h2><bold style="color:black;">X</bold></h2>
                 </a></button>
 
-                <div style="display: inline-block">
-                <div>
+              <div style="display: flex;">
+                <div style="padding-left: 8%;">
                     <form:label path="username">Username: </form:label>
                     <form:input type="text" path="username"/>
                     </br>
@@ -49,12 +49,12 @@
                     <form:label path="password">Password: </form:label>
                     <form:input type="text" path="password"/>
                 </div>
-                <div>
+                <div style="padding-left: 15%;">
                     <form:label path="phoneNum">Phone number: </form:label>
                     <form:input type="text" path="phoneNum"/>
                     </br>
 
-                    <form:label path="email">Email: </form:label>
+                    <form:label cssStyle="padding-left: 20%;" path="email">Email: </form:label>
                     <form:input type="text" path="email"/>
 
                 </div>
