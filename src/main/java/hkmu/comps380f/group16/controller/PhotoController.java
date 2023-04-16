@@ -88,7 +88,7 @@ public class PhotoController {
     }
 
     @GetMapping("/show/{photoId:.+}")
-    public ModelAndView showPhotoAndComment(@PathVariable("photoId") int photoId)
+    public ModelAndView showPhotoAndComment(@PathVariable("photoId") int photoId, Principal principal)
             throws PhotoNotFound, UnsupportedEncodingException, CommentsNotFound {
                 ModelAndView model = new ModelAndView("photo");
 
@@ -105,6 +105,9 @@ public class PhotoController {
         model.addObject("photoDetails", photoDetails);
         model.addObject("photoImg", photoImg);
 
+
+        model.addObject("username", principal);
+
         List<Comments> comments = commentsService.findPhotoAllComments(photoId);
 
         System.out.println(comments.size());
@@ -115,29 +118,29 @@ public class PhotoController {
         return model;
 
     }
-    
+
     @PostMapping("/show/{photoId:.+}")
-    public String showPhotoAndComment(@PathVariable("photoId") int photoId, CommentForm comment) throws CommentsNotFound, PhotoNotFound{
+    public String showPhotoAndComment(@PathVariable("photoId") int photoId, CommentForm comment, Principal principal) throws CommentsNotFound, PhotoNotFound{
         switch (comment.getOrder()) {
             case "UPDATE":
 //                Comments old_commment = commentsService.fin
                 System.out.println("Now doing update\ncomment ID : " + comment.getCommentId() + "\ncomment : " + comment.getCommentText());
                 commentsService.updateComment(comment.getCommentId(), comment.getCommentText());
-                
+
                 break;
 
             case "INSERT":
                 System.out.println("Now doing insert\ncomment : " + comment.getCommentText());
-                commentsService.insertComment(photoId, comment.getCommentText());
+                commentsService.insertComment(photoId, comment.getCommentText(), principal.getName());
 
                 break;
-            
+
             case "DELETE":
                 System.out.println("Now doing delete\ncomment ID: " + comment.getCommentId());
                 commentsService.deleteComment(comment.getCommentId());
-                
+
                 break;
-        
+
             default:
                 break;
         }
