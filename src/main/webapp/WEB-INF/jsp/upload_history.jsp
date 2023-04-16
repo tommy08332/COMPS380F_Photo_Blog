@@ -51,24 +51,28 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="i" begin="0" end="${photos.size()-1}">
-                <tr>
-                    <td>
-                        <a href="<c:url value="/photo/show/${photos.get(i).photoId}" /> ">
+            <c:if test="${!empty photos}">
 
-                            <img alt="img"
-                                 src="data:image/${photos.get(i).photoFileType};base64,${fileContent.get(i)}"
-                                 style="width:100px"/>
-                        </a>
-                    </td>
-                    <td><c:out value="${photos.get(i).photoDetails.get(0).photoTitle}" /></td>
-                    <td><c:out value="${photos.get(i).photoDetails.get(0).photoDescription}" /></td>
-                    <td><c:out value="${photos.get(i).photoFilename}" /></td>
-                    <td><c:out value="${photos.get(i).photoFileType}" /></td>
-                    <td><fmt:formatDate value="${photos.get(i).photoUploadedDatetime}" pattern="yyyy-MM-dd hh:mm:ss" /></td>
-                    <td><c:out value="${photos.get(i).uploadUsername}" /></td>
-                </tr>
-            </c:forEach>
+                <c:forEach var="i" begin="0" end="${photos.size()-1}">
+                    <tr>
+                        <td>
+                            <a href="<c:url value="/photo/show/${photos.get(i).photoId}" /> ">
+
+                                <img alt="img"
+                                     src="data:image/${photos.get(i).photoFileType};base64,${fileContent.get(i)}"
+                                     style="width:100px"/>
+                            </a>
+                        </td>
+                        <td><c:out value="${photos.get(i).photoDetails.get(0).photoTitle}" /></td>
+                        <td><c:out value="${photos.get(i).photoDetails.get(0).photoDescription}" /></td>
+                        <td><c:out value="${photos.get(i).photoFilename}" /></td>
+                        <td><c:out value="${photos.get(i).photoFileType}" /></td>
+                        <td><fmt:formatDate value="${photos.get(i).photoUploadedDatetime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                        <td><c:out value="${photos.get(i).uploadUsername}" /></td>
+                    </tr>
+                </c:forEach>
+            </c:if>
+
         </tbody>
     </table>
 </security:authorize>
