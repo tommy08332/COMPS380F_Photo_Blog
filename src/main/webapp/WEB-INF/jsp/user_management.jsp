@@ -3,111 +3,149 @@
 <!DOCTYPE html>
 <html>
 <style>
+    ul {
+        list-style-type: none;
+        width: 100%;
+    }
+
+    li {
+        display: inline;
+        padding-left: 7%;
+    }
+
     table, th, td {
-        border:1px solid black;
+        border: 1px solid black;
     }
-    table, th, td, img{
-        /*max-width: 400px;*/
-        /*max-height: 400px;*/
+    th{
+        width:10%;
     }
+    td{
+        font-weight: bold;
+        padding: 0;
+        text-align: center;
+    }
+    #adduser{
+        background-color: gold;
+        border: none;
+
+    }
+
 </style>
 <head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <title>Admin Panel - User Management</title>
 </head>
 <body>
-
-<security:authorize access="hasRole('ADMIN')">
-
-
-    <h1>Admin Panel - User management</h1>
-
-    <ul>
-
-        <li>
-            <bold>
-                <a href="<c:url value="/admin/panel/user"/>">User Management</a>
-            </bold>
-        </li>
-
-        <li>
-            <bold>
-                <a href="<c:url value="/admin/panel/history"/>">Upload History</a>
-            </bold>
-        </li>
-
-        <li>
-            <bold>
-                <c:url var="logoutUrl" value="/logout" />
-                <form action="${logoutUrl}" method="POST" >
-                    <input type="submit" class="link-button" value="Log out">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                </form>
-            </bold>
-        </li>
-
-    </ul>
-
-    <a href="<c:url value="/registration/create"/>" >Create new user</a>
+<div class="container">
+    <div class="row">
+        <div class="col-lg">
+            <security:authorize access="hasRole('ADMIN')">
 
 
+                <h1>
+                    <bold>Admin Panel - User management</bold>
+                </h1>
 
-    <%-- list all user--%>
-    <table>
-        <caption>User Management</caption>
-        <thead>
-        <tr>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>User Description</th>
-            <th>User Role</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:if test="${!empty users}">
+                <ul style="padding-bottom: 15%;padding-top: 1.5%;">
 
-            <c:forEach items="${users}" var="user">
-                <tr>
+                    <li>
+                        <bold>
+                            <a style="text-decoration: none;" href="<c:url value="/admin/panel/user"/>">User Management</a>
+                        </bold>
+                    </li>
 
-                    <td><c:out value="${user.username}" /></td>
-                    <td><c:out value="${fn:substringAfter(user.password, '{noop}')}" /></td>
-                    <td><c:out value="${user.email}" /></td>
-                    <td><c:out value="${user.phoneNum}" /></td>
-                    <td><c:out value="${user.userDescription}" /></td>
-                    <td><c:forEach items="${user.userRoles}" var="role" varStatus="roleStatus">
-                        <c:if test="${!roleStatus.first}">, </c:if>
+                    <li>
+                        <bold>
+                            <a style="text-decoration: none;" href="<c:url value="/admin/panel/history"/>">Upload History</a>
+                        </bold>
+                    </li>
 
-                        <c:out value="${fn:substringAfter(role.userRole, 'ROLE_')}" />
-                    </c:forEach></td>
-                    <td><a href="<c:url value="/admin/panel/edit/user/${user.userId}"/> ">Edit</a></td>
-                    <td><a href="<c:url value="/admin/panel/delete/user/${user.userId}"/> ">Delete</a></td>
+                    <li>
 
-                </tr>
+                            <c:url var="logoutUrl" value="/logout"/>
+                            <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
+                                <input style="background-color: red;border: none;text-align: center;font-weight: bold;color:yellow;" type="submit" class="link-button" value="Log out">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </form>
 
-            </c:forEach>
+                    </li>
 
-        </c:if>
+                </ul>
+
+                <button id="adduser"><a style="  text-decoration: none;color: green" href="<c:url value="/registration/create"/>">Create new user</a></button>
 
 
+                <%-- list all user--%>
+                <table>
+                    <caption>User Management</caption>
+                    <thead>
+                    <tr>
+                        <th style="text-align: center;">Username</th>
+                        <th style="text-align: center;">Password</th>
+                        <th style="text-align: center;">Email</th>
+                        <th style="text-align: center;">Phone Number</th>
+                        <th style="text-align: center;">User Description</th>
+                        <th style="text-align: center;">User Role</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:if test="${!empty users}">
 
-        </tbody>
+                        <c:forEach items="${users}" var="user">
+                            <tr>
 
-    </table>
+                                <td>
+                                    <bold><c:out value="${user.username}"/></bold>
+                                </td>
+                                <td>
+                                    <bold><c:out value="${fn:substringAfter(user.password, '{noop}')}"/></bold>
+                                </td>
+                                <td>
+                                    <bold><c:out value="${user.email}"/></bold>
+                                </td>
+                                <td>
+                                    <bold><c:out value="${user.phoneNum}"/></bold>
+                                </td>
+                                <td>
+                                    <bold><c:out value="${user.userDescription}"/></bold>
+                                </td>
+                                <td>
+                                    <bold><c:forEach items="${user.userRoles}" var="role" varStatus="roleStatus">
+                                        <c:if test="${!roleStatus.first}">, </c:if>
+
+                                        <c:out value="${fn:substringAfter(role.userRole, 'ROLE_')}"/>
+                                    </c:forEach></bold>s
+                                </td>
+                                <td style="background-color: #649113;width: 10%;text-decoration: none;"><a style="margin-left: 25%;color:black" href="<c:url value="/admin/panel/edit/user/${user.userId}"/> ">Edit</a></td>
+                                <td  style="background-color: red;width: 10%;text-decoration: none;"><a style="margin-left: 25%;color: aliceblue" href="<c:url value="/admin/panel/delete/user/${user.userId}"/> ">Delete</a></td>
+
+                            </tr>
+
+                        </c:forEach>
+
+                    </c:if>
 
 
+                    </tbody>
 
-    <%-- list all photo and edit--%>
-
-    <table>
-
+                </table>
 
 
-    </table>
+                <%-- list all photo and edit--%>
 
-</security:authorize>
+                <table>
 
 
+                </table>
 
+            </security:authorize>
+
+        </div>
+    </div>
+</div>
 </body>
 </html>
