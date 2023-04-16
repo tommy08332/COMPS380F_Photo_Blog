@@ -25,6 +25,9 @@ public class PhotoBlogUsersService implements UserDetailsService {
     @Resource
     private PhotoBlogUsersRepository usersRepository;
 
+    @Resource
+    private UserRoleRepository roleRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -172,80 +175,30 @@ public class PhotoBlogUsersService implements UserDetailsService {
                            String[] updateRoles) throws UserNotFound{
 
         PhotoBlogUsers updatedUser = usersRepository.findById(userId).orElse(null);
+
         if (updatedUser == null){
             throw new UserNotFound("User Id '" + userId + "' not found.");
 
         }
 
-
         updatedUser.setUserId(Long.parseLong(userId));
         updatedUser.setUsername(username);
         updatedUser.setPassword("{noop}"+password);
         updatedUser.setEmail(email);
-        updatedUser.setPassword(phoneNumber);
+        updatedUser.setPhoneNum(phoneNumber);
         updatedUser.setUserDescription(userDescription);
 
-        boolean isUserRole = false;
-        boolean isAdminRole = false;
-
-//        for (UserRole role : updatedUser.getUserRoles()){
-//
-//            if (role.getUserRole().equals("ROLE_USER")){
-//
-//                isUserRole = true;
-//            }
-//
-//            if (role.getUserRole().equals("ROLE_ADMIN")){
-//
-//                isAdminRole = true;
-//            }
-//
-//        }
-
-
-
-
-//        List<UserRole> userRoleList = new ArrayList<>();
-//        for (UserRole role : updatedUser.getUserRoles()){
-//
-//
-//
-//            System.out.println(role.setUserRole(););
-//
-//        }
-
-
-        for (int i = 0; i < updatedUser.getUserRoles().size() - 1; i++){
-
-            updatedUser.getUserRoles().get(i).setUserRole(updateRoles[i]);
-
+        // update user roles
+        List<UserRole> updatedRoleList = new ArrayList<>();
+        updatedUser.getUserRoles().clear();
+        for (String updateRole : updateRoles){
+            updatedRoleList.add(new UserRole(updatedUser, updateRole));
         }
+        updatedUser.getUserRoles().addAll(updatedRoleList);
 
-//        uRole.setUserId(Long.parseLong(userId));
-
-
-
-//        List<UserRole> newUserRoles = new ArrayList<>();
-
-
-//        for (UserRole role : updatedUser.getUserRoles()){
-//
-//            for (String update : updateRoles){
-//
-//                newUserRoles.add()
-//
-//                }
-//
-//            }
-
-
-//        }
-
+        // save update
         usersRepository.save(updatedUser);
 
-
     }
-
-
 
 }
