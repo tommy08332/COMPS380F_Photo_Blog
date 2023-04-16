@@ -168,7 +168,7 @@
                                                                  style="display:none;">
                                                                 <form:form method="post" modelAttribute="comment" id="edit${comments.get(i).commentId}">
                                                                     <textarea rows="4" cols="50" name="commentText"
-                                                                              form="editForm${comments.get(i).commentId}"><c:out value="${comments.get(i).commentText}" escapeXml="false">Null Comment</c:out>
+                                                                              form="edit${comments.get(i).commentId}"><c:out value="${comments.get(i).commentText}" escapeXml="false">Null Comment</c:out>
                                                                     </textarea>
                                                                     <!-- <input type="text" value="${comments.get(i).commentText}"> -->
                                                                     <input type="hidden" name="commentId" value="${comments.get(i).commentId}">
@@ -224,7 +224,7 @@
                                      </tr>
 
                                  </security:authorize>
-                                <c:if test="${empty uname}">
+                                <c:if test="${empty username}">
                                 <tr>
                                     <th>Login account to comment
                                         <br>
