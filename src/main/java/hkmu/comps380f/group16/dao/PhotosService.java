@@ -2,6 +2,7 @@ package hkmu.comps380f.group16.dao;
 
 import hkmu.comps380f.group16.exception.InvalidFileFormat;
 import hkmu.comps380f.group16.exception.PhotoNotFound;
+import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoDetails;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
@@ -122,6 +123,22 @@ public class PhotosService {
 
         return photosRepository.findAll();
 
+    }
+    @Transactional
+    public List<PhotoDetails> findAllPhotoDetail() throws PhotoNotFound {
+        return photoDetailsRepository.findAll();
+    }
+
+    @Transactional
+    public List<Photos> findPhotoByUName(String uName) throws UserNotFound {
+
+        List<Photos> photo = photosRepository.findByUploadUsername(uName);
+        if (photo == null){
+
+            throw new UserNotFound("Username '" + uName + "' not found.");
+
+        }
+        return photo;
     }
 
 //    public PhotoDetails findPhotoDetails(int photoID) throws PhotoNotFound {
