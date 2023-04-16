@@ -20,7 +20,9 @@ public class Comments {
     @Column(name = "comment_datetime")
     private Date commentDatetime;
 
-    @Column(insertable = false, updatable = false)
+//    @Column(insertable = false, updatable = false)
+//    private String username;
+    @Column(name = "username")
     private String username;
 
     @Column(name = "photo_id", insertable = false, updatable = false)
