@@ -18,7 +18,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -48,22 +50,33 @@ public class UserController {
 
     }
     @GetMapping("/profile/{userid:.+}")
-    public String view(@PathVariable("userid") String userid, ModelMap model)
+    public String view(@PathVariable("userid") String userid, ModelMap model )
             throws UserNotFound, PhotoNotFound, UnsupportedEncodingException {
+
+        ArrayList<String> photoArr = new ArrayList<String>();
+
+        // for store photo id
+        ArrayList<Integer> photoDetailArr = new ArrayList<Integer>();
+
+        //for user profile data
         PhotoBlogUsers blogUsers = BlogUsersService.findUserById(userid);
 
-        Photos photos = photosService.findPhoto(1);
-        byte [] imageByteArr = photos.getPhotoData();
-        byte [] photo = Base64.getEncoder().encode(imageByteArr);
-        String photoImg = new String(photo, "UTF-8");
-
-        PhotoDetails photoDetails =photosService.findPhotoDetail(1);
+        List<Photos> photos = photosService.findPhotoByUName(blogUsers.getUsername());
+        for(Photos photo : photos){
+            byte [] imageByteArr = photo.getPhotoData();
+            byte [] p = Base64.getEncoder().encode(imageByteArr);
+            String photoImg = new String(p, "UTF-8");
+            photoDetailArr.add(photo.getPhotoId());   // getting the id form the photos list
+            photoArr.add(photoImg);
+        }
+        List<PhotoDetails> photoDetails = photosService.findAllPhotoDetail();
 
         model.addAttribute("blogUsers" , blogUsers);
-        model.addAttribute("photoDetails", photoDetails);
-        model.addAttribute("photos", photos);
-        model.addAttribute("photoImg", photoImg);
 
+        model.addAttribute("photoDetails", photoDetails);
+
+        model.addAttribute("photos", photos);
+        model.addAttribute("photoImg", photoArr);
         return "profile";
     }
 
