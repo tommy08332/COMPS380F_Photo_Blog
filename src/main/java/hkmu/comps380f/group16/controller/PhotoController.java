@@ -106,7 +106,11 @@ public class PhotoController {
         model.addObject("photoImg", photoImg);
 
 
-        model.addObject("username", principal);
+        if(principal == null){
+            model.addObject("username", null);
+        }else {
+            model.addObject("username", principal.getName());
+        }
 
         List<Comments> comments = commentsService.findPhotoAllComments(photoId);
 
