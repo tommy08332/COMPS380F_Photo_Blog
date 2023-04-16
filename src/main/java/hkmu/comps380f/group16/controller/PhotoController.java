@@ -115,6 +115,34 @@ public class PhotoController {
         return model;
 
     }
+    
+    @PostMapping("/show/{photoId:.+}")
+    public String showPhotoAndComment(@PathVariable("photoId") int photoId, CommentForm comment) throws CommentsNotFound, PhotoNotFound{
+        switch (comment.getOrder()) {
+            case "UPDATE":
+//                Comments old_commment = commentsService.fin
+                System.out.println("Now doing update\ncomment ID : " + comment.getCommentId() + "\ncomment : " + comment.getCommentText());
+                commentsService.updateComment(comment.getCommentId(), comment.getCommentText());
+                
+                break;
+
+            case "INSERT":
+                System.out.println("Now doing insert\ncomment : " + comment.getCommentText());
+                commentsService.insertComment(photoId, comment.getCommentText());
+
+                break;
+            
+            case "DELETE":
+                System.out.println("Now doing delete\ncomment ID: " + comment.getCommentId());
+                commentsService.deleteComment(comment.getCommentId());
+                
+                break;
+        
+            default:
+                break;
+        }
+        return "redirect:/photo/show/" + String.valueOf(photoId);
+    }
 
     @ExceptionHandler({PhotoNotFound.class, InvalidFileFormat.class})
     public ModelAndView error(Exception e){
