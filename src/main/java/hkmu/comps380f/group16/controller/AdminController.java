@@ -6,12 +6,14 @@ import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -27,7 +29,16 @@ public class AdminController {
     private PhotosService photosService;
 
     @GetMapping("/panel/user")
-    public String userManagement(ModelMap model){
+    public String userManagement(ModelMap model, Principal principal, HttpServletRequest request)
+            throws UserNotFound{
+
+        PhotoBlogUsers findUser = usersService.findUser(principal.getName());
+
+        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(findUser.getUsername())){
+
+            return "redirect:/";
+
+        }
 
         List<PhotoBlogUsers> users = usersService.findAllUsers();
 
@@ -48,6 +59,7 @@ public class AdminController {
 
         PhotoBlogUsers user = usersService.findUserById(userId);
 
+
         model.addAttribute("user", user);
 
         return new ModelAndView(
@@ -59,7 +71,16 @@ public class AdminController {
     }
 
     @PostMapping("/panel/edit/user/{userId:.+}")
-    public String editUser(@PathVariable("userId") String userId, editForm form) throws UserNotFound{
+    public String editUser(@PathVariable("userId") String userId,
+                           editForm form, Principal principal, HttpServletRequest request) throws UserNotFound{
+
+        PhotoBlogUsers findUser = usersService.findUser(principal.getName());
+
+        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(findUser.getUsername())){
+
+            return "redirect:/";
+
+        }
 
         usersService.updateUser(userId,
                                 form.getUsername(),
@@ -74,15 +95,34 @@ public class AdminController {
     }
 
     @GetMapping("/panel/delete/user/{userId:.+}")
-    public String deleteUser(@PathVariable("userId") String userId) throws UserNotFound{
+    public String deleteUser(@PathVariable("userId") String userId,
+                             Principal principal, HttpServletRequest request) throws UserNotFound{
+
+        PhotoBlogUsers findUser = usersService.findUser(principal.getName());
+
+        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(findUser.getUsername())){
+
+            return "redirect:/";
+
+        }
+
 
         usersService.deleteUser(userId);
         return "redirect:/admin/panel";
     }
 
     @GetMapping("/panel/history")
-    public String adminPage(ModelMap model) throws UnsupportedEncodingException {
+    public String adminPage(ModelMap model, Principal principal, HttpServletRequest request)
+            throws UnsupportedEncodingException, UserNotFound {
 
+
+        PhotoBlogUsers findUser = usersService.findUser(principal.getName());
+
+        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(findUser.getUsername())){
+
+            return "redirect:/";
+
+        }
 
         List<Photos> photos = photosService.findAllPhotos();
 
