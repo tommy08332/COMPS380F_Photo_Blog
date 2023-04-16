@@ -1,9 +1,12 @@
 package hkmu.comps380f.group16.controller;
 
+import hkmu.comps380f.group16.dao.CommentsService;
 import hkmu.comps380f.group16.dao.PhotoBlogUsersService;
 import hkmu.comps380f.group16.dao.PhotosService;
+import hkmu.comps380f.group16.exception.CommentsNotFound;
 import hkmu.comps380f.group16.exception.InvalidFileFormat;
 import hkmu.comps380f.group16.exception.PhotoNotFound;
+import hkmu.comps380f.group16.model.Comments;
 import hkmu.comps380f.group16.model.PhotoDetails;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
@@ -155,6 +158,35 @@ public class PhotoController {
             this.photoDescription = photoDescription;
         }
 
+    }
+    public static class CommentForm{
+        private String order;
+        private String commentText;
+        private long commentId;
+
+        public String getOrder(){
+            return this.order;
+        }
+
+        public void setOrder(String order){
+            this.order = order;
+        }
+
+        public String getCommentText(){
+            return this.commentText;
+        }
+
+        public void setCommentText(String commentText){
+            this.commentText = commentText;
+        }
+
+        public long getCommentId(){
+            return this.commentId;
+        }
+
+        public void setCommentId(long commentId){
+            this.commentId = commentId;
+        }
     }
 
 }
