@@ -162,18 +162,19 @@
                                                                     <button onclick="document.getElementById('deleteForm${comments.get(i).commentId}').submit();">
                                                                         Delete
                                                                     </button>
-                                                                    <form:form method="post" modelAttribute="comment" id="deleteForm${comments.get(i).commentId}" >
+                                                                    <form:form action="./comment/delete" method="post" modelAttribute="comment" id="deleteForm${comments.get(i).commentId}" >
                                                                         <input type="hidden" value="${comments.get(i).commentId}" name="commentId">
+                                                                        <input type="hidden" name="photoId" value="${photos.photoId}">
                                                                         <input type="hidden" value="DELETE" name="order">
                                                                     </form:form>
-                                                                    <div id="editForm${comments.get(i).commentId}"
-                                                                         style="display:none;">
-                                                                        <form:form method="post" modelAttribute="comment" id="edit${comments.get(i).commentId}">
-                                                                    <textarea rows="4" cols="50" name="commentText"
+                                                                    <div id="editForm${comments.get(i).commentId}" style="display:none;">
+                                                                        <form:form action="./comment/update" method="post" modelAttribute="comment" id="edit${comments.get(i).commentId}">
+                                                                    <textarea rows="4" cols="40" name="commentText"
                                                                               form="edit${comments.get(i).commentId}"><c:out value="${comments.get(i).commentText}" escapeXml="false">Null Comment</c:out>
                                                                     </textarea>
                                                                             <!-- <input type="text" value="${comments.get(i).commentText}"> -->
                                                                             <input type="hidden" name="commentId" value="${comments.get(i).commentId}">
+                                                                            <input type="hidden" name="photoId" value="${photos.photoId}">
                                                                             <input type="hidden" name="order" value="UPDATE">
                                                                             <br>
                                                                             <input type="submit" value="Submit">
@@ -193,18 +194,19 @@
                                                                     <button onclick="document.getElementById('deleteForm${comments.get(i).commentId}').submit();">
                                                                         Delete
                                                                     </button>
-                                                                    <form:form method="post" modelAttribute="comment" id="deleteForm${comments.get(i).commentId}" >
+                                                                    <form:form action="./comment/delete" method="post" modelAttribute="comment" id="deleteForm${comments.get(i).commentId}" >
                                                                         <input type="hidden" value="${comments.get(i).commentId}" name="commentId">
+                                                                        <input type="hidden" name="photoId" value="${photos.photoId}">
                                                                         <input type="hidden" value="DELETE" name="order">
                                                                     </form:form>
-                                                                    <div id="editForm${comments.get(i).commentId}"
-                                                                         style="display:none;">
-                                                                        <form:form method="post" modelAttribute="comment" id="edit${comments.get(i).commentId}">
-                                                                    <textarea rows="4" cols="50" name="commentText"
+                                                                    <div id="editForm${comments.get(i).commentId}" style="display:none;">
+                                                                        <form:form action="./comment/update" method="post" modelAttribute="comment" id="edit${comments.get(i).commentId}">
+                                                                    <textarea rows="4" cols="40" name="commentText"
                                                                               form="edit${comments.get(i).commentId}"><c:out value="${comments.get(i).commentText}" escapeXml="false">Null Comment</c:out>
                                                                     </textarea>
                                                                             <!-- <input type="text" value="${comments.get(i).commentText}"> -->
                                                                             <input type="hidden" name="commentId" value="${comments.get(i).commentId}">
+                                                                            <input type="hidden" name="photoId" value="${photos.photoId}">
                                                                             <input type="hidden" name="order" value="UPDATE">
                                                                             <br>
                                                                             <input type="submit" value="Submit">
@@ -246,13 +248,14 @@
 
                                      <tr>
                                          <th>
-                                             <form:form method="POST" modelAttribute="comment">
+                                             <form:form action="./comment/insert" method="POST" modelAttribute="comment">
                                                  <form:label path="commentText">
                                                      Comment
                                                  </form:label>
                                                  <br>
                                                  <form:textarea type="text" path="commentText" />
                                                  <input type="hidden" value="INSERT" name="order">
+                                                 <input type="hidden" value="${photos.photoId}" name="photoId">
                                                  <br>
                                                  <input type="submit" value="Comment">
                                              </form:form>

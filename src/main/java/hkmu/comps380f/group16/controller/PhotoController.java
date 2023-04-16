@@ -123,32 +123,31 @@ public class PhotoController {
 
     }
 
-    @PostMapping("/show/{photoId:.+}")
-    public String showPhotoAndComment(@PathVariable("photoId") int photoId, CommentForm comment, Principal principal) throws CommentsNotFound, PhotoNotFound{
-        switch (comment.getOrder()) {
-            case "UPDATE":
-//                Comments old_commment = commentsService.fin
-                System.out.println("Now doing update\ncomment ID : " + comment.getCommentId() + "\ncomment : " + comment.getCommentText());
-                commentsService.updateComment(comment.getCommentId(), comment.getCommentText());
-
-                break;
-
-            case "INSERT":
-                System.out.println("Now doing insert\ncomment : " + comment.getCommentText());
-                commentsService.insertComment(photoId, comment.getCommentText(), principal.getName());
-
-                break;
-
-            case "DELETE":
-                System.out.println("Now doing delete\ncomment ID: " + comment.getCommentId());
-                commentsService.deleteComment(comment.getCommentId());
-
-                break;
-
-            default:
-                break;
+    @PostMapping("/show/comment/update")
+    public String updateComment(CommentForm commentForm)throws CommentsNotFound {
+        if(commentForm.getOrder().equals("UPDATE")){
+//        System.out.println("Now doing update\ncomment ID : " + commentForm.getCommentId() + "\ncomment : " + commentForm.getCommentText());
+            commentsService.updateComment(commentForm.getCommentId(), commentForm.getCommentText());
         }
-        return "redirect:/photo/show/" + String.valueOf(photoId);
+        return "redirect:/photo/show/" + String.valueOf(commentForm.getPhotoId());
+    }
+
+    @PostMapping("/show/comment/delete")
+    public String deleteComment(CommentForm commentForm)throws CommentsNotFound {
+        if(commentForm.getOrder().equals("DELETE")){
+//        System.out.println("Now doing update\ncomment ID : " + commentForm.getCommentId() + "\ncomment : " + commentForm.getCommentText());
+            commentsService.deleteComment(commentForm.getCommentId());
+        }
+        return "redirect:/photo/show/" + String.valueOf(commentForm.getPhotoId());
+    }
+
+    @PostMapping("/show/comment/insert")
+    public String insertComment(CommentForm commentForm, Principal principal) throws PhotoNotFound{
+        if (commentForm.getOrder().equals("INSERT")) {
+//                System.out.println("Now doing insert\ncomment : " + commentForm.getCommentText());
+                commentsService.insertComment(commentForm.getPhotoId(), commentForm.getCommentText(), principal.getName());
+        }
+        return "redirect:/photo/show/" + String.valueOf(commentForm.getPhotoId());
     }
 
     @ExceptionHandler({PhotoNotFound.class, InvalidFileFormat.class})
@@ -199,6 +198,8 @@ public class PhotoController {
         private String commentText;
         private long commentId;
 
+        private int photoId;
+
         public String getOrder(){
             return this.order;
         }
@@ -221,6 +222,14 @@ public class PhotoController {
 
         public void setCommentId(long commentId){
             this.commentId = commentId;
+        }
+
+        public int getPhotoId() {
+            return photoId;
+        }
+
+        public void setPhotoId(int photoId) {
+            this.photoId = photoId;
         }
     }
 
