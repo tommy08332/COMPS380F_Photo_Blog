@@ -94,8 +94,18 @@
                 <p><c:out value="${blogUsers.phoneNum}"/></p>
                 <p><c:out value="${blogUsers.email}"/></p>
                 <p><c:out value="${blogUsers.userDescription}"/></p>
+
+                <%--                if null change it to add description else edit description--%>
                 <p>
-                    <button>Edit</button>
+                    <c:choose>
+                        <c:when test="${empty blogUsers.userDescription}">
+                            <a href=" <c:url value="/user/profile/add/${blogUsers.userId}"/>">Add Description</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value="/user/profile/edit/${blogUsers.userId}"/>">Edit Description</a>
+
+                        </c:otherwise>
+                    </c:choose>
                 </p>
             </div>
 
@@ -145,7 +155,7 @@
             </tbody>
         </table>
     </div>
-
+</div>
 
 </body>
 </html>
