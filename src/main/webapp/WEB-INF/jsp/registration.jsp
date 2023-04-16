@@ -37,6 +37,7 @@
 
             <form:form method="POST" modelAttribute="createPhotoUser">
                 <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 95%;bottom:70%; border: none;"><a href="<c:url value="/PhotoBlog/"/>" style="color:black;">
+<%--                <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 95%;bottom:70%; border: none;"><a href="javascript:history.back()" style="color:black;">--%>
                     <h2><bold style="color:black;">X</bold></h2>
                 </a></button>
 

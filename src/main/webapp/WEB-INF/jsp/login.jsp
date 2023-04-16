@@ -44,7 +44,8 @@
     <div class="row vertical-center-row">
         <div class="text-center col-md-5 col-md-offset-3" style="background-color: aqua">
 
-            <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 92%;bottom:62%;"><a href="<c:url value="/"/>" style="color:black;">
+<%--            <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 92%;bottom:62%;"><a href="<c:url value="/"/>" style="color:black;">--%>
+            <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 92%;bottom:62%;"><a href="javascript:history.back()" style="color:black;">
                 <h2><bold style="color:black;">X</bold></h2>
             </a></button>
 
