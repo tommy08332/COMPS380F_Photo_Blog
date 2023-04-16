@@ -70,35 +70,6 @@
 <body>
 <div style="padding-top: 3%;padding-left: 10%;">
     <ul>
-        <li>
-            <bold>
-                <a href='<c:url value="/photo/show"/>'>Photo</a>
-            </bold>
-        </li>
-
-        <li>
-            <bold>
-                <a href="<c:url value="/profile"/>">Profile</a>
-            </bold>
-        </li>
-
-        <li>
-            <bold>
-                <a href="<c:url value="/login"/>">Login</a>
-            </bold>
-        </li>
-
-        <li>
-            <bold>
-                <a href="<c:url value="/registration/create"/>">Registration</a>
-            </bold>
-        </li>
-
-        <li>
-            <bold>
-                <a href='<c:url value="/admin_page"/>'>Admin Page</a>
-            </bold>
-        </li>
 
         <li>
             <bold>
