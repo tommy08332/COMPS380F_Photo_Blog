@@ -33,6 +33,9 @@ public class PhotoController {
 
     @Resource
     private PhotosService photosService;
+    
+    @Resource
+    private CommentsService commentsService;
 
     @GetMapping("/show")
     public String show(){ return "photo"; }
@@ -82,8 +85,10 @@ public class PhotoController {
     }
 
     @GetMapping("/show/{photoId:.+}")
-    public String view(@PathVariable("photoId") int photoId, ModelMap model)
-            throws PhotoNotFound, UnsupportedEncodingException {
+    public ModelAndView showPhotoAndComment(@PathVariable("photoId") int photoId)
+            throws PhotoNotFound, UnsupportedEncodingException, CommentsNotFound {
+                ModelAndView model = new ModelAndView("photo");
+
 
         Photos photos = photosService.findPhoto(photoId);
 
@@ -93,11 +98,18 @@ public class PhotoController {
 
         PhotoDetails photoDetails =photosService.findPhotoDetail(photoId);
 
-        model.addAttribute("photos", photos);
-        model.addAttribute("photoDetails", photoDetails);
-        model.addAttribute("photoImg", photoImg);
+        model.addObject("photos", photos);
+        model.addObject("photoDetails", photoDetails);
+        model.addObject("photoImg", photoImg);
 
-        return "photo";
+        List<Comments> comments = commentsService.findPhotoAllComments(photoId);
+
+        System.out.println(comments.size());
+        model.addObject("comments", comments);
+
+        model.addObject("comment", new CommentForm());
+        
+        return model;
 
     }
 
