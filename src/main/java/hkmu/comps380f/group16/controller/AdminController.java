@@ -33,10 +33,13 @@ public class AdminController {
 
         model.addAttribute("users", users);
 
-
         return "user_management";
 
+    }
 
+    @GetMapping({"/","/panel/", "/panel"})
+    public String localDirectory(){
+        return "redirect:/admin/panel/user";
     }
 
     @GetMapping("/panel/edit/user/{userId:.+}")
