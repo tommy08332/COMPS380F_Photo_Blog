@@ -185,6 +185,25 @@ public class PhotoBlogUsersService implements UserDetailsService {
         updatedUser.setPassword(phoneNumber);
         updatedUser.setUserDescription(userDescription);
 
+        boolean isUserRole = false;
+        boolean isAdminRole = false;
+
+//        for (UserRole role : updatedUser.getUserRoles()){
+//
+//            if (role.getUserRole().equals("ROLE_USER")){
+//
+//                isUserRole = true;
+//            }
+//
+//            if (role.getUserRole().equals("ROLE_ADMIN")){
+//
+//                isAdminRole = true;
+//            }
+//
+//        }
+
+
+
 
 //        List<UserRole> userRoleList = new ArrayList<>();
 //        for (UserRole role : updatedUser.getUserRoles()){
@@ -194,6 +213,7 @@ public class PhotoBlogUsersService implements UserDetailsService {
 //            System.out.println(role.setUserRole(););
 //
 //        }
+
 
         for (int i = 0; i < updatedUser.getUserRoles().size() - 1; i++){
 
