@@ -114,7 +114,7 @@ public class PhotoController {
 
         List<Comments> comments = commentsService.findPhotoAllComments(photoId);
 
-        System.out.println(comments.size());
+//        System.out.println(comments.size());
         model.addObject("comments", comments);
 
         model.addObject("comment", new CommentForm());
@@ -123,6 +123,7 @@ public class PhotoController {
 
     }
 
+    //Update Comment
     @PostMapping("/show/comment/update")
     public String updateComment(CommentForm commentForm)throws CommentsNotFound {
         if(commentForm.getOrder().equals("UPDATE")){
@@ -132,15 +133,18 @@ public class PhotoController {
         return "redirect:/photo/show/" + String.valueOf(commentForm.getPhotoId());
     }
 
+
+    //Delete Comment
     @PostMapping("/show/comment/delete")
-    public String deleteComment(CommentForm commentForm)throws CommentsNotFound {
+    public String deleteComment(CommentForm commentForm)throws PhotoNotFound {
         if(commentForm.getOrder().equals("DELETE")){
 //        System.out.println("Now doing update\ncomment ID : " + commentForm.getCommentId() + "\ncomment : " + commentForm.getCommentText());
-            commentsService.deleteComment(commentForm.getCommentId());
+            photosService.deleteComment(commentForm.getPhotoId(), commentForm.getCommentId());
         }
         return "redirect:/photo/show/" + String.valueOf(commentForm.getPhotoId());
     }
 
+    //Insert New Comment
     @PostMapping("/show/comment/insert")
     public String insertComment(CommentForm commentForm, Principal principal) throws PhotoNotFound{
         if (commentForm.getOrder().equals("INSERT")) {
@@ -155,7 +159,6 @@ public class PhotoController {
 
         return new ModelAndView("error", "err_message", e.getMessage());
     }
-
 
     // delete photo
 

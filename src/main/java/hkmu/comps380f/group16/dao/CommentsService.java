@@ -42,18 +42,6 @@ public class CommentsService {
         comment.setCommentText(context);
         commentsRepository.save(comment);
     }
-
-    //Delete comment
-    public void deleteComment(long id) throws CommentsNotFound{
-        Comments comment = commentsRepository.findById(id).orElse(null);
-        if(comment == null){
-            throw new CommentsNotFound("Comment not found");
-        }
-        System.out.println("Deleting ... \n" + comment.getCommentId());
-        Photos photo = comment.getPhoto();
-        photo.getComments().remove(comment);
-        photosRepository.save(photo);
-    }
     
     //Insert New Comment
     public void insertComment(int photoId, String context, String username) throws PhotoNotFound {

@@ -1,8 +1,10 @@
 package hkmu.comps380f.group16.dao;
 
+import hkmu.comps380f.group16.exception.CommentsNotFound;
 import hkmu.comps380f.group16.exception.InvalidFileFormat;
 import hkmu.comps380f.group16.exception.PhotoNotFound;
 import hkmu.comps380f.group16.exception.UserNotFound;
+import hkmu.comps380f.group16.model.Comments;
 import hkmu.comps380f.group16.model.PhotoDetails;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
@@ -22,6 +24,9 @@ public class PhotosService {
 
     @Resource
     private PhotoDetailsRepository photoDetailsRepository;
+
+    @Resource
+    private CommentsRepository commentsRepository;
 
     @Resource
     private PhotoBlogUsersRepository usersRepository;
@@ -139,6 +144,25 @@ public class PhotosService {
 
         }
         return photo;
+    }
+
+    //Delete comment
+    public void deleteComment(int photoId, long commentId) throws PhotoNotFound {
+//        Comments comment = commentsRepository.findById(id).orElse(null);
+//        System.out.println("Deleting ... \n" + comment.getCommentId());
+        Photos photo = photosRepository.findById(photoId).orElse(null);
+        if(photo == null){
+            throw new PhotoNotFound(String.valueOf(photoId));
+        }
+        for(Comments comment : photo.getComments()){
+            if(comment.getCommentId() == commentId){
+                photo.getComments().remove(comment);
+                photosRepository.save(photo);
+                return;
+            }
+        }
+
+
     }
 
 //    public PhotoDetails findPhotoDetails(int photoID) throws PhotoNotFound {
