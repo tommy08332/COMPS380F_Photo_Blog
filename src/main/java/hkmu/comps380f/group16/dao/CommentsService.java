@@ -49,13 +49,16 @@ public class CommentsService {
         if(comment == null){
             throw new CommentsNotFound("Comment not found");
         }
-        commentsRepository.delete(comment);
+        System.out.println("Deleting ... \n" + comment.getCommentId());
+        Photos photo = comment.getPhoto();
+        photo.getComments().remove(comment);
+        photosRepository.save(photo);
     }
     
     //Insert New Comment
-    public void insertComment(int photoId, String context) throws PhotoNotFound {
+    public void insertComment(int photoId, String context, String username) throws PhotoNotFound {
         //for test
-        String username = "test_user";
+//        String username = "test_user";
         //for test
         Comments comment = new Comments();
         comment.setCommentText(context);
