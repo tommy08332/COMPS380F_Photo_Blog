@@ -139,22 +139,26 @@
             <tbody>
             <tr>
                 <th>
+                    <c:forEach var="i" begin="0" end="${photos.size()-1}">
                     <div style="display: inline;padding-right: 10%;">
-                    <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}"style="width: 300px;" />
+
+                    <img alt="img" src="data:image/${photos.get(i).photoFileType};base64,${photoImg.get(i)}"style="width: 300px;" />
                     </div>
                     <div style="display: inline;padding-right: 10%;">
                         <label><h3>Title:</h3></br></br></br>
-                            <c:out value="${photoDetails.photoTitle}"/> </label>
+                        </label>
+                        <c:out value="${photoDetails.get(i).photoTitle}"/>
                     </div>
                     <div style="display: inline;padding-right: 10%;">
                         <label><h3>Description :</h3></br></br></br>
-                            <c:out value="${photoDetails.photoDescription}" /> </label>
+                        </label>
+                        <c:out value="${photoDetails.get(i).photoDescription}" />
                     </div>
                     <div style="display: inline">
                         <label><h3>Upload-On :</h3></br></br></br>
-                            <fmt:formatDate value="${photos.photoUploadedDatetime}" pattern="yyyy-MM-dd hh:mm:ss" /> </label>
+                            <fmt:formatDate value="${photos.get(i).photoUploadedDatetime}" pattern="yyyy-MM-dd hh:mm:ss" /> </label>
                     </div>
-
+                        </c:forEach>
             </tbody>
         </table>
     </div>
