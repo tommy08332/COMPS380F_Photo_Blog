@@ -31,14 +31,21 @@
     <title>Admin Panel - Upload History</title>
 </head>
 <body>
+<security:authorize access="hasRole('ADMIN')">
 <div class="container">
     <div class="row">
         <div class="col-lg">
-            <security:authorize access="hasRole('ADMIN')">
+
 
                 <h1><bold>Admin Panel - Upload History</bold></h1>
 
                 <ul style="padding-bottom: 15%;padding-top: 1.5%;">
+
+                    <li>
+                        <bold>
+                            <a href='<c:url value="/"/>'>Home Page</a>
+                        </bold>
+                    </li>
 
                     <li>
                         <bold>
@@ -104,9 +111,10 @@
 
                     </tbody>
                 </table>
-            </security:authorize>
+
         </div>
     </div>
 </div>
+</security:authorize>
 </body>
 </html>
