@@ -14,8 +14,8 @@
   <form:form method="POST" modelAttribute="editPhotoUser">
 
 
-    <form:label path="username">Username: </form:label>
-    <form:input type="text" path="username" value="${user.username}"/>
+    <form:label path="username">Username: <c:out value="${user.username}"/></form:label>
+
     <br/>
 
     <form:label path="password">Password: </form:label>
