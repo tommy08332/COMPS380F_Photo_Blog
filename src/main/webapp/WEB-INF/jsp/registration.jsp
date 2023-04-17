@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +24,8 @@
     <title>Register User</title>
 </head>
 <body>
+
+
 <div class="container container-table col-md-offset-3">
     <div class="row vertical-center-row">
         <div class="text-center col-md-5 " style="background-color: whitesmoke;width: 70%;height: 23%">
@@ -73,6 +76,10 @@
 
 
             </form:form>
+
+
+
+
         </div>
     </div>
 </div>
