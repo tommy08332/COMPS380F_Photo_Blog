@@ -80,6 +80,15 @@ public class UserController {
 
         model.addAttribute("photos", photos);
         model.addAttribute("photoImg", photoArr);
+        
+        List<Comments> commentsList = commentsService.findUserAllComments(blogUsers.getUsername());
+        System.out.println("Size of comment : " + commentsList.size());
+        if(commentsList == null){
+            model.addAttribute("commentsList", null);
+        }else{
+            model.addAttribute("commentsList", commentsList);
+        }
+        
         return "profile";
     }
 
