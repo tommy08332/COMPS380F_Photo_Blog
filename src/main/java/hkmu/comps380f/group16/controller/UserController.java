@@ -1,9 +1,11 @@
 package hkmu.comps380f.group16.controller;
 
+import hkmu.comps380f.group16.dao.CommentsService;
 import hkmu.comps380f.group16.dao.PhotoBlogUsersService;
 import hkmu.comps380f.group16.dao.PhotosService;
 import hkmu.comps380f.group16.exception.PhotoNotFound;
 import hkmu.comps380f.group16.exception.UserNotFound;
+import hkmu.comps380f.group16.model.Comments;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import hkmu.comps380f.group16.model.PhotoDetails;
 import hkmu.comps380f.group16.model.Photos;
@@ -40,6 +42,9 @@ public class UserController {
 
     @Resource
     private PhotosService photosService;
+    
+    @Resource
+    private CommentsService commentsService;
 
     @Resource
     private PhotoBlogUsersService BlogUsersService;
