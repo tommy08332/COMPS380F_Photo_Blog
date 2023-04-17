@@ -4,6 +4,7 @@ import hkmu.comps380f.group16.dao.CommentsService;
 import hkmu.comps380f.group16.dao.PhotoBlogUsersService;
 import hkmu.comps380f.group16.dao.PhotosService;
 import hkmu.comps380f.group16.exception.*;
+import hkmu.comps380f.group16.model.Comments;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
