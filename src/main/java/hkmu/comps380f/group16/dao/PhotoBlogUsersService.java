@@ -33,7 +33,7 @@ public class PhotoBlogUsersService implements UserDetailsService {
 
         System.out.println("before" );
 
-        PhotoBlogUsers findUser = usersRepository.findByUsername(username);
+        PhotoBlogUsers findUser = usersRepository.findById(username).orElse(null);
 
         System.out.println("findUser" + findUser);
 
@@ -53,8 +53,8 @@ public class PhotoBlogUsersService implements UserDetailsService {
         }
 
         return new User(findUser.getUsername(),
-                findUser.getPassword(),
-                authorities);
+                        findUser.getPassword(),
+                        authorities);
 
     }
 
@@ -68,7 +68,7 @@ public class PhotoBlogUsersService implements UserDetailsService {
             EmailAlreadyUsed,
             PhoneNumberAlreadyUsed {
 
-        PhotoBlogUsers findUser = usersRepository.findByUsername(username);
+        PhotoBlogUsers findUser = usersRepository.findById(username).orElse(null);
 
         PhotoBlogUsers findEmail = usersRepository.findByEmail(email);
 
@@ -115,27 +115,11 @@ public class PhotoBlogUsersService implements UserDetailsService {
 
     public PhotoBlogUsers findUser(String username) throws UserNotFound{
 
-        PhotoBlogUsers user = usersRepository.findByUsername(username);
+        PhotoBlogUsers user = usersRepository.findById(username).orElse(null);
 
         if (user == null){
 
             throw new UserNotFound("Username '" + username + "' not found.");
-
-        }
-
-        return user;
-
-    }
-
-    @Transactional
-
-    public PhotoBlogUsers findUserById(String userId) throws UserNotFound{
-
-        PhotoBlogUsers user = usersRepository.findById(userId).orElse(null);
-
-        if (user == null){
-
-            throw new UserNotFound("User Id '" + userId + "' not found.");
 
         }
 
@@ -151,12 +135,12 @@ public class PhotoBlogUsersService implements UserDetailsService {
     }
 
     @Transactional
-    public void deleteUser(String userId) throws UserNotFound {
+    public void deleteUser(String username) throws UserNotFound {
 
-        PhotoBlogUsers targetUser = usersRepository.findById(userId).orElse(null);
+        PhotoBlogUsers targetUser = usersRepository.findById(username).orElse(null);
         if (targetUser == null){
 
-            throw new UserNotFound("User Id '" + userId + "' not found.");
+            throw new UserNotFound("Username '" + username + "' not found.");
 
         }
 
@@ -166,23 +150,20 @@ public class PhotoBlogUsersService implements UserDetailsService {
     }
 
     @Transactional
-    public void updateUser(String userId,
-                           String username,
+    public void updateUser(String username,
                            String password,
                            String email,
                            String phoneNumber,
                            String userDescription,
                            String[] updateRoles) throws UserNotFound{
 
-        PhotoBlogUsers updatedUser = usersRepository.findById(userId).orElse(null);
+        PhotoBlogUsers updatedUser = usersRepository.findById(username).orElse(null);
 
         if (updatedUser == null){
-            throw new UserNotFound("User Id '" + userId + "' not found.");
+            throw new UserNotFound("Username '" + username + "' not found.");
 
         }
 
-        updatedUser.setUserId(Long.parseLong(userId));
-        updatedUser.setUsername(username);
         updatedUser.setPassword("{noop}"+password);
         updatedUser.setEmail(email);
         updatedUser.setPhoneNum(phoneNumber);
@@ -200,14 +181,14 @@ public class PhotoBlogUsersService implements UserDetailsService {
         usersRepository.save(updatedUser);
 
     }
-    
+
     @Transactional
-    public void updateUserDescription(String userId,
+    public void updateUserDescription(String username,
                                       String userDescription) throws UserNotFound {
 
-        PhotoBlogUsers updateUserDescription = usersRepository.findById(userId).orElse(null);
+        PhotoBlogUsers updateUserDescription = usersRepository.findById(username).orElse(null);
         if (updateUserDescription == null){
-            throw new UserNotFound("User Id '" + userId + "' not found.");
+            throw new UserNotFound("Username '" + username + "' not found.");
         }
 
         updateUserDescription.setUserDescription(userDescription);
