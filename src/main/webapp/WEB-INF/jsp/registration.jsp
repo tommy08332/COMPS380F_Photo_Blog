@@ -12,17 +12,13 @@
         html, body, .container-table {
             height: 100%;
         }
-
         .vertical-center-row {
             display: table-cell;
             vertical-align: middle;
         }
-
         .container-table {
             display: table;
         }
-
-
     </style>
     <title>Register User</title>
 </head>
@@ -31,34 +27,36 @@
     <div class="row vertical-center-row">
         <div class="text-center col-md-5 " style="background-color: whitesmoke;width: 70%;height: 23%">
 
-               <h1 style="margin:0;padding-bottom: 5%;padding-top: 2%;">
+            <h1 style="margin:0;padding-bottom: 5%;padding-top: 2%;">
                 <bold>Register Page</bold>
             </h1>
 
+            <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 95%;bottom:70%; border: none;"><a href="<c:url value="/"/>" style="color:black;">
+
+                <h2><bold style="color:black;">X</bold></h2>
+            </a></button>
+
             <form:form method="POST" modelAttribute="createPhotoUser">
-                <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 95%;bottom:70%; border: none;"><a href="<c:url value="/PhotoBlog/"/>" style="color:black;">
-<%--                <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 95%;bottom:70%; border: none;"><a href="javascript:history.back()" style="color:black;">--%>
-                    <h2><bold style="color:black;">X</bold></h2>
-                </a></button>
 
-              <div style="display: flex;">
-                <div style="padding-left: 8%;">
-                    <form:label path="username">Username: </form:label>
-                    <form:input type="text" path="username"/>
-                    </br>
 
-                    <form:label path="password">Password: </form:label>
-                    <form:input type="text" path="password"/>
-                </div>
-                <div style="padding-left: 15%;">
-                    <form:label path="phoneNum">Phone number: </form:label>
-                    <form:input type="text" path="phoneNum"/>
-                    </br>
+                <div style="display: flex;">
+                    <div style="padding-left: 8%;">
+                        <form:label path="username">Username: </form:label>
+                        <form:input type="text" path="username"/>
+                        </br>
 
-                    <form:label cssStyle="padding-left: 20%;" path="email">Email: </form:label>
-                    <form:input type="text" path="email"/>
+                        <form:label path="password">Password: </form:label>
+                        <form:input type="text" path="password"/>
+                    </div>
+                    <div style="padding-left: 15%;">
+                        <form:label path="phoneNum">Phone number: </form:label>
+                        <form:input type="text" path="phoneNum"/>
+                        </br>
 
-                </div>
+                        <form:label cssStyle="padding-left: 20%;" path="email">Email: </form:label>
+                        <form:input type="text" path="email"/>
+
+                    </div>
                 </div>
                 <security:authorize access="hasRole('ADMIN')">
 
