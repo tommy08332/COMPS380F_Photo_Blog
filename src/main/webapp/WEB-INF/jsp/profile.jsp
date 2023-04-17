@@ -83,6 +83,20 @@
             </bold>
         </li>
 
+        <security:authorize access="hasAnyRole('USER', 'ADMIN')">
+
+            <li>
+                <bold>
+                    <c:url var="logoutUrl" value="/logout" />
+                    <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
+                        <input style="background-color: red;border: none;text-decoration: none;text-align: center;font-weight: bold;color:yellow;" type="submit" class="link-button" value="Log out">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
+                </bold>
+            </li>
+
+        </security:authorize>
+
     </ul>
 </div>
 <div class="container container-table">
