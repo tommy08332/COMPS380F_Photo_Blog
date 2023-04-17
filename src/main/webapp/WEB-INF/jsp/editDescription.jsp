@@ -10,12 +10,13 @@
 
 <form:form method="POST" modelAttribute="edescription">
 
-    <form:label path="email">Email: </form:label>
-    <form:input type="text" path="email" value="${blogUsers.email}"/>
-    <br/>
 
     <form:label path="phoneNum">Phone number: </form:label>
     <form:input type="text" path="phoneNum" value="${blogUsers.phoneNum}"/>
+    <br/>
+
+    <form:label path="email">Email: </form:label>
+    <form:input type="text" path="email" value="${blogUsers.email}"/>
     <br/>
 
     <form:label path="userDescription">Description: </form:label>
