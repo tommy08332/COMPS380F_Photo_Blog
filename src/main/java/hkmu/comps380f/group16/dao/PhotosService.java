@@ -1,6 +1,5 @@
 package hkmu.comps380f.group16.dao;
 
-import hkmu.comps380f.group16.exception.CommentsNotFound;
 import hkmu.comps380f.group16.exception.InvalidFileFormat;
 import hkmu.comps380f.group16.exception.PhotoNotFound;
 import hkmu.comps380f.group16.exception.UserNotFound;
@@ -47,11 +46,11 @@ public class PhotosService {
             String [] fileType = photoData.getContentType().split("/");
 
             if (fileType[0].trim().equals("image") &&
-                photoData.getOriginalFilename() != null &&
-                photoData.getOriginalFilename().length() > 0 &&
-                photoData != null &&
-                username != null &&
-                username.length() > 0) {
+                    photoData.getOriginalFilename() != null &&
+                    photoData.getOriginalFilename().length() > 0 &&
+                    photoData != null &&
+                    username != null &&
+                    username.length() > 0) {
 
                 PhotoDetails photoDetails = new PhotoDetails();
 
