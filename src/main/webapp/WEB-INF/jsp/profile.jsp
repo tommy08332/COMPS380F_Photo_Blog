@@ -91,21 +91,11 @@
 
             <div class="card">
                 <h1><c:out value="${blogUsers.username}"/> </h1>
-                <p><c:out value="${blogUsers.phoneNum}"/></p>
-                <p><c:out value="${blogUsers.email}"/></p>
-                <p><c:out value="${blogUsers.userDescription}"/></p>
-
-                <%--                if null change it to add description else edit description--%>
+                <p>Phone : <c:out value="${blogUsers.phoneNum}"/></p>
+                <p>Email : <c:out value="${blogUsers.email}"/></p>
+                <p>Description : <c:out value="${blogUsers.userDescription}"/></p>
                 <p>
-                    <c:choose>
-                        <c:when test="${empty blogUsers.userDescription}">
-                            <a href=" <c:url value="/user/profile/add/${blogUsers.username}"/>">Add Description</a>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="<c:url value="/user/profile/edit/${blogUsers.username}"/>">Edit Description</a>
-
-                        </c:otherwise>
-                    </c:choose>
+                    <a href="<c:url value="/user/profile/edit/${blogUsers.username}"/>">Edit Description</a>
                 </p>
             </div>
 
