@@ -37,6 +37,8 @@ public class PhotoBlogUsersService implements UserDetailsService {
 
         System.out.println("findUser" + findUser);
 
+        System.out.println("&amp;  " + username);
+
 
         if (findUser == null){
 
@@ -50,7 +52,9 @@ public class PhotoBlogUsersService implements UserDetailsService {
 
             authorities.add(new SimpleGrantedAuthority(role.getUserRole()));
 
+
         }
+
 
         return new User(findUser.getUsername(),
                         findUser.getPassword(),
@@ -93,19 +97,16 @@ public class PhotoBlogUsersService implements UserDetailsService {
 
         if (userRole == null){
 
-//            For trouble shoot
-//            String[] defaultRole = {"ROLE_USER", "ROLE_ADMIN"};
-
             String[] defaultRole = {"ROLE_USER"};
             userRole = defaultRole;
 
         }
 
         PhotoBlogUsers createUser = new PhotoBlogUsers(username,
-                password,
-                phoneNum,
-                email,
-                userRole);
+                                                       password,
+                                                       Integer.parseInt(phoneNum),
+                                                       email,
+                                                       userRole);
 
         usersRepository.save(createUser);
 
@@ -166,7 +167,7 @@ public class PhotoBlogUsersService implements UserDetailsService {
 
         updatedUser.setPassword("{noop}"+password);
         updatedUser.setEmail(email);
-        updatedUser.setPhoneNum(phoneNumber);
+        updatedUser.setPhoneNum(Long.parseLong(phoneNumber));
         updatedUser.setUserDescription(userDescription);
 
         // update user roles
@@ -195,7 +196,7 @@ public class PhotoBlogUsersService implements UserDetailsService {
 
         updateUserDescription.setUserDescription(userDescription);
         updateUserDescription.setEmail(email);
-        updateUserDescription.setPhoneNum(phoneNumber);
+        updateUserDescription.setPhoneNum(Long.parseLong(phoneNumber));
 
         usersRepository.save(updateUserDescription);
 
