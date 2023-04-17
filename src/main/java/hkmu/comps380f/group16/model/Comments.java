@@ -10,7 +10,7 @@ public class Comments {
 
     // Primary key
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private long commentId;
 
