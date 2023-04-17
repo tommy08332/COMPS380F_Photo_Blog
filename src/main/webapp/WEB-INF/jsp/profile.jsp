@@ -147,5 +147,50 @@
     </div>
 </div>
 
+<h2>
+    Comments List
+</h2>
+<div class="container">
+    <div class="tableFixHead">
+        <table>
+            <tbody>
+            <c:choose>
+                <c:when test="${commentsList.size() eq 0}">
+                    <tr>
+                        <th>
+                            no comment
+                        </th>
+                    </tr>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="i" begin="0" end="${commentsList.size()-1}">
+                        <tr>
+                            <th>
+                                <div style="display: inline;padding-right: 10%;">
+                                    <label><h3>Title:</h3></br></br></br>
+                                    </label>
+                                    <a href="<c:url value="/photo/show/${commentsList.get(i).photo.photoId}"/>" >
+                                        <c:out value="${commentsList.get(i).photo.photoDetails.get(0).photoTitle}" escapeXml="false">Unknown</c:out>
+                                    </a>
+                                </div>
+                                <div style="display: inline;padding-right: 10%;">
+                                    <label><h3>Comment :</h3></br></br></br>
+                                    </label>
+                                    <c:out value="${commentsList.get(i).commentText}" escapeXml="false">Null Comment</c:out>
+                                </div>
+                                <div style="display: inline">
+                                    <label><h3>Commented-On :</h3></br></br></br>
+                                        <fmt:formatDate value="${commentsList.get(i).commentDatetime}" pattern="yyyy-MM-dd HH:mm:ss" /> </label>
+                                </div>
+                            </th>
+                        </tr>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 </body>
 </html>
