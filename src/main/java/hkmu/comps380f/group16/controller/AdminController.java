@@ -101,13 +101,17 @@ public class AdminController {
 
         PhotoBlogUsers user = usersService.findUser(principal.getName());
 
+        PhotoBlogUsers targetUser = usersService.findUser(username);
+
         if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(user.getUsername())){
 
             return new ModelAndView(new RedirectView("/", true));
 
         }
 
-        model.addAttribute("user", user);
+
+
+        model.addAttribute("user", targetUser);
 
         return new ModelAndView(
                 "edit",
