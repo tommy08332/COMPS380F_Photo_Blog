@@ -32,6 +32,11 @@ public class CommentsService {
 
         return comments;
     }
+    
+    //List All User' Comments
+    public List<Comments> findUserAllComments(String username){
+        return commentsRepository.findByUsername(username);
+    }
 
     //Update Comment
     public void updateComment(long id, String context) throws CommentsNotFound{
