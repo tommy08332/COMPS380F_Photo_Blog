@@ -11,6 +11,34 @@
 </head>
 <body>
 
+<security:authorize access="hasAnyRole('USER', 'ADMIN')">
+
+<div style="padding-top: 3%;padding-left: 10%;">
+    <ul>
+
+        <li>
+            <bold>
+                <a href='<c:url value="/"/>'>Home Page</a>
+            </bold>
+        </li>
+
+
+
+            <li>
+                <bold>
+                    <c:url var="logoutUrl" value="/logout" />
+                    <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
+                        <input style="background-color: red;border: none;text-decoration: none;text-align: center;font-weight: bold;color:yellow;" type="submit" class="link-button" value="Log out">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
+                </bold>
+            </li>
+
+
+
+    </ul>
+</div>
+
 <div class="container container-table col-md-offset-4">
     <div class="row vertical-center-row" style="padding-top: 25%">
         <div class="text-center col-md-5 " style="background-color: beige;width: 55%;height: 23%">
@@ -41,5 +69,7 @@
         </div>
     </div>
 </div>
+
+</security:authorize>
 </body>
 </html>
