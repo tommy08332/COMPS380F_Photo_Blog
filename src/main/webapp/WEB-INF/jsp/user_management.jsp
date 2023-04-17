@@ -7,23 +7,28 @@
         list-style-type: none;
         width: 100%;
     }
+
     li {
         display: inline;
         padding-left: 7%;
     }
+
     table, th, td {
         border: 1px solid black;
     }
-    th{
-        width:10%;
+
+    th {
+        width: 10%;
     }
-    td{
+
+    td {
         font-weight: bold;
         padding: 0;
         text-align: center;
     }
-    #adduser{
-        background-color: gold;
+
+    #adduser {
+        background-color: white;
         border: none;
     }
 </style>
@@ -37,10 +42,9 @@
 </head>
 <body>
 <security:authorize access="hasRole('ADMIN')">
-<div class="container">
-    <div class="row">
-        <div class="col-lg">
-
+    <div class="container">
+        <div class="row">
+            <div class="col-lg">
 
 
                 <h1>
@@ -57,21 +61,30 @@
 
                     <li>
                         <bold>
-                            <a style="text-decoration: none;" href="<c:url value="/admin/panel/user"/>">User Management</a>
+                            <a style="text-decoration: none;" href="<c:url value="/admin/panel/user"/>">User
+                                Management</a>
                         </bold>
                     </li>
 
                     <li>
                         <bold>
-                            <a style="text-decoration: none;" href="<c:url value="/admin/panel/history"/>">Upload History</a>
+                            <a style="text-decoration: none;" href="<c:url value="/admin/panel/history"/>">Upload
+                                History</a>
                         </bold>
                     </li>
-
+                    <li>
+                        <bold>
+                            <button style="background-color: white;border:none;"><a style=" text-decoration: none;"
+                                                    href="<c:url value="/admin/panel/registration/create"/>">Create new
+                                user</a></button>
+                        </bold>
+                    </li>
                     <li>
 
                         <c:url var="logoutUrl" value="/logout"/>
                         <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
-                            <input style="background-color: red;border: none;text-align: center;font-weight: bold;color:yellow;" type="submit" class="link-button" value="Log out">
+                            <input style="color: #0000EE;background-color:white;border: none;text-decoration: none;"
+                                   type="submit" class="link-button" value="Log out">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </form>
 
@@ -79,10 +92,8 @@
 
                 </ul>
 
-                <button id="adduser"><a style="  text-decoration: none;color: green" href="<c:url value="/admin/panel/registration/create"/>">Create new user</a></button>
 
-
-                <%-- list all user--%>
+                    <%-- list all user--%>
                 <table>
                     <caption>User Management</caption>
                     <thead>
@@ -102,7 +113,8 @@
                             <tr>
 
                                 <td>
-                                    <bold><a href="<c:url value="/user/profile/${user.username}"/>"><c:out value="${user.username}"/></a></bold>
+                                    <bold><a href="<c:url value="/user/profile/${user.username}"/>"><c:out
+                                            value="${user.username}"/></a></bold>
                                 </td>
                                 <td>
                                     <bold><c:out value="${fn:substringAfter(user.password, '{noop}')}"/></bold>
@@ -123,8 +135,13 @@
                                         <c:out value="${fn:substringAfter(role.userRole, 'ROLE_')}"/>
                                     </c:forEach></bold>
                                 </td>
-                                <td style="background-color: #649113;width: 10%;text-decoration: none;"><a style="margin-left: 25%;color:black" href="<c:url value="/admin/panel/edit/user/${user.username}"/> ">Edit</a></td>
-                                <td  style="background-color: red;width: 10%;text-decoration: none;"><a style="margin-left: 25%;color: aliceblue" href="<c:url value="/admin/panel/delete/user/${user.username}"/> ">Delete</a></td>
+                                <td style="background-color: #649113;width: 10%;text-decoration: none;"><a
+                                        style="margin-left: 25%;color:black"
+                                        href="<c:url value="/admin/panel/edit/user/${user.username}"/> ">Edit</a></td>
+                                <td style="background-color: red;width: 10%;text-decoration: none;"><a
+                                        style="margin-left: 25%;color: aliceblue"
+                                        href="<c:url value="/admin/panel/delete/user/${user.username}"/> ">Delete</a>
+                                </td>
 
                             </tr>
 
@@ -138,7 +155,7 @@
                 </table>
 
 
-                <%-- list all photo and edit--%>
+                    <%-- list all photo and edit--%>
 
                 <table>
 
@@ -146,10 +163,9 @@
                 </table>
 
 
-
+            </div>
         </div>
     </div>
-</div>
 
 </security:authorize>
 </body>
