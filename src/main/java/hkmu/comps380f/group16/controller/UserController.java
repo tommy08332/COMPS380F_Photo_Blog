@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -79,6 +81,64 @@ public class UserController {
         model.addAttribute("photos", photos);
         model.addAttribute("photoImg", photoArr);
         return "profile";
+    }
+
+    @GetMapping("/profile/edit/{username:.+}")
+    public ModelAndView editDescription(@PathVariable("username") String username, ModelMap model)
+            throws UserNotFound {
+
+        PhotoBlogUsers blogUsers = BlogUsersService.findUser(username);
+        model.addAttribute("blogUsers", blogUsers);
+        return new ModelAndView(
+                "editDescription",
+                "edescription",
+                new editForm()
+        );
+    }
+
+    @PostMapping("/profile/edit/{username:.+}")
+    public String editDescription(@PathVariable("username") String username, editForm form) throws UserNotFound{
+
+        BlogUsersService.updateUserDescription(username,
+                form.getEmail(),
+                form.getPhoneNum(),
+                form.getUserDescription()
+        );
+
+        return "redirect:/user/profile/{username}";
+    }
+
+
+    public class editForm{
+
+        private String phoneNum;
+
+        private String email;
+        private String userDescription;
+
+        public String getUserDescription() {
+            return userDescription;
+        }
+
+        public void setUserDescription(String userDescription) {
+            this.userDescription = userDescription;
+        }
+
+        public String getPhoneNum() {
+            return phoneNum;
+        }
+
+        public void setPhoneNum(String phoneNum) {
+            this.phoneNum = phoneNum;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
     }
 
 }
