@@ -7,17 +7,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-
         ul {
             list-style-type: none;
             width: 100%;
         }
-
         li {
             display: inline;
             padding-left: 7%;
         }
-
         table, th, td {
             border: 1px solid black;
         }
@@ -29,7 +26,6 @@
             padding: 0;
             text-align: center;
         }
-
     </style>
 
     <title>Admin Panel - Upload History</title>
@@ -101,7 +97,7 @@
                                 <td><c:out value="${photos.get(i).photoFileType}"/></td>
                                 <td><fmt:formatDate value="${photos.get(i).photoUploadedDatetime}"
                                                     pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                                <td><c:out value="${photos.get(i).uploadUsername}"/></td>
+<%--                                <td><a href="<c:url value="/user/profile/${photos.get(i).uploadUsername}"/>"><c:out value="${photos.uploadUsername}" /></a></td>--%>
                             </tr>
                         </c:forEach>
                     </c:if>
