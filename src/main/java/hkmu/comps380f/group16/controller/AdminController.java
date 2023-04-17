@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
@@ -33,7 +34,16 @@ public class AdminController {
     CommentsService commentsService;
 
     @GetMapping("/panel/user")
-    public String userManagement(ModelMap model){
+    public String userManagement(ModelMap model, Principal principal, HttpServletRequest request)
+        throws UserNotFound{
+
+        PhotoBlogUsers user = usersService.findUser(principal.getName());
+
+        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(user.getUsername())){
+
+            return "redirect:/";
+
+        }
 
         List<PhotoBlogUsers> users = usersService.findAllUsers();
 
@@ -51,7 +61,7 @@ public class AdminController {
 
         PhotoBlogUsers user = usersService.findUser(principal.getName());
 
-        if (!request.isUserInRole("ROLE_ADMIN") && principal.getName().equals(user.getUsername())){
+        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(user.getUsername())){
 
             return "redirect:/";
 
@@ -85,10 +95,17 @@ public class AdminController {
 
 
     @GetMapping("/panel/edit/user/{username:.+}")
-    public ModelAndView editUser(@PathVariable("username") String username, ModelMap model)
+    public ModelAndView editUser(@PathVariable("username") String username, ModelMap model,
+                                 Principal principal, HttpServletRequest request)
             throws UserNotFound {
 
-        PhotoBlogUsers user = usersService.findUser(username);
+        PhotoBlogUsers user = usersService.findUser(principal.getName());
+
+        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(user.getUsername())){
+
+            return new ModelAndView(new RedirectView("/", true));
+
+        }
 
         model.addAttribute("user", user);
 
@@ -101,7 +118,16 @@ public class AdminController {
     }
 
     @PostMapping("/panel/edit/user/{username:.+}")
-    public String editUser(@PathVariable("username") String username, editForm form) throws UserNotFound{
+    public String editUser(@PathVariable("username") String username, editForm form,
+                           Principal principal, HttpServletRequest request) throws UserNotFound{
+
+        PhotoBlogUsers user = usersService.findUser(principal.getName());
+
+        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(user.getUsername())){
+
+            return "redirect:/";
+        }
+
 
         usersService.updateUser(form.getUsername(),
                                 form.getPassword(),
@@ -115,8 +141,18 @@ public class AdminController {
     }
 
     @GetMapping("/panel/delete/user/{username:.+}")
-    public String deleteUser(@PathVariable("username") String username)
+    public String deleteUser(@PathVariable("username") String username,
+                             Principal principal, HttpServletRequest request)
+
             throws PhotoNotFound, UserNotFound, CommentsNotFound{
+
+        PhotoBlogUsers user = usersService.findUser(principal.getName());
+
+        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(user.getUsername())){
+
+            return "redirect:/";
+
+        }
 
         commentsService.deleteUserAllComment(username);
 
@@ -128,8 +164,16 @@ public class AdminController {
     }
 
     @GetMapping("/panel/history")
-    public String adminPage(ModelMap model) throws UnsupportedEncodingException {
+    public String adminPage(ModelMap model, Principal principal, HttpServletRequest request)
+            throws UnsupportedEncodingException, UserNotFound {
 
+        PhotoBlogUsers user = usersService.findUser(principal.getName());
+
+        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(user.getUsername())){
+
+            return "redirect:/";
+
+        }
 
         List<Photos> photos = photosService.findAllPhotos();
 
