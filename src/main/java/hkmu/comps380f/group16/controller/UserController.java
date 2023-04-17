@@ -10,8 +10,9 @@ import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -45,11 +46,11 @@ public class UserController {
             throws UserNotFound {
         PhotoBlogUsers blogUsers = BlogUsersService.findUser(principal.getName());
 
-        return new RedirectView("/user/profile/" + blogUsers.getUserId() ,true);
+        return new RedirectView("/user/profile/" + blogUsers.getUsername() ,true);
 
     }
-    @GetMapping("/profile/{userId:.+}")
-    public String view(@PathVariable("userId") String userId, ModelMap model )
+    @GetMapping("/profile/{username:.+}")
+    public String view(@PathVariable("username") String username, ModelMap model )
             throws UserNotFound, PhotoNotFound, UnsupportedEncodingException {
 
         ArrayList<String> photoArr = new ArrayList<String>();
@@ -58,10 +59,11 @@ public class UserController {
         ArrayList<Integer> photoDetailArr = new ArrayList<Integer>();
 
         //for user profile data
-        PhotoBlogUsers blogUsers = BlogUsersService.findUserById(userId);
+        PhotoBlogUsers blogUsers = BlogUsersService.findUser(username);
 
         List<Photos> photos = photosService.findPhotoByUName(blogUsers.getUsername());
         for(Photos photo : photos){
+
             byte [] imageByteArr = photo.getPhotoData();
             byte [] p = Base64.getEncoder().encode(imageByteArr);
             String photoImg = new String(p, "UTF-8");
@@ -79,103 +81,4 @@ public class UserController {
         return "profile";
     }
 
-
-    @GetMapping("/profile/add/{userId:.+}")
-    public ModelAndView addDescription(@PathVariable("userId") String userId, ModelMap model)
-            throws UserNotFound {
-
-        PhotoBlogUsers blogUsers = BlogUsersService.findUserById(userId);
-        model.addAttribute("blogUsers", blogUsers);
-
-        return new ModelAndView(
-                "addDescription",
-                "adescription",
-                new addForm()
-        );
-    }
-    @PostMapping("/profile/add/{userId:.+}")
-    public String addDescription(@PathVariable("userId") String userId, addForm form) throws UserNotFound{
-
-        BlogUsersService.updateUserDescription(userId,
-                form.getUserDescription()
-                );
-
-        return "redirect:/user/profile/{userId}";
-    }
-
-    @GetMapping("/profile/edit/{userId:.+}")
-    public ModelAndView editDescription(@PathVariable("userId") String userId, ModelMap model)
-            throws UserNotFound {
-
-        PhotoBlogUsers blogUsers = BlogUsersService.findUserById(userId);
-        model.addAttribute("blogUsers", blogUsers);
-        return new ModelAndView(
-                "editDescription",
-                "edescription",
-                new editForm()
-        );
-    }
-
-    @PostMapping("/profile/edit/{userId:.+}")
-    public String editDescription(@PathVariable("userId") String userId, editForm form) throws UserNotFound{
-
-        BlogUsersService.updateUserDescription(userId,
-                form.getUserDescription()
-        );
-
-        return "redirect:/user/profile/{userId}";
-    }
-
-    @ExceptionHandler({UserNotFound.class})
-    public ModelAndView error(Exception e){
-
-        return new ModelAndView("error", "err_message", e.getMessage());
-    }
-
-    public class addForm {
-
-        private String userId;
-
-
-        private String userDescription;
-
-        public String getUserDescription() {
-            return userDescription;
-        }
-
-        public void setUserDescription(String userDescription) {
-            this.userDescription = userDescription;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-    }
-
-
-    public class editForm{
-        private String userId;
-        private String userDescription;
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-        public String getUserDescription() {
-            return userDescription;
-        }
-
-        public void setUserDescription(String userDescription) {
-            this.userDescription = userDescription;
-        }
-    }
 }
