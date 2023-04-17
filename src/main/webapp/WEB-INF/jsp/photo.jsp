@@ -242,9 +242,11 @@
                                         </label>
                                         <br>
                                         By
-                                        <c:out value="${comments.get(i).username}" escapeXml="false">
-                                            Unknown User
-                                        </c:out>
+                                        <a href="<c:url value="/user/profile/${comments.get(i).username}"/>">
+                                            <c:out value="${comments.get(i).username}" escapeXml="false">
+                                                Unknown User
+                                            </c:out> 
+                                        </a>
                                     </div>
                                 </th>
                             </tr>
