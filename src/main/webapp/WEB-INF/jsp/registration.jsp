@@ -54,7 +54,7 @@
                         </br>
 
                         <form:label path="password">Password: </form:label>
-                        <form:input type="text" path="password"/>
+                        <form:password path="password"/>
                     </div>
                     <div style="padding-left: 15%;">
                         <form:label path="phoneNum">Phone number: </form:label>
