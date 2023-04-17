@@ -9,6 +9,26 @@
 <security:authorize access="hasRole('ADMIN')">
 
   <h1>Edit Page</h1>
+  <ul>
+
+    <li>
+      <bold>
+        <a style="text-decoration: none;" href="<c:url value="/admin/panel/user"/>">User Management</a>
+      </bold>
+    </li>
+
+
+    <li>
+      <bold>
+        <c:url var="logoutUrl" value="/logout" />
+        <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
+          <input style="background-color: red;border: none;text-decoration: none;text-align: center;font-weight: bold;color:yellow;" type="submit" class="link-button" value="Log out">
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+      </bold>
+    </li>
+
+  </ul>
 
 
   <form:form method="POST" modelAttribute="editPhotoUser">
@@ -52,20 +72,6 @@
 
     <br/>
     <input type="submit" value="Apply Changes"/>
-
-    <%--        <c:forEach items="${user.userRoles}" var="roles" >--%>
-
-    <%--            <c:choose>--%>
-    <%--                <c:when test="${roles.userRole == 'ROLE_USER'}">--%>
-
-    <%--                    --%>
-
-    <%--                </c:when>--%>
-
-    <%--            </c:choose>--%>
-
-
-    <%--        </c:forEach>--%>
 
   </form:form>
 
