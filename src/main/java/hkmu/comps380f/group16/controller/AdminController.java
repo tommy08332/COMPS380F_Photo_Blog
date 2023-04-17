@@ -6,14 +6,12 @@ import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -29,36 +27,23 @@ public class AdminController {
     private PhotosService photosService;
 
     @GetMapping("/panel/user")
-    public String userManagement(ModelMap model, Principal principal, HttpServletRequest request)
-            throws UserNotFound{
-
-        PhotoBlogUsers findUser = usersService.findUser(principal.getName());
-
-        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(findUser.getUsername())){
-
-            return "redirect:/";
-
-        }
+    public String userManagement(ModelMap model){
 
         List<PhotoBlogUsers> users = usersService.findAllUsers();
 
         model.addAttribute("users", users);
 
+
         return "user_management";
 
+
     }
 
-    @GetMapping({"/","/panel/", "/panel"})
-    public String localDirectory(){
-        return "redirect:/admin/panel/user";
-    }
-
-    @GetMapping("/panel/edit/user/{userId:.+}")
-    public ModelAndView editUser(@PathVariable("userId") String userId, ModelMap model)
+    @GetMapping("/panel/edit/user/{username:.+}")
+    public ModelAndView editUser(@PathVariable("username") String username, ModelMap model)
             throws UserNotFound {
 
-        PhotoBlogUsers user = usersService.findUserById(userId);
-
+        PhotoBlogUsers user = usersService.findUser(username);
 
         model.addAttribute("user", user);
 
@@ -70,20 +55,10 @@ public class AdminController {
 
     }
 
-    @PostMapping("/panel/edit/user/{userId:.+}")
-    public String editUser(@PathVariable("userId") String userId,
-                           editForm form, Principal principal, HttpServletRequest request) throws UserNotFound{
+    @PostMapping("/panel/edit/user/{username:.+}")
+    public String editUser(@PathVariable("username") String username, editForm form) throws UserNotFound{
 
-        PhotoBlogUsers findUser = usersService.findUser(principal.getName());
-
-        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(findUser.getUsername())){
-
-            return "redirect:/";
-
-        }
-
-        usersService.updateUser(userId,
-                                form.getUsername(),
+        usersService.updateUser(form.getUsername(),
                                 form.getPassword(),
                                 form.getEmail(),
                                 form.getPhoneNum(),
@@ -94,35 +69,16 @@ public class AdminController {
 
     }
 
-    @GetMapping("/panel/delete/user/{userId:.+}")
-    public String deleteUser(@PathVariable("userId") String userId,
-                             Principal principal, HttpServletRequest request) throws UserNotFound{
+    @GetMapping("/panel/delete/user/{username:.+}")
+    public String deleteUser(@PathVariable("username") String username) throws UserNotFound{
 
-        PhotoBlogUsers findUser = usersService.findUser(principal.getName());
-
-        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(findUser.getUsername())){
-
-            return "redirect:/";
-
-        }
-
-
-        usersService.deleteUser(userId);
+        usersService.deleteUser(username);
         return "redirect:/admin/panel";
     }
 
     @GetMapping("/panel/history")
-    public String adminPage(ModelMap model, Principal principal, HttpServletRequest request)
-            throws UnsupportedEncodingException, UserNotFound {
+    public String adminPage(ModelMap model) throws UnsupportedEncodingException {
 
-
-        PhotoBlogUsers findUser = usersService.findUser(principal.getName());
-
-        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(findUser.getUsername())){
-
-            return "redirect:/";
-
-        }
 
         List<Photos> photos = photosService.findAllPhotos();
 
@@ -157,8 +113,6 @@ public class AdminController {
 
     public class editForm{
 
-        private String userId;
-
         private String username;
         private String password;
 
@@ -169,14 +123,6 @@ public class AdminController {
         private String userDescription;
 
         private String[] userRole;
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
 
         public String getUsername() {
 
