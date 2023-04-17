@@ -36,10 +36,11 @@
     <title>Admin Panel - User Management</title>
 </head>
 <body>
+<security:authorize access="hasRole('ADMIN')">
 <div class="container">
     <div class="row">
         <div class="col-lg">
-            <security:authorize access="hasRole('ADMIN')">
+
 
 
                 <h1>
@@ -47,6 +48,12 @@
                 </h1>
 
                 <ul style="padding-bottom: 15%;padding-top: 1.5%;">
+
+                    <li>
+                        <bold>
+                            <a href='<c:url value="/"/>'>Home Page</a>
+                        </bold>
+                    </li>
 
                     <li>
                         <bold>
@@ -72,7 +79,7 @@
 
                 </ul>
 
-                <button id="adduser"><a style="  text-decoration: none;color: green" href="<c:url value="/registration/create"/>">Create new user</a></button>
+                <button id="adduser"><a style="  text-decoration: none;color: green" href="<c:url value="/admin/panel/registration/create"/>">Create new user</a></button>
 
 
                 <%-- list all user--%>
@@ -95,7 +102,7 @@
                             <tr>
 
                                 <td>
-                                    <bold><c:out value="${user.username}"/></bold>
+                                    <bold><a href="<c:url value="/user/profile/${user.username}"/>"><c:out value="${user.username}"/></a></bold>
                                 </td>
                                 <td>
                                     <bold><c:out value="${fn:substringAfter(user.password, '{noop}')}"/></bold>
@@ -110,11 +117,11 @@
                                     <bold><c:out value="${user.userDescription}"/></bold>
                                 </td>
                                 <td>
+
                                     <bold><c:forEach items="${user.userRoles}" var="role" varStatus="roleStatus">
                                         <c:if test="${!roleStatus.first}">, </c:if>
-
                                         <c:out value="${fn:substringAfter(role.userRole, 'ROLE_')}"/>
-                                    </c:forEach></bold>s
+                                    </c:forEach></bold>
                                 </td>
                                 <td style="background-color: #649113;width: 10%;text-decoration: none;"><a style="margin-left: 25%;color:black" href="<c:url value="/admin/panel/edit/user/${user.username}"/> ">Edit</a></td>
                                 <td  style="background-color: red;width: 10%;text-decoration: none;"><a style="margin-left: 25%;color: aliceblue" href="<c:url value="/admin/panel/delete/user/${user.username}"/> ">Delete</a></td>
@@ -138,10 +145,12 @@
 
                 </table>
 
-            </security:authorize>
+
 
         </div>
     </div>
 </div>
+
+</security:authorize>
 </body>
 </html>
