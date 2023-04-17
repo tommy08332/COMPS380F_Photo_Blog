@@ -97,7 +97,7 @@
                                 <td><c:out value="${photos.get(i).photoFileType}"/></td>
                                 <td><fmt:formatDate value="${photos.get(i).photoUploadedDatetime}"
                                                     pattern="yyyy-MM-dd HH:mm:ss"/></td>
-<%--                                <td><a href="<c:url value="/user/profile/${photos.get(i).uploadUsername}"/>"><c:out value="${photos.uploadUsername}" /></a></td>--%>
+                                <td><a href="<c:url value="/user/profile/${photos.get(i).uploadUsername}"/>"><c:out value="${photos.get(i).uploadUsername}" /></a></td>
                             </tr>
                         </c:forEach>
                     </c:if>
