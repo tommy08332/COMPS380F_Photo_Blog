@@ -164,11 +164,24 @@ public class PhotosService {
 
     }
 
-//    public PhotoDetails findPhotoDetails(int photoID) throws PhotoNotFound {
-//
-//        PhotoDetails photoDetails = photoDetailsRepository.
-//
-//
-//    }
+    @Transactional
+    public void deletePhoto(String username) throws PhotoNotFound {
+
+        List<Photos> deletePhotos = photosRepository.findByUploadUsername(username);
+        if (deletePhotos == null){
+
+            throw new PhotoNotFound("Username '" + username + "' not found.");
+
+        }
+
+        for (Photos deletePhoto : deletePhotos){
+
+            photosRepository.delete(deletePhoto);
+
+        }
+
+
+    }
+
 
 }
