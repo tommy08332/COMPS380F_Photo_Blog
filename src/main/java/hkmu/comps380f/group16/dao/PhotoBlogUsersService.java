@@ -184,6 +184,8 @@ public class PhotoBlogUsersService implements UserDetailsService {
 
     @Transactional
     public void updateUserDescription(String username,
+                                      String email,
+                                      String phoneNumber,
                                       String userDescription) throws UserNotFound {
 
         PhotoBlogUsers updateUserDescription = usersRepository.findById(username).orElse(null);
@@ -192,6 +194,8 @@ public class PhotoBlogUsersService implements UserDetailsService {
         }
 
         updateUserDescription.setUserDescription(userDescription);
+        updateUserDescription.setEmail(email);
+        updateUserDescription.setPhoneNum(phoneNumber);
 
         usersRepository.save(updateUserDescription);
 
