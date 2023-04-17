@@ -208,7 +208,8 @@ public class AdminController {
 
     }
 
-    @ExceptionHandler({UserNotFound.class})
+    @ExceptionHandler({UserNotFound.class, UserAccountAlreadyExists.class,
+            EmailAlreadyUsed.class, PhoneNumberAlreadyUsed.class})
     public ModelAndView error(Exception e){
 
         return new ModelAndView("error", "err_message", e.getMessage());
