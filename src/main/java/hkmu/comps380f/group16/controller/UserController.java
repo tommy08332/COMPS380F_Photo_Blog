@@ -30,16 +30,6 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    // for testing
-    // for testing
-
-
-    // for testing
-//    @GetMapping("/show/{username:.+}")
-//    // for testing
-//
-//    public String profile(@PathVariable("username") String username){
-
     @Resource
     private PhotosService photosService;
     
