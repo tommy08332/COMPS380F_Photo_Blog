@@ -158,7 +158,10 @@ public class AdminController {
 
         }
 
-        commentsService.deleteUserAllComment(username);
+        List<Comments> commentsList = commentsService.findUserAllComments(username);
+        for(Comments comment : commentsList){
+            photosService.deleteComment(comment.getPhotoId(), comment.getCommentId());
+        }
 
         photosService.deletePhoto(username);
 
