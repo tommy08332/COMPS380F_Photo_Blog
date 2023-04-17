@@ -79,7 +79,7 @@
                 <img alt="img" src="data:image/${photos.photoFileType};base64,${photoImg}" />
                 <div>
                     <label>Uploaded by:
-                        <a href="<c:url value="/user/profile/${uploadUser.userId}"/>"><c:out value="${photos.uploadUsername}" /></a>
+                        <a href="<c:url value="/user/profile/${photos.uploadUsername}"/>"><c:out value="${photos.uploadUsername}" /></a>
                     </label><br>
                 </div>
                 <div>
