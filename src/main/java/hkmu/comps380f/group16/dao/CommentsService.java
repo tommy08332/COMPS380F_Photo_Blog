@@ -67,41 +67,4 @@ public class CommentsService {
         commentsRepository.save(comment);
     }
 
-
-    // there are some delete comments problems here
-    public void deleteUserAllComment(String username) throws PhotoNotFound {
-
-        List<Photos> photos = photosRepository.findAll();
-
-        if (photos == null){
-            throw new PhotoNotFound("No photo found");
-        }
-
-
-
-        for (Photos photo : photos){
-
-
-
-            for (Comments comment : photo.getComments()){
-
-                if (comment.getUsername().equals(username)){
-
-
-
-                    photo.getComments().remove(comment);
-
-
-
-                }
-
-            }
-
-
-
-        }
-
-
-
-    }
 }
