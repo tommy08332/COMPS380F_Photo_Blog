@@ -108,7 +108,7 @@
                     <bold>
                         <c:url var="logoutUrl" value="/logout" />
                         <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
-                            <input style="background-color: red;border: none;text-decoration: none;text-align: center;font-weight: bold;color:yellow;" type="submit" class="link-button" value="Log out">
+                            <input style="color: #0000EE;background-color:white;border: none;text-decoration: none;" type="submit" class="link-button" value="Log out">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </form>
                     </bold>
