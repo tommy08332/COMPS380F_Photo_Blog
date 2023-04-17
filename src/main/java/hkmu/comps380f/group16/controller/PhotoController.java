@@ -8,7 +8,6 @@ import hkmu.comps380f.group16.exception.InvalidFileFormat;
 import hkmu.comps380f.group16.exception.PhotoNotFound;
 import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.Comments;
-import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import hkmu.comps380f.group16.model.PhotoDetails;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
@@ -74,8 +73,6 @@ public class PhotoController {
     public View upload(PhotoForm photoForm, Principal principal) throws IOException, InvalidFileFormat {
 
 
-        // use Principle to find userid
-
 
         int photoId = photosService.uploadPhoto(principal.getName(),
                 photoForm.getPhotoTitle(),
@@ -96,7 +93,6 @@ public class PhotoController {
 
         Photos photos = photosService.findPhoto(photoId);
 
-        PhotoBlogUsers uploadUser = photoUsersService.findUser(photos.getUploadUsername());
 
         byte [] imageByteArr = photos.getPhotoData();
         byte [] photo = Base64.getEncoder().encode(imageByteArr);
@@ -107,7 +103,6 @@ public class PhotoController {
         model.addObject("photos", photos);
         model.addObject("photoDetails", photoDetails);
         model.addObject("photoImg", photoImg);
-        model.addObject("uploadUser", uploadUser);
 
 
         if(principal == null){
