@@ -33,7 +33,6 @@
             height: 300px;
             background: #eee;
         }
-
         .link-button {
             background: none;
             border: none;
@@ -63,7 +62,7 @@
 
                 <li>
                     <bold>
-                        <a href="<c:url value="/user/profile"/>">Profile</a>
+                        <a href="<c:url value="/user/profile/${uname}"/>">Profile</a>
                     </bold>
                 </li>
 
