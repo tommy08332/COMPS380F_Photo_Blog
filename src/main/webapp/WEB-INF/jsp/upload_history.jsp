@@ -58,17 +58,22 @@
                             <a href="<c:url value="/admin/panel/history"/>">Upload History</a>
                         </bold>
                     </li>
-
+                    <li>
+                        <bold>
+                            <button style="background-color: white;border:none;"><a style="  text-decoration: none;"
+                                                    href="<c:url value="/admin/panel/registration/create"/>">Create new
+                                user</a></button>
+                        </bold>
+                    </li>
                     <li>
                         <bold>
                             <c:url var="logoutUrl" value="/logout"/>
                             <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
-                                <input style="background-color: red;border: none;text-align: center;font-weight: bold;color:yellow;" type="submit" class="link-button" value="Log out">
+                                <input style="color: #0000EE;background-color:white;border: none;text-decoration: none;" type="submit" class="link-button" value="Log out">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
                         </bold>
                     </li>
-
                 </ul>
 
                 <table border="1">
