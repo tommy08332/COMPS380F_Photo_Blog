@@ -18,7 +18,7 @@ public class PhotoBlogUsers {
     private String password;
 
     @Column(name= "phone_number")
-    private String phoneNum;
+    private long phoneNum;
 
     @Column(name= "email")
     private String email;
@@ -40,7 +40,7 @@ public class PhotoBlogUsers {
 
     public PhotoBlogUsers(String username,
                           String password,
-                          String phoneNum,
+                          int phoneNum,
                           String email,
                           String[] userRoles){
 
@@ -72,11 +72,11 @@ public class PhotoBlogUsers {
         this.password = password;
     }
 
-    public String getPhoneNum() {
+    public long getPhoneNum() {
         return phoneNum;
     }
 
-    public void setPhoneNum(String phoneNum) {
+    public void setPhoneNum(long phoneNum) {
         this.phoneNum = phoneNum;
     }
 
