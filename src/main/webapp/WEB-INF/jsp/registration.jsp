@@ -8,7 +8,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-
     <style>
         html, body, .container-table {
             height: 100%;
@@ -25,7 +24,6 @@
 </head>
 <body>
 
-
 <div class="container container-table col-md-offset-3">
     <div class="row vertical-center-row">
         <div class="text-center col-md-5 " style="background-color: whitesmoke;width: 70%;height: 23%">
@@ -34,7 +32,14 @@
                 <bold>Register Page</bold>
             </h1>
 
-            <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 95%;bottom:70%; border: none;"><a href="<c:url value="/"/>" style="color:black;">
+            <security:authorize access="hasRole('ADMIN')">
+
+                <c:set var="redirectPath" value="admin/panel/user" />
+
+            </security:authorize>
+
+
+            <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 95%;bottom:70%; border: none;"><a href="<c:url value="/${redirectPath}"/>" style="color:black;">
 
                 <h2><bold style="color:black;">X</bold></h2>
             </a></button>
@@ -70,15 +75,10 @@
 
                 </security:authorize>
 
-
                 <br/>
                 <input class="btn btn-success" type="submit" value="Register"/>
 
-
             </form:form>
-
-
-
 
         </div>
     </div>
