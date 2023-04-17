@@ -6,12 +6,13 @@ import hkmu.comps380f.group16.dao.PhotosService;
 import hkmu.comps380f.group16.exception.CommentsNotFound;
 import hkmu.comps380f.group16.exception.InvalidFileFormat;
 import hkmu.comps380f.group16.exception.PhotoNotFound;
+import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.Comments;
+import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import hkmu.comps380f.group16.model.PhotoDetails;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,7 +37,7 @@ public class PhotoController {
 
     @Resource
     private PhotosService photosService;
-    
+
     @Resource
     private CommentsService commentsService;
 
@@ -77,9 +78,9 @@ public class PhotoController {
 
 
         int photoId = photosService.uploadPhoto(principal.getName(),
-                                                photoForm.getPhotoTitle(),
-                                                photoForm.getPhotoData(),
-                                                photoForm.getPhotoDescription());
+                photoForm.getPhotoTitle(),
+                photoForm.getPhotoData(),
+                photoForm.getPhotoDescription());
 
 
         return new RedirectView("/photo/show/" + photoId, true);
@@ -89,11 +90,13 @@ public class PhotoController {
 
     @GetMapping("/show/{photoId:.+}")
     public ModelAndView showPhotoAndComment(@PathVariable("photoId") int photoId, Principal principal)
-            throws PhotoNotFound, UnsupportedEncodingException, CommentsNotFound {
-                ModelAndView model = new ModelAndView("photo");
+            throws PhotoNotFound, UnsupportedEncodingException, CommentsNotFound, UserNotFound {
+        ModelAndView model = new ModelAndView("photo");
 
 
         Photos photos = photosService.findPhoto(photoId);
+
+        PhotoBlogUsers uploadUser = photoUsersService.findUser(photos.getUploadUsername());
 
         byte [] imageByteArr = photos.getPhotoData();
         byte [] photo = Base64.getEncoder().encode(imageByteArr);
@@ -104,6 +107,7 @@ public class PhotoController {
         model.addObject("photos", photos);
         model.addObject("photoDetails", photoDetails);
         model.addObject("photoImg", photoImg);
+        model.addObject("uploadUser", uploadUser);
 
 
         if(principal == null){
@@ -118,7 +122,7 @@ public class PhotoController {
         model.addObject("comments", comments);
 
         model.addObject("comment", new CommentForm());
-        
+
         return model;
 
     }
@@ -149,7 +153,7 @@ public class PhotoController {
     public String insertComment(CommentForm commentForm, Principal principal) throws PhotoNotFound{
         if (commentForm.getOrder().equals("INSERT")) {
 //                System.out.println("Now doing insert\ncomment : " + commentForm.getCommentText());
-                commentsService.insertComment(commentForm.getPhotoId(), commentForm.getCommentText(), principal.getName());
+            commentsService.insertComment(commentForm.getPhotoId(), commentForm.getCommentText(), principal.getName());
         }
         return "redirect:/photo/show/" + String.valueOf(commentForm.getPhotoId());
     }
