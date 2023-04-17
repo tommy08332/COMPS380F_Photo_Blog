@@ -11,10 +11,6 @@ public class PhotoBlogUsers {
 
     // Add Primary key
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private long userId;
-
     @Column(name= "username")
     private String username;
 
@@ -59,14 +55,6 @@ public class PhotoBlogUsers {
         }
 
     };
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
 
     public String getUsername() {
         return username;
