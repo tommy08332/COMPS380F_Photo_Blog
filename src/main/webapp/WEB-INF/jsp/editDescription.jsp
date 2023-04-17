@@ -11,12 +11,10 @@
             list-style-type: none;
             width: 100%;
         }
-
         li {
             display: inline;
             padding-left: 7%;
         }
-
         .card {
             display: -webkit-box;
             max-width: 300px;
@@ -35,7 +33,7 @@
             <div class="card">
 
                 <button style="background-color:transparent;border:none;outline:none;position: absolute; left: 92%;bottom:80%; border: none;">
-                    <a href="<c:url value="/${redirectPath}"/>" style="color:black;">
+                    <a href="<c:url value="/user/profile/${blogUsers.username}"/>" style="color:black;">
 
                         <h2>
                             <bold style="color:black;">X</bold>
