@@ -32,7 +32,7 @@ public class CommentsService {
 
         return comments;
     }
-    
+
     //List All User' Comments
     public List<Comments> findUserAllComments(String username){
         return commentsRepository.findByUsername(username);
@@ -47,7 +47,7 @@ public class CommentsService {
         comment.setCommentText(context);
         commentsRepository.save(comment);
     }
-    
+
     //Insert New Comment
     public void insertComment(int photoId, String context, String username) throws PhotoNotFound {
         //for test
@@ -68,5 +68,40 @@ public class CommentsService {
     }
 
 
+    // there are some delete comments problems here
+    public void deleteUserAllComment(String username) throws PhotoNotFound {
 
+        List<Photos> photos = photosRepository.findAll();
+
+        if (photos == null){
+            throw new PhotoNotFound("No photo found");
+        }
+
+
+
+        for (Photos photo : photos){
+
+
+
+            for (Comments comment : photo.getComments()){
+
+                if (comment.getUsername().equals(username)){
+
+
+
+                    photo.getComments().remove(comment);
+
+
+
+                }
+
+            }
+
+
+
+        }
+
+
+
+    }
 }
