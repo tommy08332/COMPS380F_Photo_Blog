@@ -2,80 +2,93 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>Edit Page</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <title>Edit Page</title>
 </head>
 <body>
 
 <security:authorize access="hasRole('ADMIN')">
-
-  <h1>Edit Page</h1>
-  <ul>
-
-    <li>
-      <bold>
-        <a style="text-decoration: none;" href="<c:url value="/admin/panel/user"/>">User Management</a>
-      </bold>
-    </li>
+<div style="padding: 0%" class="container container-table col-md-offset-5">
+    <div class="row">
+        <div class="col-lg">
+            <h1>
+                <bold>Edit Page</bold>
+            </h1>
 
 
-    <li>
-      <bold>
-        <c:url var="logoutUrl" value="/logout" />
-        <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
-          <input style="background-color: red;border: none;text-decoration: none;text-align: center;font-weight: bold;color:yellow;" type="submit" class="link-button" value="Log out">
-          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-      </bold>
-    </li>
-
-  </ul>
+            <ul style="list-style-type: none;display: flex;padding-bottom: 10%;padding-top: 1.5%;">
+                <li>
+                    <bold>
+                        <a style="text-decoration: none;" href="<c:url value="/admin/panel/user"/>">User Management</a>
+                    </bold>
+                </li>
 
 
-  <form:form method="POST" modelAttribute="editPhotoUser">
+                <li>
+                    <bold>
+                        <c:url var="logoutUrl" value="/logout"/>
+                        <form action="${logoutUrl}" method="POST" style="padding-left: 90%;">
+                            <input style="color: #0000EE;background-color:white;border: none;text-decoration: none;"
+                                   type="submit" class="link-button" value="Log out">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
+                    </bold>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="col-lg" style="width: 35%; text-align: -webkit-center; height: 50%;background-color: whitesmoke">
+            <form:form method="POST" modelAttribute="editPhotoUser" style="padding-top:15%;width: 30%;">
+                <div style="display:table-caption;padding-right:15%;">
+
+                    <form:label path="username">Username: <c:out value="${user.username}"/></form:label></br></br></br>
+
+                    <form:label path="password">Password: </form:label>
+                    <form:input type="text" path="password" value="${fn:substringAfter(user.password, '{noop}')}"/>
 
 
-    <form:label path="username">Username: <c:out value="${user.username}"/></form:label>
-
-    <br/>
-
-    <form:label path="password">Password: </form:label>
-    <form:input type="text" path="password" value="${fn:substringAfter(user.password, '{noop}')}" />
-    <br/>
-
-    <form:label path="email">Email: </form:label>
-    <form:input type="text" path="email" value="${user.email}"/>
-    <br/>
-
-    <form:label path="phoneNum">Phone number: </form:label>
-    <form:input type="text" path="phoneNum" value="${user.phoneNum}"/>
-    <br/>
-
-    <form:label path="userDescription">Description: </form:label>
-    <form:input type="text" path="userDescription" value="${user.userDescription}"/>
-    <br/>
-
-    <c:forEach items="${user.userRoles}" var="role">
-
-      <c:if test="${role.userRole == 'ROLE_USER'}">
-        <c:set var = "isUserChecked" value="checked"/>
-      </c:if>
-
-      <c:if test="${role.userRole == 'ROLE_ADMIN'}">
-        <c:set var = "isAdminChecked" value="checked"/>
-      </c:if>
-
-    </c:forEach>
-
-    <form:checkbox path="userRole" value="ROLE_USER" checked="${isUserChecked}"/>Normal User
-    <form:checkbox path="userRole" value="ROLE_ADMIN" checked="${isAdminChecked}"/>Admin User
+                    <form:label path="email">Email: </form:label>
+                    <form:input type="text" path="email" value="${user.email}"/>
 
 
-    <br/>
-    <input type="submit" value="Apply Changes"/>
+                    <form:label path="phoneNum">Phone number: </form:label>
+                    <form:input type="text" path="phoneNum" value="${user.phoneNum}"/>
 
-  </form:form>
 
-</security:authorize>
+                    <form:label path="userDescription">Description: </form:label>
+                    <form:input type="text" path="userDescription" value="${user.userDescription}"/>
 
+
+                    <c:forEach items="${user.userRoles}" var="role">
+
+                        <c:if test="${role.userRole == 'ROLE_USER'}">
+                            <c:set var="isUserChecked" value="checked"/>
+                        </c:if>
+
+                        <c:if test="${role.userRole == 'ROLE_ADMIN'}">
+                            <c:set var="isAdminChecked" value="checked"/>
+                        </c:if>
+
+                    </c:forEach>
+
+                    <form:checkbox path="userRole" value="ROLE_USER" checked="${isUserChecked}"/>Normal User</br>
+                    <form:checkbox path="userRole" value="ROLE_ADMIN" checked="${isAdminChecked}"/>Admin User
+                    <br/>
+                    <br/>
+                    <br/>
+                    <input style="width: 100%;border: none;color: white;background-color: green;" type="submit"
+                           value="Apply Changes"/>
+                </div>
+            </form:form>
+
+            </security:authorize>
+        </div>
+    </div>
+</div>
 </body>
 </html>
