@@ -55,7 +55,31 @@
 <body>
 
 
-<button onclick="location.href='<c:url value="/" />'">Home</button>
+<div style="padding-top: 3%;padding-left: 10%;">
+    <ul>
+
+        <li>
+            <bold>
+                <a href='<c:url value="/"/>'>Home Page</a>
+            </bold>
+        </li>
+
+        <security:authorize access="hasAnyRole('USER', 'ADMIN')">
+
+            <li>
+                <bold>
+                    <c:url var="logoutUrl" value="/logout" />
+                    <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
+                        <input style="background-color: red;border: none;text-decoration: none;text-align: center;font-weight: bold;color:yellow;" type="submit" class="link-button" value="Log out">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
+                </bold>
+            </li>
+
+        </security:authorize>
+
+    </ul>
+</div>
 <div class="row">
     <div class="col-sm-6" style="padding-left:15%;">
         <%-- photos.photoData is a bytes array that stored the photo file data --%>
@@ -245,7 +269,7 @@
                                         <a href="<c:url value="/user/profile/${comments.get(i).username}"/>">
                                             <c:out value="${comments.get(i).username}" escapeXml="false">
                                                 Unknown User
-                                            </c:out> 
+                                            </c:out>
                                         </a>
                                     </div>
                                 </th>
