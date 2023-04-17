@@ -7,12 +7,10 @@
         list-style-type: none;
         width: 100%;
     }
-
     li {
         display: inline;
         padding-left: 7%;
     }
-
     table, th, td {
         border: 1px solid black;
     }
@@ -27,9 +25,7 @@
     #adduser{
         background-color: gold;
         border: none;
-
     }
-
 </style>
 <head>
 
@@ -66,11 +62,11 @@
 
                     <li>
 
-                            <c:url var="logoutUrl" value="/logout"/>
-                            <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
-                                <input style="background-color: red;border: none;text-align: center;font-weight: bold;color:yellow;" type="submit" class="link-button" value="Log out">
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            </form>
+                        <c:url var="logoutUrl" value="/logout"/>
+                        <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
+                            <input style="background-color: red;border: none;text-align: center;font-weight: bold;color:yellow;" type="submit" class="link-button" value="Log out">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
 
                     </li>
 
@@ -120,8 +116,8 @@
                                         <c:out value="${fn:substringAfter(role.userRole, 'ROLE_')}"/>
                                     </c:forEach></bold>s
                                 </td>
-                                <td style="background-color: #649113;width: 10%;text-decoration: none;"><a style="margin-left: 25%;color:black" href="<c:url value="/admin/panel/edit/user/${user.userId}"/> ">Edit</a></td>
-                                <td  style="background-color: red;width: 10%;text-decoration: none;"><a style="margin-left: 25%;color: aliceblue" href="<c:url value="/admin/panel/delete/user/${user.userId}"/> ">Delete</a></td>
+                                <td style="background-color: #649113;width: 10%;text-decoration: none;"><a style="margin-left: 25%;color:black" href="<c:url value="/admin/panel/edit/user/${user.username}"/> ">Edit</a></td>
+                                <td  style="background-color: red;width: 10%;text-decoration: none;"><a style="margin-left: 25%;color: aliceblue" href="<c:url value="/admin/panel/delete/user/${user.username}"/> ">Delete</a></td>
 
                             </tr>
 
