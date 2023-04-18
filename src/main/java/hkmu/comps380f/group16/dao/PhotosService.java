@@ -147,8 +147,7 @@ public class PhotosService {
 
     //Delete comment
     public void deleteComment(int photoId, long commentId) throws PhotoNotFound {
-//        Comments comment = commentsRepository.findById(id).orElse(null);
-//        System.out.println("Deleting ... \n" + comment.getCommentId());
+
         Photos photo = photosRepository.findById(photoId).orElse(null);
         if(photo == null){
             throw new PhotoNotFound(String.valueOf(photoId));
@@ -165,12 +164,12 @@ public class PhotosService {
     }
 
     @Transactional
-    public void deletePhoto(String username) throws PhotoNotFound {
+    public void deletePhoto(String username) throws UserNotFound {
 
         List<Photos> deletePhotos = photosRepository.findByUploadUsername(username);
         if (deletePhotos == null){
 
-            throw new PhotoNotFound("Username '" + username + "' not found.");
+            throw new UserNotFound("Username '" + username + "' not found.");
 
         }
 
@@ -180,6 +179,21 @@ public class PhotosService {
 
         }
 
+
+    }
+
+    @Transactional
+    public void deletePhotoById(String photoId) throws PhotoNotFound {
+
+        Photos deletePhoto = photosRepository.findById(Integer.parseInt(photoId)).orElse(null);
+
+        if (deletePhoto == null){
+
+            throw new PhotoNotFound(photoId);
+
+        }
+
+        photosRepository.delete(deletePhoto);
 
     }
 
