@@ -47,6 +47,14 @@
             max-width: 500px;
             max-height: 500px;
         }
+        ul {
+            list-style-type: none;
+            width: 100%;
+        }
+        li {
+            display: inline;
+            padding-left: 7%;
+        }
     </style>
 
     <title>Photo</title>
@@ -70,7 +78,7 @@
                 <bold>
                     <c:url var="logoutUrl" value="/logout" />
                     <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
-                        <input style="background-color: red;border: none;text-decoration: none;text-align: center;font-weight: bold;color:yellow;" type="submit" class="link-button" value="Log out">
+                        <input style="color: #0000EE;background-color:white;border: none;text-decoration: none;" type="submit" class="link-button" value="Log out">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form>
                 </bold>
@@ -200,7 +208,7 @@
                                                     <div id="editForm${comments.get(i).commentId}"style="display:none;">
                                                         <form:form action="./comment/update" method="post" modelAttribute="comment" id="edit${comments.get(i).commentId}">
                                                                             <textarea rows="4" cols="40" name="commentText"
-                                                                                      form="edit${comments.get(i).commentId}"><c:out value="${comments.get(i).commentText}" escapeXml="false"></c:out></textarea>
+                                                                                      form="edit${comments.get(i).commentId}"><c:out value="${comments.get(i).commentText}" /></textarea>
                                                             <!-- <input type="text" value="${comments.get(i).commentText}"> -->
                                                             <input type="hidden" name="commentId" value="${comments.get(i).commentId}">
                                                             <input type="hidden" name="photoId" value="${photos.photoId}">
@@ -241,7 +249,7 @@
                                                     <div id="editForm${comments.get(i).commentId}" style="display:none;">
                                                         <form:form action="./comment/update" method="post" modelAttribute="comment" id="edit${comments.get(i).commentId}">
                                                                             <textarea rows="4" cols="40" name="commentText"
-                                                                                      form="edit${comments.get(i).commentId}"><c:out value="${comments.get(i).commentText}" escapeXml="false"></c:out></textarea>
+                                                                                      form="edit${comments.get(i).commentId}"><c:out value="${comments.get(i).commentText}" /></textarea>
                                                             <!-- <input type="text" value="${comments.get(i).commentText}"> -->
                                                             <input type="hidden" name="commentId" value="${comments.get(i).commentId}">
                                                             <input type="hidden" name="photoId" value="${photos.photoId}">
@@ -260,14 +268,14 @@
                                     </div>
                                     <div>
                                         <label id="label${comments.get(i).commentId}">
-                                            <c:out value="${comments.get(i).commentText}" escapeXml="false">
+                                            <c:out value="${comments.get(i).commentText}">
                                                 Null Comment
                                             </c:out>
                                         </label>
                                         <br>
                                         By
                                         <a href="<c:url value="/user/profile/${comments.get(i).username}"/>">
-                                            <c:out value="${comments.get(i).username}" escapeXml="false">
+                                            <c:out value="${comments.get(i).username}">
                                                 Unknown User
                                             </c:out>
                                         </a>
@@ -289,9 +297,9 @@
                             <form:form action="./comment/insert" method="POST" modelAttribute="comment">
                                 <form:label path="commentText">Comment</form:label>
                                 <br>
-                                <form:textarea type="text" path="commentText" />
-                                <input type="hidden" value="INSERT" name="order">
-                                <input type="hidden" value="${photos.photoId}" name="photoId">
+                                <form:textarea type="text" path="commentText" value="${commentText}"/>
+                                <input type="hidden" value="INSERT" name="order" value="${order}">
+                                <input type="hidden" value="${photos.photoId}" name="photoId" value="${photoId}">
                                 <br>
                                 <input type="submit" value="Comment">
                             </form:form>
