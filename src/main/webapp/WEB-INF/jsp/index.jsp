@@ -44,128 +44,151 @@
     <title>Welcome to PhotoBlog</title>
 </head>
 <body>
-<div class="container">
-    <div class="row">
+
+<c:choose>
+    <c:when test="${param.success != null}">
+
         <h1>Welcome to PhotoBlog! </h1>
-        <%--        nav bar--%>
-
-        <%--  if the user logged in, show the username here      --%>
-        <c:if test="${!empty uname}">
-            Hi, <c:out value="${uname}" />
-
-        </c:if>
-
 
         <ul>
-
-            <security:authorize access="hasAnyRole('USER', 'ADMIN')">
-
-                <li>
-                    <bold>
-                        <a href="<c:url value="/user/profile/${uname}"/>">Profile</a>
-                    </bold>
-                </li>
-
-            </security:authorize>
-
-            <c:if test="${empty uname}">
-                <li>
-                    <bold>
-                        <a href="<c:url value="/login"/>">Login</a>
-                    </bold>
-                </li>
-                <li>
-                    <bold>
-                        <a href="<c:url value="/registration/create"/>">Registration</a>
-                    </bold>
-                </li>
-
-            </c:if>
-
-            <security:authorize access="hasRole('ADMIN')">
-
-                <li>
-                    <bold>
-                        <a href='<c:url value="/admin/panel/user"/>'>Admin panel</a>
-                    </bold>
-                </li>
-
-            </security:authorize>
-
-            <security:authorize access="hasAnyRole('USER', 'ADMIN')">
-
-                <li>
-                    <bold>
-                        <a href='<c:url value="/photo/upload"/>'>Upload Photo Page</a>
-                    </bold>
-                </li>
-
-            </security:authorize>
-
-            <security:authorize access="hasAnyRole('USER', 'ADMIN')">
-
-                <li>
-                    <bold>
-                        <c:url var="logoutUrl" value="/logout" />
-                        <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
-                            <input style="color: #0000EE;background-color:white;border: none;text-decoration: none;" type="submit" class="link-button" value="Log out">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        </form>
-                    </bold>
-                </li>
-
-            </security:authorize>
+            <li>
+                <bold>
+                    You've been logged out, please press the <a href="<c:url value="/"/>">Home page</a> back to home page.
+                </bold>
+            </li>
 
         </ul>
 
-        <c:choose>
 
-            <c:when test="${empty photos}">
 
-                Please Upload photo
+    </c:when>
+    <c:otherwise>
 
-            </c:when>
+        <div class="container">
+            <div class="row">
+                <h1>Welcome to PhotoBlog! </h1>
+                    <%--        nav bar--%>
 
-            <c:otherwise>
+                    <%--  if the user logged in, show the username here      --%>
+                <c:if test="${!empty uname}">
+                    Hi, <c:out value="${uname}" />
 
-                ${filetype.values()}
+                </c:if>
 
-                <div class="tableFixHead">
-                    <table>
 
-                        <tbody>
+                <ul>
 
-                        <c:forEach var="i" begin="0" end="${photos.size()-1}">
+                    <security:authorize access="hasAnyRole('USER', 'ADMIN')">
 
-                        <c:if test="${i % 3 == 0}">
-                        <tr>
-                            </c:if>
+                        <li>
+                            <bold>
+                                <a href="<c:url value="/user/profile/${uname}"/>">Profile</a>
+                            </bold>
+                        </li>
 
-                            <td>
-                                <a href="<c:url value="/photo/show/${photos.get(i).photoId}"/>">
+                    </security:authorize>
 
-                                    <img alt="img"
-                                         src="data:image/${photos.get(i).photoFileType};base64,${fileContent.get(i)}"
-                                         style="width:300px"/>
-                                </a>
+                    <c:if test="${empty uname}">
+                        <li>
+                            <bold>
+                                <a href="<c:url value="/login"/>">Login</a>
+                            </bold>
+                        </li>
+                        <li>
+                            <bold>
+                                <a href="<c:url value="/registration/create"/>">Registration</a>
+                            </bold>
+                        </li>
 
-                            </td>
+                    </c:if>
 
-                            </c:forEach>
+                    <security:authorize access="hasRole('ADMIN')">
 
-                        </tbody>
+                        <li>
+                            <bold>
+                                <a href='<c:url value="/admin/panel/user"/>'>Admin panel</a>
+                            </bold>
+                        </li>
 
-                    </table>
+                    </security:authorize>
 
-                </div>
+                    <security:authorize access="hasAnyRole('USER', 'ADMIN')">
 
-            </c:otherwise>
+                        <li>
+                            <bold>
+                                <a href='<c:url value="/photo/upload"/>'>Upload Photo Page</a>
+                            </bold>
+                        </li>
 
-        </c:choose>
+                    </security:authorize>
 
-    </div>
+                    <security:authorize access="hasAnyRole('USER', 'ADMIN')">
 
-</div>
+                        <li>
+                            <bold>
+                                <c:url var="logoutUrl" value="/logout" />
+                                <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
+                                    <input style="color: #0000EE;background-color:white;border: none;text-decoration: none;" type="submit" class="link-button" value="Log out">
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                </form>
+                            </bold>
+                        </li>
+
+                    </security:authorize>
+
+                </ul>
+
+
+                <c:choose>
+
+                    <c:when test="${empty photos}">
+
+                        Please Upload photo
+
+                    </c:when>
+
+
+                    <c:otherwise>
+
+                        <div class="tableFixHead">
+                            <table>
+
+                                <tbody>
+
+                                <c:forEach var="i" begin="0" end="${photos.size()-1}">
+
+                                <c:if test="${i % 3 == 0}">
+                                <tr>
+                                    </c:if>
+
+                                    <td>
+                                        <a href="<c:url value="/photo/show/${photos.get(i).photoId}"/>">
+
+                                            <img alt="img"
+                                                 src="data:image/${photos.get(i).photoFileType};base64,${fileContent.get(i)}"
+                                                 style="width:300px"/>
+                                        </a>
+
+                                    </td>
+
+                                    </c:forEach>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </c:otherwise>
+
+                </c:choose>
+
+            </div>
+
+        </div>
+    </c:otherwise>
+
+</c:choose>
 
 </body>
 </html>
