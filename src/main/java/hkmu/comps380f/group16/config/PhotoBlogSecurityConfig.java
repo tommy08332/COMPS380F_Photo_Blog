@@ -20,7 +20,7 @@ public class PhotoBlogSecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/photo/upload").hasAnyRole("USER", "ADMIN")
-//                        .requestMatchers("/user/profile/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/user/profile/edit/**").hasAnyRole("USER", "ADMIN")
 
                         // may add more restriction here
                         .anyRequest().permitAll()
@@ -37,11 +37,14 @@ public class PhotoBlogSecurityConfig {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 )
+                .rememberMe(remember -> remember
+                        .key("youCannotFindThisKey")
+                        .tokenValiditySeconds(600))
                 .httpBasic(withDefaults());
 
-//                .rememberMe()
         return http.build();
-//                        .failur)
-//                      finish it after demo
+
     }
+
+
 }
