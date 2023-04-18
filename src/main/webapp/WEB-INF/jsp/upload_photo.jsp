@@ -10,7 +10,6 @@
             list-style-type: none;
             width: 100%;
         }
-
         li {
             display: inline;
             padding-left: 7%;
@@ -28,27 +27,6 @@
             <li>
                 <bold>
                     <a style="text-decoration: none;" href='<c:url value="/"/>'>Home Page</a>
-                </bold>
-            </li>
-
-            <li>
-                <bold>
-                    <a style="text-decoration: none;" href="<c:url value="/admin/panel/user"/>">User
-                        Management</a>
-                </bold>
-            </li>
-            <li>
-                <bold>
-                    <a style="text-decoration: none;" href="<c:url value="/admin/panel/history"/>">Upload
-                        History</a>
-                </bold>
-            </li>
-            <li>
-                <bold>
-                    <button style="background-color: white;border:none;"><a style=" text-decoration: none;"
-                                                                            href="<c:url value="/admin/panel/registration/create"/>">Create
-                        new
-                        user</a></button>
                 </bold>
             </li>
 
