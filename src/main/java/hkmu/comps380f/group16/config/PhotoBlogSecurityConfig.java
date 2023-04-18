@@ -20,9 +20,9 @@ public class PhotoBlogSecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/photo/upload").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/photo/show/comment/insert").hasAnyRole("USER","ADMIN")
+                        .requestMatchers("/photo/show/comment/**").hasRole("ADMIN")
                         .requestMatchers("/user/profile/edit/**").hasAnyRole("USER", "ADMIN")
-
-                        // may add more restriction here
                         .anyRequest().permitAll()
                 )
                 .formLogin(loginForm -> loginForm
