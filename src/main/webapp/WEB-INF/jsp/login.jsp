@@ -34,6 +34,7 @@
 </head>
 <body>
 
+
 <div class="container container-table">
     <div class="row vertical-center-row">
         <div class="text-center col-md-5 col-md-offset-3" style="background-color: aqua">
@@ -55,12 +56,23 @@
                     <label>Password</label>
                     <input type="password" name="password"/>
                 </div>
+                <div>
+                    <label>Remember me</label>
+                    <input type="checkbox" name="remember-me" />
+                </div>
+
                 <div style="padding-left: 3%;">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <button style="background-color: green; color: white;" type="submit" value="Login">Login</button>
                 </div>
 
+
             </form>
+                <c:if test="${param.error != null}">
+
+                    <div style="color: black; font-weight: bold">Incorrect username or password</div>
+
+                </c:if>
         </div>
     </div>
 </div>
