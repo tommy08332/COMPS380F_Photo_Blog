@@ -183,7 +183,7 @@
 
         <div class="col-sm-6">
             <h2>
-                Comments List
+                Comments History
             </h2>
             <div class="tableFixHead">
                 <table>
