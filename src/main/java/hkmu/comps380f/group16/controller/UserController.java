@@ -10,6 +10,7 @@ import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import hkmu.comps380f.group16.model.PhotoDetails;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +33,7 @@ public class UserController {
 
     @Resource
     private PhotosService photosService;
-    
+
     @Resource
     private CommentsService commentsService;
 
@@ -75,21 +76,31 @@ public class UserController {
 
         model.addAttribute("photos", photos);
         model.addAttribute("photoImg", photoArr);
-        
+
         List<Comments> commentsList = commentsService.findUserAllComments(blogUsers.getUsername());
-        System.out.println("Size of comment : " + commentsList.size());
+
         if(commentsList == null){
             model.addAttribute("commentsList", null);
         }else{
             model.addAttribute("commentsList", commentsList);
         }
-        
+
         return "profile";
     }
 
     @GetMapping("/profile/edit/{username:.+}")
-    public ModelAndView editDescription(@PathVariable("username") String username, ModelMap model)
+    public ModelAndView editDescription(@PathVariable("username") String username, ModelMap model, Principal principal, HttpServletRequest request)
             throws UserNotFound {
+
+        PhotoBlogUsers user = BlogUsersService.findUser(principal.getName());
+
+        if (user == null || !username.equals(user.getUsername())){
+
+            return new ModelAndView(new RedirectView("/", true));
+
+        }
+
+
 
         PhotoBlogUsers blogUsers = BlogUsersService.findUser(username);
         model.addAttribute("blogUsers", blogUsers);
@@ -101,7 +112,15 @@ public class UserController {
     }
 
     @PostMapping("/profile/edit/{username:.+}")
-    public String editDescription(@PathVariable("username") String username, editForm form) throws UserNotFound{
+    public String editDescription(@PathVariable("username") String username, editForm form, Principal principal, HttpServletRequest request) throws UserNotFound{
+
+        PhotoBlogUsers user = BlogUsersService.findUser(principal.getName());
+
+        if (user == null || !username.equals(user.getUsername())){
+
+            return "redirect:/";
+
+        }
 
         BlogUsersService.updateUserDescription(username,
                 form.getEmail(),
