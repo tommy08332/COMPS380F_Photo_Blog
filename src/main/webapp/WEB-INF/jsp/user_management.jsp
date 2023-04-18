@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
 <style>
@@ -70,8 +68,13 @@
                     <li>
                         <bold>
                             <button style="background-color: white;border:none;"><a style=" text-decoration: none;"
-                                                                                    href="<c:url value="/admin/panel/registration/create"/>">Create new
-                                user</a></button>
+                                href="<c:url value="/admin/panel/registration/create"/>">Create new user</a></button>
+                        </bold>
+                    </li>
+                    <li>
+                        <bold>
+                            <button style="background-color: white;border:none;"><a style=" text-decoration: none;"
+                                href="<c:url value="/photo/upload"/>">Upload photo</a></button>
                         </bold>
                     </li>
                     <li>
