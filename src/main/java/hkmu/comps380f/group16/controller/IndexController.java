@@ -26,8 +26,7 @@ public class IndexController {
 
         List<Photos> photos = photosService.findAllPhotos();
 
-
-        // may have some problem here
+        
         ArrayList<String> filesArr = new ArrayList<String>();
 
         for (Photos photo : photos){
@@ -68,7 +67,7 @@ public class IndexController {
     @GetMapping("/logout")
     public String logout() {
 
-        return "redirect:/";
+        return "index";
 
     }
 
