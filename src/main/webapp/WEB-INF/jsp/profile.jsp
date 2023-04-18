@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,10 +111,15 @@
                 <p>Description : <c:out value="${blogUsers.userDescription}"/></p>
                 <p>
                     <security:authorize access="hasAnyRole('USER', 'ADMIN')">
-                        <button>
-                            <a style="color: whitesmoke" href="<c:url value="/user/profile/edit/${blogUsers.username}"/>">Edit
-                                Description</a>
-                        </button>
+                        <security:authorize access="principal.username == '${blogUsers.username}'">
+
+                            <button>
+                                <a style="color: whitesmoke" href="<c:url value="/user/profile/edit/${blogUsers.username}"/>">Edit
+                                    Description</a>
+                            </button>
+
+                        </security:authorize>
+
                     </security:authorize>
 
                 </p>
