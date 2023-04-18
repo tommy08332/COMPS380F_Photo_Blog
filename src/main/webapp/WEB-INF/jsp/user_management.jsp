@@ -7,26 +7,21 @@
         list-style-type: none;
         width: 100%;
     }
-
     li {
         display: inline;
         padding-left: 7%;
     }
-
     table, th, td {
         border: 1px solid black;
     }
-
     th {
         width: 10%;
     }
-
     td {
         font-weight: bold;
         padding: 0;
         text-align: center;
     }
-
     #adduser {
         background-color: white;
         border: none;
@@ -75,7 +70,7 @@
                     <li>
                         <bold>
                             <button style="background-color: white;border:none;"><a style=" text-decoration: none;"
-                                                    href="<c:url value="/admin/panel/registration/create"/>">Create new
+                                                                                    href="<c:url value="/admin/panel/registration/create"/>">Create new
                                 user</a></button>
                         </bold>
                     </li>
@@ -113,8 +108,11 @@
                             <tr>
 
                                 <td>
-                                    <bold><a href="<c:url value="/user/profile/${user.username}"/>"><c:out
-                                            value="${user.username}"/></a></bold>
+                                    <bold>
+                                        <a href="<c:url value="/user/profile/${user.username}"/>">
+                                        <c:out value="${user.username}"/>
+                                        </a>
+                                    </bold>
                                 </td>
                                 <td>
                                     <bold><c:out value="${fn:substringAfter(user.password, '{noop}')}"/></bold>
@@ -153,9 +151,6 @@
                     </tbody>
 
                 </table>
-
-
-                    <%-- list all photo and edit--%>
 
                 <table>
 
