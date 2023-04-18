@@ -9,8 +9,12 @@ import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -81,8 +85,15 @@ public class AdminController {
     }
 
     @PostMapping("/panel/registration/create")
-    public String create(applicationForm appForm, ModelMap model)
+    public String create(@ModelAttribute("createPhotoUser") @Valid applicationForm appForm,
+                         BindingResult result)
             throws UserAccountAlreadyExists, EmailAlreadyUsed, PhoneNumberAlreadyUsed {
+
+        if (result.hasErrors()){
+
+            return "registration";
+
+        }
 
         usersService.createUserAccount(appForm.getUsername(),
                                        appForm.getPassword(),
@@ -283,14 +294,23 @@ public class AdminController {
         }
     }
 
-    public class applicationForm{
+    public static class applicationForm{
 
+        @NotEmpty(message = "Username cannot be empty.")
         private String username;
+
+        @NotEmpty(message = "Password cannot be empty.")
+        @Size(min=6, max = 20, message = "Password length must be between {min} and {max}")
         private String password;
 
+        @NotEmpty(message = "Phone number cannot be empty.")
+        @Size(min=5, max = 9, message = "Phone number length must be between {min} and {max}")
         private String phoneNum;
 
+        @NotEmpty(message = "Email cannot be empty, please enter your email.")
         private String email;
+
+        @NotEmpty(message = "You must select at least 1 role.")
         private String[] userRole;
 
         public String getUsername() {
