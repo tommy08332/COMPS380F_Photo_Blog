@@ -49,9 +49,7 @@ public class CommentsService {
 
     //Insert New Comment
     public void insertComment(int photoId, String context, String username) throws PhotoNotFound {
-        //for test
-//        String username = "test_user";
-        //for test
+
         Comments comment = new Comments();
         comment.setCommentText(context);
         comment.setCommentDatetime(new Date());
