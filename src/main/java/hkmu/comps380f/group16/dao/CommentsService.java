@@ -24,7 +24,6 @@ public class CommentsService {
     public List<Comments> findPhotoAllComments(int photo_id) throws CommentsNotFound {
 
         List<Comments> comments = commentsRepository.findByPhotoId(photo_id);
-        System.out.println("getting photo comments\nID : " + photo_id + "\nComments size : " + comments.size());
 
         if (comments == null){
             throw new CommentsNotFound("Photo ID('" + photo_id + "') commnets not found");
@@ -63,7 +62,7 @@ public class CommentsService {
             throw new PhotoNotFound(String.valueOf(photoId));
         }
         comment.setPhoto(photo);
-        System.out.println("User is " + comment.getUsername());
+
         commentsRepository.save(comment);
     }
 
