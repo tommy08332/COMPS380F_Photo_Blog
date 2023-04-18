@@ -31,14 +31,7 @@ public class PhotoBlogUsersService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        System.out.println("before" );
-
         PhotoBlogUsers findUser = usersRepository.findById(username).orElse(null);
-
-        System.out.println("findUser" + findUser);
-
-        System.out.println("&amp;  " + username);
-
 
         if (findUser == null){
 
