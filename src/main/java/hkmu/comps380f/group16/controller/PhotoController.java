@@ -8,9 +8,11 @@ import hkmu.comps380f.group16.exception.InvalidFileFormat;
 import hkmu.comps380f.group16.exception.PhotoNotFound;
 import hkmu.comps380f.group16.exception.UserNotFound;
 import hkmu.comps380f.group16.model.Comments;
+import hkmu.comps380f.group16.model.PhotoBlogUsers;
 import hkmu.comps380f.group16.model.PhotoDetails;
 import hkmu.comps380f.group16.model.Photos;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,29 +51,32 @@ public class PhotoController {
     }
 
     @GetMapping("/upload")
-    public ModelAndView upload() {
+    public ModelAndView upload(Principal principal)
+            throws UserNotFound{
 
-        // for test upload photo
-//        List<MultipartFile> list = new ArrayList<>();
-//
-//        list.add(null); // size=1
-//        list.add(null); // size=2
-//
-//
-//        photosService.uploadPhoto(list);
+        PhotoBlogUsers user = photoUsersService.findUser(principal.getName());
+        if (user == null || !principal.getName().equals(user.getUsername())){
+
+            return new ModelAndView(new RedirectView("/", true));
+
+        }
 
         return new ModelAndView("upload_photo", "photoUploadForm", new PhotoForm());
-
-
-//        return "upload_photo";
 
     }
 
 
     @PostMapping("/upload")
 
-    public View upload(PhotoForm photoForm, Principal principal) throws IOException, InvalidFileFormat {
+    public View upload(PhotoForm photoForm, Principal principal)
+            throws IOException, InvalidFileFormat, UserNotFound {
 
+        PhotoBlogUsers user = photoUsersService.findUser(principal.getName());
+        if (user == null || !principal.getName().equals(user.getUsername())){
+
+            return new RedirectView("/", true);
+
+        }
 
 
         int photoId = photosService.uploadPhoto(principal.getName(),
@@ -87,7 +92,7 @@ public class PhotoController {
 
     @GetMapping("/show/{photoId:.+}")
     public ModelAndView showPhotoAndComment(@PathVariable("photoId") int photoId, Principal principal)
-            throws PhotoNotFound, UnsupportedEncodingException, CommentsNotFound, UserNotFound {
+            throws PhotoNotFound, UnsupportedEncodingException, CommentsNotFound {
         ModelAndView model = new ModelAndView("photo");
 
 
@@ -113,7 +118,6 @@ public class PhotoController {
 
         List<Comments> comments = commentsService.findPhotoAllComments(photoId);
 
-//        System.out.println(comments.size());
         model.addObject("comments", comments);
 
         model.addObject("comment", new CommentForm());
@@ -124,9 +128,22 @@ public class PhotoController {
 
     //Update Comment
     @PostMapping("/show/comment/update")
-    public String updateComment(CommentForm commentForm)throws CommentsNotFound {
+    public String updateComment(CommentForm commentForm,
+                                Principal principal, HttpServletRequest request)throws CommentsNotFound, UserNotFound {
+
+        PhotoBlogUsers user = photoUsersService.findUser(principal.getName());
+
+
+        if (user == null || !request.isUserInRole("ROLE_ADMIN") &&
+                !principal.getName().equals(user.getUsername())){
+
+            return "redirect:/photo/show/" + String.valueOf(commentForm.getPhotoId());
+
+        }
+
+
         if(commentForm.getOrder().equals("UPDATE")){
-//        System.out.println("Now doing update\ncomment ID : " + commentForm.getCommentId() + "\ncomment : " + commentForm.getCommentText());
+
             commentsService.updateComment(commentForm.getCommentId(), commentForm.getCommentText());
         }
         return "redirect:/photo/show/" + String.valueOf(commentForm.getPhotoId());
@@ -135,9 +152,19 @@ public class PhotoController {
 
     //Delete Comment
     @PostMapping("/show/comment/delete")
-    public String deleteComment(CommentForm commentForm)throws PhotoNotFound {
+    public String deleteComment(CommentForm commentForm,
+                                Principal principal, HttpServletRequest request)throws PhotoNotFound, UserNotFound {
+
+        PhotoBlogUsers user = photoUsersService.findUser(principal.getName());
+
+        if (user == null || !request.isUserInRole("ROLE_ADMIN") &&
+                !principal.getName().equals(user.getUsername())){
+
+            return "redirect:/photo/show/" + String.valueOf(commentForm.getPhotoId());
+
+        }
+
         if(commentForm.getOrder().equals("DELETE")){
-//        System.out.println("Now doing update\ncomment ID : " + commentForm.getCommentId() + "\ncomment : " + commentForm.getCommentText());
             photosService.deleteComment(commentForm.getPhotoId(), commentForm.getCommentId());
         }
         return "redirect:/photo/show/" + String.valueOf(commentForm.getPhotoId());
@@ -145,21 +172,34 @@ public class PhotoController {
 
     //Insert New Comment
     @PostMapping("/show/comment/insert")
-    public String insertComment(CommentForm commentForm, Principal principal) throws PhotoNotFound{
+    public String insertComment(CommentForm commentForm,
+                                Principal principal) throws PhotoNotFound, UserNotFound{
+
+
+        PhotoBlogUsers user = photoUsersService.findUser(principal.getName());
+        if (user == null || !principal.getName().equals(user.getUsername())){
+
+            return "redirect:/photo/show/" + String.valueOf(commentForm.getPhotoId());
+
+        }
+
+
         if (commentForm.getOrder().equals("INSERT")) {
-//                System.out.println("Now doing insert\ncomment : " + commentForm.getCommentText());
+
             commentsService.insertComment(commentForm.getPhotoId(), commentForm.getCommentText(), principal.getName());
         }
         return "redirect:/photo/show/" + String.valueOf(commentForm.getPhotoId());
     }
 
-    @ExceptionHandler({PhotoNotFound.class, InvalidFileFormat.class})
+
+    @ExceptionHandler({PhotoNotFound.class, InvalidFileFormat.class,
+            UserNotFound.class, CommentsNotFound.class, InvalidFileFormat.class})
     public ModelAndView error(Exception e){
 
         return new ModelAndView("error", "err_message", e.getMessage());
     }
 
-    // delete photo
+
 
 
     public static class PhotoForm {
