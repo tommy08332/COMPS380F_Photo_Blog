@@ -44,7 +44,8 @@ public class AdminController {
 
         PhotoBlogUsers user = usersService.findUser(principal.getName());
 
-        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(user.getUsername())){
+        if (user == null || !request.isUserInRole("ROLE_ADMIN") &&
+                !principal.getName().equals(user.getUsername())){
 
             return "redirect:/";
 
@@ -60,22 +61,32 @@ public class AdminController {
 
     }
 
-    @GetMapping("/panel/registration")
-    public String create(Principal principal, HttpServletRequest request)
-        throws UserNotFound{
+    @GetMapping({"/panel/user/", "/panel/","/panel" , "/"})
+    public String userManagement(){
 
-        PhotoBlogUsers user = usersService.findUser(principal.getName());
+        return "redirect:/admin/panel/user";
 
-        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(user.getUsername())){
+    }
 
-            return "redirect:/";
 
-        }
-        return "redirect:/panel/registration/create";
+    @GetMapping({"/panel/registration", "/panel/registration/"})
+    public String create() {
+
+        return "redirect:/admin/panel/registration/create";
     }
 
     @GetMapping("/panel/registration/create")
-    public ModelAndView create(){
+    public ModelAndView create(Principal principal, HttpServletRequest request)
+    throws UserNotFound{
+
+        PhotoBlogUsers user = usersService.findUser(principal.getName());
+
+        if (user == null || !request.isUserInRole("ROLE_ADMIN") &&
+                !principal.getName().equals(user.getUsername())){
+
+            return new ModelAndView(new RedirectView("/", true));
+
+        }
 
         return new ModelAndView(
                 "registration",
@@ -85,9 +96,19 @@ public class AdminController {
     }
 
     @PostMapping("/panel/registration/create")
-    public String create(@ModelAttribute("createPhotoUser") @Valid applicationForm appForm,
-                         BindingResult result)
-            throws UserAccountAlreadyExists, EmailAlreadyUsed, PhoneNumberAlreadyUsed {
+    public String create(@ModelAttribute("createPhotoUser") @Valid
+             applicationForm appForm, BindingResult result,
+                         Principal principal, HttpServletRequest request)
+            throws UserAccountAlreadyExists, EmailAlreadyUsed, PhoneNumberAlreadyUsed, UserNotFound {
+
+        PhotoBlogUsers user = usersService.findUser(principal.getName());
+
+        if (user == null || !request.isUserInRole("ROLE_ADMIN") &&
+                !principal.getName().equals(user.getUsername())){
+
+            return "redirect:/";
+
+        }
 
         if (result.hasErrors()){
 
@@ -107,15 +128,16 @@ public class AdminController {
 
 
     @GetMapping("/panel/edit/user/{username:.+}")
-    public ModelAndView editUser(@PathVariable("username") String username, ModelMap model,
-                                 Principal principal, HttpServletRequest request)
+    public ModelAndView editUser(@PathVariable("username") String username,
+             ModelMap model, Principal principal, HttpServletRequest request)
             throws UserNotFound {
 
         PhotoBlogUsers user = usersService.findUser(principal.getName());
 
         PhotoBlogUsers targetUser = usersService.findUser(username);
 
-        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(user.getUsername())){
+        if (user == null || !request.isUserInRole("ROLE_ADMIN") &&
+                !principal.getName().equals(user.getUsername())){
 
             return new ModelAndView(new RedirectView("/", true));
 
@@ -135,11 +157,13 @@ public class AdminController {
 
     @PostMapping("/panel/edit/user/{username:.+}")
     public String editUser(@PathVariable("username") String username, editForm form,
-                           Principal principal, HttpServletRequest request) throws UserNotFound{
+                           Principal principal, HttpServletRequest request)
+            throws UserNotFound{
 
         PhotoBlogUsers user = usersService.findUser(principal.getName());
 
-        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(user.getUsername())){
+        if (user == null || !request.isUserInRole("ROLE_ADMIN") &&
+                !principal.getName().equals(user.getUsername())){
 
             return "redirect:/";
         }
@@ -164,7 +188,8 @@ public class AdminController {
 
         PhotoBlogUsers user = usersService.findUser(principal.getName());
 
-        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(user.getUsername())){
+        if (user == null || !request.isUserInRole("ROLE_ADMIN") &&
+                !principal.getName().equals(user.getUsername())){
 
             return "redirect:/";
 
@@ -188,7 +213,8 @@ public class AdminController {
 
         PhotoBlogUsers user = usersService.findUser(principal.getName());
 
-        if (!request.isUserInRole("ROLE_ADMIN") && !principal.getName().equals(user.getUsername())){
+        if (user == null || !request.isUserInRole("ROLE_ADMIN") &&
+                !principal.getName().equals(user.getUsername())){
 
             return "redirect:/";
 
@@ -219,8 +245,32 @@ public class AdminController {
 
     }
 
+    // delete photo
+    @GetMapping("/panel/history/delete/photo/{photoId:.+}")
+    public String deletePhoto(@PathVariable("photoId") String photoId,
+                              Principal principal, HttpServletRequest request)
+            throws PhotoNotFound, UserNotFound{
+
+        PhotoBlogUsers user = usersService.findUser(principal.getName());
+
+        if (user == null || !request.isUserInRole("ROLE_ADMIN") &&
+                !principal.getName().equals(user.getUsername())){
+
+            return "redirect:/";
+
+        }
+
+        photosService.deletePhotoById(photoId);
+
+        return "redirect:/admin/panel/history";
+
+
+    }
+
+
     @ExceptionHandler({UserNotFound.class, UserAccountAlreadyExists.class,
-            EmailAlreadyUsed.class, PhoneNumberAlreadyUsed.class})
+            EmailAlreadyUsed.class, PhoneNumberAlreadyUsed.class,
+            PhotoNotFound.class, CommentsNotFound.class})
     public ModelAndView error(Exception e){
 
         return new ModelAndView("error", "err_message", e.getMessage());
