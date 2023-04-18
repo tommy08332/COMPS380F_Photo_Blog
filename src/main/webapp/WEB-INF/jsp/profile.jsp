@@ -12,34 +12,28 @@
             list-style-type: none;
             width: 100%;
         }
-
         li {
             display: inline;
             padding-left: 7%;
         }
-
         .tableFixHead {
             overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
             height: 800px; /* gives an initial height of 200px to the table */
         }
-
         table {
             border-collapse: collapse; /* make the table borders collapse to each other */
             width: 100%;
             height: 50%;
         }
-
         th,
         td {
             padding: 8px 16px;
             border: 1px solid #ccc;
         }
-
         th {
             height: 300px;
             background: #eee;
         }
-
         .card {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             max-width: 300px;
@@ -47,7 +41,6 @@
             text-align: center;
             font-family: arial;
         }
-
         button {
             border: none;
             outline: 0;
@@ -60,17 +53,14 @@
             width: 100%;
             font-size: 18px;
         }
-
         ul {
             list-style-type: none;
             width: 100%;
         }
-
         li {
             display: inline;
             padding-left: 7%;
         }
-
         button:hover, a:hover {
             opacity: 0.7;
         }
@@ -83,15 +73,31 @@
 
         <li>
             <bold>
-                <a href='<c:url value="/photo/upload"/>'>Upload Photo Page</a>
-            </bold>
-        </li>
-
-        <li>
-            <bold>
                 <a href='<c:url value="/"/>'>Home Page</a>
             </bold>
         </li>
+        <security:authorize access="hasAnyRole('USER', 'ADMIN')">
+            <li>
+                <bold>
+                    <a href='<c:url value="/photo/upload"/>'>Upload Photo Page</a>
+                </bold>
+            </li>
+        </security:authorize>
+
+
+        <security:authorize access="hasAnyRole('USER', 'ADMIN')">
+
+            <li>
+                <bold>
+                    <c:url var="logoutUrl" value="/logout" />
+                    <form action="${logoutUrl}" method="POST" style="padding-left: 90%">
+                        <input style="color: #0000EE;background-color:white;border: none;text-decoration: none;" type="submit" class="link-button" value="Log out">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
+                </bold>
+            </li>
+
+        </security:authorize>
 
     </ul>
 </div>
@@ -105,10 +111,13 @@
                 <p>Email : <c:out value="${blogUsers.email}"/></p>
                 <p>Description : <c:out value="${blogUsers.userDescription}"/></p>
                 <p>
-                    <button>
-                        <a style="color: whitesmoke" href="<c:url value="/user/profile/edit/${blogUsers.username}"/>">Edit
-                            Description</a>
-                    </button>
+                    <security:authorize access="hasAnyRole('USER', 'ADMIN')">
+                        <button>
+                            <a style="color: whitesmoke" href="<c:url value="/user/profile/edit/${blogUsers.username}"/>">Edit
+                                Description</a>
+                        </button>
+                    </security:authorize>
+
                 </p>
             </div>
 
@@ -141,7 +150,7 @@
                             <c:otherwise>
                             <c:forEach var="i" begin="0" end="${photos.size()-1}">
                             <div style="display: inline;padding-right: 5%;">
-                                <img alt="img" src="data:image/${photos.get(i).photoFileType};base64,${photoImg.get(i)}"
+                                <img alt="img" src="data:image/<c:out value="${photos.get(i).photoFileType}" />;base64,<c:out value="${photoImg.get(i)}" />"
                                      style="width: 300px;"/>
                             </div>
                             <div style="display: inline;padding-right: 8%;">
@@ -206,8 +215,7 @@
                                         <div style="display: inline;padding-right: 10%;">
                                             <label><h3>Comment :</h3></br>
 
-                                                <c:out value="${commentsList.get(i).commentText}"
-                                                       escapeXml="false">Null Comment</c:out>
+                                                <c:out value="${commentsList.get(i).commentText}">Null Comment</c:out>
                                             </label></div>
                                         <div style="display: inline">
                                             <label><h3>Commented-On :</h3></br>
