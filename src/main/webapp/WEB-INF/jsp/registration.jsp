@@ -50,19 +50,23 @@
                 <div style="display: flex;">
                     <div style="padding-left: 8%;">
                         <form:label path="username">Username: </form:label>
-                        <form:input type="text" path="username"/>
+                        <form:input type="text" path="username" /></br>
+                        <form:errors path="username" cssStyle="font-weight: bold; color: red; font-size: 4px;"/>
                         </br>
 
                         <form:label path="password">Password: </form:label>
-                        <form:password path="password"/>
+                        <form:password path="password"/></br>
+                        <form:errors path="password" cssStyle="font-weight: bold; color: red; font-size: 4px;"/>
                     </div>
                     <div style="padding-left: 15%;">
                         <form:label path="phoneNum">Phone number: </form:label>
-                        <form:input type="text" path="phoneNum"/>
+                        <form:input type="text" path="phoneNum"/></br>
+                        <form:errors path="phoneNum" cssStyle="font-weight: bold; color: red; font-size: 4px;"/>
                         </br>
 
                         <form:label cssStyle="padding-left: 20%;" path="email">Email: </form:label>
-                        <form:input type="text" path="email"/>
+                        <form:input type="text" path="email"/></br>
+                        <form:errors path="email" cssStyle="font-weight: bold; color: red; font-size: 4px;"/>
 
                     </div>
                 </div>
@@ -72,6 +76,7 @@
 
                     <form:checkbox path="userRole" value="ROLE_USER"/>Normal User
                     <form:checkbox path="userRole" value="ROLE_ADMIN"/>Admin User
+                    <form:errors path="userRole" cssStyle="font-weight: bold; color: red; font-size: 4px;"/>
 
                 </security:authorize>
 
