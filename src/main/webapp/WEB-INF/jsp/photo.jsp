@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -178,92 +176,43 @@
                                         date :
                                         <fmt:formatDate value="${comments.get(i).commentDatetime}"
                                                         pattern="yyyy-MM-dd HH:mm:ss" />
-                                        <c:choose>
 
-                                            <%--                                                            <!-- Check comment is not are current user --%>
-                                            <c:when test="${comments.get(i).username == username}">
+                                            <%--                                                                <!-- Just Allow logined and the user role is admin to display --%>
+                                            <security:authorize access="hasRole('ADMIN')">
+                                                <%--                                                                    <!-- click to show edit form --%>
+                                                <button onclick="
+                                                        reset();
+                                                        document.getElementById('label${comments.get(i).commentId}').style.display = 'none';
+                                                        document.getElementById('editForm${comments.get(i).commentId}').style.display = 'block';
+                                                        this.style.display = 'none';
+                                                        ">Edit</button>
+                                                <%--                                                                    <!-- click to delete the comment --%>
+                                                <button onclick="document.getElementById('deleteForm${comments.get(i).commentId}').submit();">
+                                                    Delete
+                                                </button>
 
-                                                <%--                                                                <!-- Just Allow logined and the user role is user to display --%>
-                                                <security:authorize access="hasRole('USER')">
-                                                    <%--                                                                    <!-- click to show edit form --%>
-                                                    <button onclick="
-                                                            reset();
-                                                            document.getElementById('label${comments.get(i).commentId}').style.display = 'none';
-                                                            document.getElementById('editForm${comments.get(i).commentId}').style.display = 'block';
-                                                            this.style.display = 'none';
-                                                            ">Edit</button>
-                                                    <%--                                                                    <!-- click to delete the comment --%>
-                                                    <button onclick="document.getElementById('deleteForm${comments.get(i).commentId}').submit();">
-                                                        Delete
-                                                    </button>
+                                                <%--                                                                    <!-- delete form --%>
+                                                <form:form action="./comment/delete" method="post" modelAttribute="comment" id="deleteForm${comments.get(i).commentId}">
+                                                    <input type="hidden" value="${comments.get(i).commentId}" name="commentId">
+                                                    <input type="hidden" name="photoId" value="${photos.photoId}">
+                                                    <input type="hidden" value="DELETE" name="order">
+                                                </form:form>
 
-                                                    <%--                                                                    <!-- delete form --%>
-                                                    <form:form action="./comment/delete" method="post" modelAttribute="comment" id="deleteForm${comments.get(i).commentId}">
-                                                        <input type="hidden"value="${comments.get(i).commentId}" name="commentId">
+                                                <%--                                                                    <!-- edit form --%>
+                                                <div id="editForm${comments.get(i).commentId}" style="display:none;">
+                                                    <form:form action="./comment/update" method="post" modelAttribute="comment" id="edit${comments.get(i).commentId}">
+                                                                        <textarea rows="4" cols="40" name="commentText"
+                                                                                  form="edit${comments.get(i).commentId}"><c:out value="${comments.get(i).commentText}" /></textarea>
+                                                        <!-- <input type="text" value="${comments.get(i).commentText}"> -->
+                                                        <input type="hidden" name="commentId" value="${comments.get(i).commentId}">
                                                         <input type="hidden" name="photoId" value="${photos.photoId}">
-                                                        <input type="hidden" value="DELETE" name="order">
+                                                        <input type="hidden" name="order" value="UPDATE">
+                                                        <br>
+                                                        <input type="submit" value="Submit">
                                                     </form:form>
+                                                </div>
 
-                                                    <%--                                                                    <!-- edit form --%>
-                                                    <div id="editForm${comments.get(i).commentId}"style="display:none;">
-                                                        <form:form action="./comment/update" method="post" modelAttribute="comment" id="edit${comments.get(i).commentId}">
-                                                                            <textarea rows="4" cols="40" name="commentText"
-                                                                                      form="edit${comments.get(i).commentId}"><c:out value="${comments.get(i).commentText}" /></textarea>
-                                                            <!-- <input type="text" value="${comments.get(i).commentText}"> -->
-                                                            <input type="hidden" name="commentId" value="${comments.get(i).commentId}">
-                                                            <input type="hidden" name="photoId" value="${photos.photoId}">
-                                                            <input type="hidden" name="order" value="UPDATE">
-                                                            <br>
-                                                            <input type="submit" value="Submit">
-                                                        </form:form>
-                                                    </div>
-
-                                                </security:authorize>
-
-
-                                            </c:when>
-                                            <c:otherwise>
-
-                                                <%--                                                                <!-- Just Allow logined and the user role is admin to display --%>
-                                                <security:authorize access="hasRole('ADMIN')">
-                                                    <%--                                                                    <!-- click to show edit form --%>
-                                                    <button onclick="
-                                                            reset();
-                                                            document.getElementById('label${comments.get(i).commentId}').style.display = 'none';
-                                                            document.getElementById('editForm${comments.get(i).commentId}').style.display = 'block';
-                                                            this.style.display = 'none';
-                                                            ">Edit</button>
-                                                    <%--                                                                    <!-- click to delete the comment --%>
-                                                    <button onclick="document.getElementById('deleteForm${comments.get(i).commentId}').submit();">
-                                                        Delete
-                                                    </button>
-
-                                                    <%--                                                                    <!-- delete form --%>
-                                                    <form:form action="./comment/delete" method="post" modelAttribute="comment" id="deleteForm${comments.get(i).commentId}">
-                                                        <input type="hidden" value="${comments.get(i).commentId}" name="commentId">
-                                                        <input type="hidden" name="photoId" value="${photos.photoId}">
-                                                        <input type="hidden" value="DELETE" name="order">
-                                                    </form:form>
-
-                                                    <%--                                                                    <!-- edit form --%>
-                                                    <div id="editForm${comments.get(i).commentId}" style="display:none;">
-                                                        <form:form action="./comment/update" method="post" modelAttribute="comment" id="edit${comments.get(i).commentId}">
-                                                                            <textarea rows="4" cols="40" name="commentText"
-                                                                                      form="edit${comments.get(i).commentId}"><c:out value="${comments.get(i).commentText}" /></textarea>
-                                                            <!-- <input type="text" value="${comments.get(i).commentText}"> -->
-                                                            <input type="hidden" name="commentId" value="${comments.get(i).commentId}">
-                                                            <input type="hidden" name="photoId" value="${photos.photoId}">
-                                                            <input type="hidden" name="order" value="UPDATE">
-                                                            <br>
-                                                            <input type="submit" value="Submit">
-                                                        </form:form>
-                                                    </div>
-
-                                                </security:authorize>
-
-                                            </c:otherwise>
-
-                                        </c:choose>
+                                            </security:authorize>
 
                                     </div>
                                     <div>
