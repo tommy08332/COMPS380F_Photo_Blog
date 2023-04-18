@@ -32,9 +32,9 @@
 </head>
 <body>
 <security:authorize access="hasRole('ADMIN')">
-<div class="container">
-    <div class="row">
-        <div class="col-lg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg">
 
 
                 <h1><bold>Admin Panel - Upload History</bold></h1>
@@ -61,8 +61,9 @@
                     <li>
                         <bold>
                             <button style="background-color: white;border:none;"><a style="  text-decoration: none;"
-                                                    href="<c:url value="/admin/panel/registration/create"/>">Create new
-                                user</a></button>
+                                                    href="<c:url value="/admin/panel/registration/create"/>">
+                                Create new user</a>
+                            </button>
                         </bold>
                     </li>
                     <li>
@@ -117,9 +118,9 @@
                     </tbody>
                 </table>
 
+            </div>
         </div>
     </div>
-</div>
 </security:authorize>
 </body>
 </html>
