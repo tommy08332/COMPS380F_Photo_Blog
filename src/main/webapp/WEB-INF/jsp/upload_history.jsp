@@ -1,5 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -61,9 +60,15 @@
                     <li>
                         <bold>
                             <button style="background-color: white;border:none;"><a style="  text-decoration: none;"
-                                                    href="<c:url value="/admin/panel/registration/create"/>">
+                                href="<c:url value="/admin/panel/registration/create"/>">
                                 Create new user</a>
                             </button>
+                        </bold>
+                    </li>
+                    <li>
+                        <bold>
+                            <button style="background-color: white;border:none;"><a style=" text-decoration: none;"
+                            href="<c:url value="/photo/upload"/>">Upload photo</a></button>
                         </bold>
                     </li>
                     <li>
@@ -111,6 +116,10 @@
                                 <td><fmt:formatDate value="${photos.get(i).photoUploadedDatetime}"
                                                     pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                 <td><a href="<c:url value="/user/profile/${photos.get(i).uploadUsername}"/>"><c:out value="${photos.get(i).uploadUsername}" /></a></td>
+                                <td style="background-color: red;width: 10%;text-decoration: none;"><a
+                                        style="margin-left: 25%;color: aliceblue"
+                                        href="<c:url value="/admin/panel/history/delete/photo/${photos.get(i).photoId}"/> ">Delete</a>
+                                </td>
                             </tr>
                         </c:forEach>
                     </c:if>
