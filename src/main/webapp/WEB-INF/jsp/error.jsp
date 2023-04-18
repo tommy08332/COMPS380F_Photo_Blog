@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,19 +5,21 @@
 </head>
 <body>
 
-    <c:choose>
-        <c:when test="${empty err_message}">
+<c:choose>
+    <c:when test="${empty err_message}">
 
-            <h1>Error - 404 not found</h1>
+        <h1>Error - 404 not found</h1>
 
-        </c:when>
-        <c:otherwise>
+    </c:when>
+    <c:otherwise>
 
-            <h1>${err_message}</h1>
+        <h1>${err_message}</h1>
 
-        </c:otherwise>
+    </c:otherwise>
 
-    </c:choose>
+</c:choose>
+
+<a href="<c:url value="/"/>">Back to home page</a>
 
 
 </body>
