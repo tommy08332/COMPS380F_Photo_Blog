@@ -5,14 +5,14 @@ import hkmu.comps380f.group16.exception.EmailAlreadyUsed;
 import hkmu.comps380f.group16.exception.PhoneNumberAlreadyUsed;
 import hkmu.comps380f.group16.exception.UserAccountAlreadyExists;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 
@@ -40,11 +40,17 @@ public class RegistrationController {
     }
 
     @PostMapping("/create")
-    public View create(applicationForm appForm)
+    public String create(@ModelAttribute("createPhotoUser") @Valid applicationForm appForm, BindingResult result, ModelMap model)
             throws IOException,
             UserAccountAlreadyExists,
             EmailAlreadyUsed,
             PhoneNumberAlreadyUsed {
+
+        if (result.hasErrors()){
+
+            return "registration";
+
+        }
 
         usersService.createUserAccount(appForm.getUsername(),
                 appForm.getPassword(),
@@ -52,8 +58,9 @@ public class RegistrationController {
                 appForm.getEmail(),
                 appForm.getUserRole());
 
+        model.addAttribute("isAccountCreated", true);
 
-        return new RedirectView("/PhotoBlog/login");
+        return "redirect:/login";
 
     }
 
@@ -67,12 +74,20 @@ public class RegistrationController {
 
     public class applicationForm{
 
+        @NotEmpty(message = "Username cannot be empty.")
         private String username;
+
+        @NotEmpty(message = "Password cannot be empty.")
+        @Size(min=6, max = 20, message = "Password length must be between {min} and {max}")
         private String password;
 
+        @NotEmpty(message = "Phone number cannot be empty.")
+        @Size(min=5, max = 9, message = "Phone number length must be between {min} and {max}")
         private String phoneNum;
 
+        @NotEmpty(message = "Email cannot be empty, please enter your email.")
         private String email;
+
         private String[] userRole;
 
         public String getUsername() {
