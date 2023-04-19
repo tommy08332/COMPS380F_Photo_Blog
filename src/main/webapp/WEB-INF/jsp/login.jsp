@@ -5,6 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.0/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <style>
         html, body, .container-table {
             height: 100%;
@@ -30,6 +31,7 @@
         }
     </style>
 
+
     <title>Login</title>
 </head>
 <body>
@@ -54,7 +56,10 @@
                 </div>
                 <div>
                     <label>Password</label>
-                    <input type="password" name="password"/>
+                    <input type="password" name="password" id="input-password"/>
+                    <i class="far fa-eye" id="password-eye-icon" onclick="const password = document.getElementById('input-password');const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');" style="margin-left: -22px;cursor: pointer;"></i>
                 </div>
                 <div>
                     <label>Remember me</label>
