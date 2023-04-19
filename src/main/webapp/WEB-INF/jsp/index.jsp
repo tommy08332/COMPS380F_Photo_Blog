@@ -40,7 +40,8 @@
         }
 
         img {
-            width:300px;
+            max-width:350px;
+            max-height: 500px;
             margin-left: auto;
             margin-right: auto;
             display: block;
