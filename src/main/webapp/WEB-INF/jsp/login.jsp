@@ -57,9 +57,7 @@
                 <div>
                     <label>Password</label>
                     <input type="password" name="password" id="input-password"/>
-                    <i class="far fa-eye" id="password-eye-icon" onclick="const password = document.getElementById('input-password');const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-            this.classList.toggle('fa-eye-slash');" style="margin-left: -22px;cursor: pointer;"></i>
+                    <i class="far fa-eye" id="password-eye-icon" onclick="const password = document.getElementById('input-password'); const type = password.getAttribute('type') === 'password' ? 'text' : 'password'; password.setAttribute('type', type); this.classList.toggle('fa-eye-slash');" style="margin-left: -22px;cursor: pointer;"></i>
                 </div>
                 <div>
                     <label>Remember me</label>

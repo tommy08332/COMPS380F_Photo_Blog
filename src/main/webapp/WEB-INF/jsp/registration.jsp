@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <style>
         html, body, .container-table {
             height: 100%;
@@ -53,7 +53,9 @@
                         </br>
 
                         <form:label path="password">Password: </form:label>
-                        <form:password path="password"/></br>
+                        <form:password path="password" id="input-password"/>
+                        <i class="far fa-eye" id="password-eye-icon" onclick="const password = document.getElementById('input-password'); const type = password.getAttribute('type') === 'password' ? 'text' : 'password'; password.setAttribute('type', type); this.classList.toggle('fa-eye-slash');" style="margin-left: -22px;cursor: pointer;"></i>
+                        </br>
                         <form:errors path="password" cssStyle="font-weight: bold; color: red; font-size: 4px;"/>
                     </div>
                     <div style="padding-left: 15%;">
