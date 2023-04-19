@@ -211,8 +211,7 @@
                                             <label style="padding-bottom: 8%;"><h3>Title:</h3></br>
 
                                                 <a href="<c:url value="/photo/show/${commentsList.get(i).photo.photoId}"/>">
-                                                    <c:out value="${commentsList.get(i).photo.photoDetails.get(0).photoTitle}"
-                                                           escapeXml="false">Unknown</c:out>
+                                                    <c:out value="${commentsList.get(i).photo.photoDetails.get(0).photoTitle}">Unknown</c:out>
                                                 </a>
                                             </label>
                                         </div>
