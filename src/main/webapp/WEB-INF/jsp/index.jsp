@@ -38,6 +38,13 @@
             text-decoration: underline;
             cursor: pointer;
         }
+
+        img {
+            width:300px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
     </style>
     <title>Welcome to PhotoBlog</title>
 </head>
@@ -163,8 +170,7 @@
                                         <a href="<c:url value="/photo/show/${photos.get(i).photoId}"/>">
 
                                             <img alt="img"
-                                                 src="data:image/${photos.get(i).photoFileType};base64,${fileContent.get(i)}"
-                                                 style="width:300px"/>
+                                                 src="data:image/${photos.get(i).photoFileType};base64,${fileContent.get(i)}"/>
                                         </a>
 
                                     </td>
